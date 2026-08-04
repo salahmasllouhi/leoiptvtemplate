@@ -2550,6 +2550,25 @@
         grid-template-columns: 1fr;
     }
 
+    /* The badge needs ~348px of content at the desktop size but only gets
+       ~350px of column here, so every child was breaking its own text onto a
+       second line — the badge rendered 63px tall with its parts on mismatched
+       baselines. Scaling it down buys enough room to sit on one line; nowrap
+       stops it silently re-breaking on a narrower phone or a longer
+       translation ("Excellent" is "Fremragende" in Danish). */
+    .dv2-trustpilot {
+        gap: 6px;
+        padding: 6px 10px;
+        font-size: 12px;
+        max-width: 100%;
+        white-space: nowrap;
+    }
+
+    .dv2-trustpilot-stars span {
+        padding: 0 2px;
+        font-size: 11px;
+    }
+
     .dv2-hero-actions {
         flex-direction: column;
         align-items: stretch;
