@@ -85,5 +85,16 @@ $allowed_svg = [
                 </div>
             <?php endforeach; ?>
         </div>
+
+        <?php // Hands off to the pricing configurator that follows this section. ?>
+        <div class="dv2-features-cta">
+            <a href="#pricing" class="dv2-btn dv2-btn-primary dv2-btn-lg">
+                <?php echo esc_html(iptv_text('features_cta_label', 'See plans & pricing')); ?>
+                <span class="dv2-btn-arrow" aria-hidden="true">→</span>
+            </a>
+            <p class="dv2-features-cta-note">
+                <?php echo esc_html(iptv_text('features_cta_note', '14-day money-back guarantee · Instant activation · No auto-renew')); ?>
+            </p>
+        </div>
     </div>
 </section>

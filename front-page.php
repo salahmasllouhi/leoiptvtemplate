@@ -52,11 +52,13 @@ $sections_dir = $front_page_dir . '/sections';
 // Order follows the "NordicTV Blue & White" design.
 $sections = array(
     'header',           // Front-page header (source of truth for all headers)
-    'hero',             // Split hero with Trustpilot badge
-    'features',         // Eight capability cards
+    'hero',             // Backdrop hero with Trustpilot badge
     'content-showcase', // Channels panel + VOD panel
     'sports',           // Sports panel with mosaic
     'cta-bar',          // Full-width savings bar
+    // Features sits directly above pricing and closes on a CTA into it, so the
+    // capability pitch lands immediately before the plan configurator.
+    'features',         // Eight capability cards
     'pricing',          // Device/duration configurator (WooCommerce)
     'steps',            // Onboarding panel - sits directly under pricing
     'unlock',           // Supported device chips
@@ -91,6 +93,7 @@ include $front_page_dir . '/partials/activity-ticker.php';
         'carousels',
         'pricing',
         'hero-animation',   // New Hero Animation
+        'reviews',          // Reviews carousel arrows (no autoplay)
         'activity-ticker'   // Social proof notifications
     );
 

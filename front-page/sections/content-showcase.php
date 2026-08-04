@@ -9,14 +9,16 @@ $showcase_cta_url    = (!empty($showcase_cta_field['url'])) ? $showcase_cta_fiel
 $showcase_cta_label  = (!empty($showcase_cta_field['title'])) ? $showcase_cta_field['title'] : iptv_text('showcase_cta', 'Explore the full channel lineup');
 $showcase_cta_target = (!empty($showcase_cta_field['target'])) ? ' target="' . esc_attr($showcase_cta_field['target']) . '"' : '';
 
-// Sample channel rows. Row 2 is the highlighted one, as in the design.
+// The best-known channel in each Nordic market, plus Sweden's two majors —
+// the names a visitor from any of the five countries will recognise as "mine".
+// Row 2 is the highlighted one, as in the design.
 $channel_rows = [
-    1 => ['132', 'Sport News HD'],
-    2 => ['133', 'Premier League 4K'],
-    3 => ['134', 'Nordic Public TV'],
-    4 => ['135', 'NBA League Pass'],
-    5 => ['136', 'Formula 1 HD'],
-    6 => ['137', 'Documentary 8K'],
+    1 => ['101', 'SVT1 HD'],
+    2 => ['102', 'TV4 HD'],
+    3 => ['103', 'NRK1 HD'],
+    4 => ['104', 'TV 2 Danmark'],
+    5 => ['105', 'Yle TV1 HD'],
+    6 => ['106', 'RÚV HD'],
 ];
 $highlight_row = 2;
 ?>
@@ -77,7 +79,7 @@ $vod_cta_target = (!empty($vod_cta_field['target'])) ? ' target="' . esc_attr($v
     </div>
 
     <div class="dv2-split-aside dv2-split-aside--image">
-        <img src="https://nordictv.io/wp-content/uploads/2026/07/movies.webp"
+        <img src="https://nordictv.io/wp-content/uploads/2026/08/vodnordic.webp"
              alt="<?php echo esc_attr(iptv_text('vod_image_alt', 'A selection of movies and series available on NordicTV')); ?>"
              loading="lazy">
     </div>

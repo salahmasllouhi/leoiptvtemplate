@@ -28,7 +28,7 @@ $sports_cta_target = (!empty($sports_cta_field['target'])) ? ' target="' . esc_a
     </div>
 
     <div class="dv2-sport-mosaic dv2-sport-mosaic--image">
-        <img src="https://nordictv.io/wp-content/uploads/2026/07/sports.webp"
+        <img src="https://nordictv.io/wp-content/uploads/2026/08/nordicsport.webp"
              alt="<?php echo esc_attr(iptv_text('sports_image_alt', 'Live sport available on NordicTV')); ?>"
              loading="lazy">
     </div>

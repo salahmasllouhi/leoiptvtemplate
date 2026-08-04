@@ -42,41 +42,26 @@ if (empty($reviews)) {
 }
 
 /**
- * The reviews run as two infinite marquee rows. Each row needs enough cards to
- * overflow a wide viewport before it can loop seamlessly, so the row's slice is
- * repeated until it holds at least $row_min cards. The track then prints that
- * set twice and the keyframes translate it by exactly -50%, which lands the
- * clone where the original started.
+ * Score summary shown above the reviews: one headline score, then a breakdown
+ * bar per category. Values are iptv_text keys so they stay editable per
+ * language rather than being frozen into the template.
  */
-// 8 cards is ~3000px of track, so even an ultrawide viewport never sees the
-// end of a set before the clone has taken over.
-$row_min = 8;
-$rows    = [];
+$score_overall = iptv_text('reviews_score', '4.8');
+$score_label   = iptv_text('reviews_score_label', 'Our review score');
 
-if (!empty($reviews)) {
-    $half = (int) ceil(count($reviews) / 2);
-    $rows = [array_slice($reviews, 0, $half), array_slice($reviews, $half)];
-
-    foreach ($rows as $i => $row) {
-        // A single review leaves the second slice empty; fall back to the full
-        // set so both rows still have something to scroll.
-        if (empty($row)) {
-            $row = $reviews;
-            $rows[$i] = $reviews;
-        }
-        while (count($rows[$i]) < $row_min) {
-            $rows[$i] = array_merge($rows[$i], $row);
-        }
-    }
-}
+$score_bars = [
+    1 => [iptv_text('reviews_bar_1_label', 'Library'), iptv_text('reviews_bar_1_value', '4.9')],
+    2 => [iptv_text('reviews_bar_2_label', 'Stability'), iptv_text('reviews_bar_2_value', '4.7')],
+    3 => [iptv_text('reviews_bar_3_label', 'Device support'), iptv_text('reviews_bar_3_value', '4.9')],
+    4 => [iptv_text('reviews_bar_4_label', 'Value'), iptv_text('reviews_bar_4_value', '4.8')],
+];
 
 /**
- * Renders one review card. $clone marks the duplicated half of a track, which
- * is hidden from assistive tech so each review is only announced once.
+ * Renders one review card.
  */
-$render_review = function ($review, $clone = false) {
+$render_review = function ($review) {
     ?>
-    <div class="dv2-review-card"<?php echo $clone ? ' aria-hidden="true"' : ''; ?>>
+    <div class="dv2-review-card">
         <div class="dv2-review-top">
             <span class="dv2-review-stars" aria-hidden="true">★★★★★</span>
             <?php if (!empty($review['when'])) : ?>
@@ -99,23 +84,57 @@ $render_review = function ($review, $clone = false) {
             <p><?php echo esc_html($subtitle); ?></p>
         </div>
 
+        <div class="dv2-review-summary">
+            <div class="dv2-review-score">
+                <span class="dv2-review-score-value"><?php echo esc_html($score_overall); ?></span>
+                <span class="dv2-review-score-meta">
+                    <span class="dv2-review-score-stars" aria-hidden="true">★★★★★</span>
+                    <span class="dv2-review-score-label"><?php echo esc_html($score_label); ?></span>
+                </span>
+            </div>
+
+            <div class="dv2-review-bars">
+                <?php foreach ($score_bars as $bar) : ?>
+                    <?php
+                    // Bars are scored out of 5. Clamped so a bad value cannot
+                    // render a bar wider than its track.
+                    $pct = max(0, min(100, ((float) str_replace(',', '.', $bar[1]) / 5) * 100));
+                    ?>
+                    <div class="dv2-review-bar">
+                        <div class="dv2-review-bar-head">
+                            <span><?php echo esc_html($bar[0]); ?></span>
+                            <strong><?php echo esc_html($bar[1]); ?></strong>
+                        </div>
+                        <div class="dv2-review-bar-track">
+                            <span class="dv2-review-bar-fill" style="width:<?php echo esc_attr(round($pct, 1)); ?>%"></span>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
     </div>
 
-    <div class="dv2-review-marquee">
-        <?php foreach ($rows as $i => $row) : ?>
-            <div class="dv2-review-row dv2-review-row--<?php echo $i === 0 ? 'rtl' : 'ltr'; ?>">
-                <div class="dv2-review-track">
-                    <?php
-                    foreach ($row as $review) {
-                        $render_review($review, false);
-                    }
-                    // Second pass is the seam that makes the loop look endless.
-                    foreach ($row as $review) {
-                        $render_review($review, true);
-                    }
-                    ?>
-                </div>
+    <?php
+    // A single scroll-snapped row, advanced by the arrows only — no autoplay.
+    // data-review-carousel is what front-page/js/reviews.js binds to.
+    ?>
+    <div class="dv2-review-carousel" data-review-carousel>
+        <button type="button" class="dv2-review-nav dv2-review-nav--prev" data-review-prev
+                aria-label="<?php echo esc_attr(iptv_text('reviews_prev', 'Previous reviews')); ?>">
+            <span aria-hidden="true">‹</span>
+        </button>
+
+        <div class="dv2-review-viewport" data-review-viewport>
+            <div class="dv2-review-track">
+                <?php foreach ($reviews as $review) {
+                    $render_review($review);
+                } ?>
             </div>
-        <?php endforeach; ?>
+        </div>
+
+        <button type="button" class="dv2-review-nav dv2-review-nav--next" data-review-next
+                aria-label="<?php echo esc_attr(iptv_text('reviews_next', 'More reviews')); ?>">
+            <span aria-hidden="true">›</span>
+        </button>
     </div>
 </section>

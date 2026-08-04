@@ -10,15 +10,24 @@
    The old header was a dark glassmorphic pill.
    Design v2 sits flat on the light background.
    ------------------------------------------- */
+/* Floating header: the bar itself is a transparent full-width rail and the
+   white pill is .nav-container inside it.
+
+   position:sticky rather than the previous scroll-triggered switch to fixed --
+   fixed takes the header out of flow the moment .scrolled lands, so the page
+   jumped by the header's height. Sticky never leaves flow, so there is nothing
+   to jump. It works here because nothing above it scrolls or clips: .dv2-page
+   carries overflow:hidden but no markup ever uses that class, and no loaded
+   stylesheet puts overflow-x on html/body. */
 .site-header {
-    position: relative;
-    top: 0;
+    position: sticky;
+    top: 14px;
     left: 0;
     transform: none;
     width: 100%;
     max-width: none;
     margin: 0;
-    padding: 28px 0;
+    padding: 14px 0 0;
     background: transparent;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -28,31 +37,38 @@
     z-index: 60;
 }
 
-/* Once scrolled the bar spans the viewport; the inner row stays centred. */
+/* .scrolled is still toggled by header.js. Sticky already does the floating,
+   so it only has to deepen the shadow to lift the pill off the content. */
 .site-header.scrolled {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    transform: none;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    background: rgba(247, 251, 255, 0.88);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    position: sticky;
+    top: 14px;
+    padding: 14px 0 0;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     border: none;
-    border-bottom: 1px solid var(--dv2-border);
-    box-shadow: 0 6px 24px rgba(7, 68, 126, 0.06);
+    box-shadow: none;
 }
 
 .site-header .nav-container {
-    max-width: var(--dv2-shell);
+    /* Inset from the shell so the pill reads as floating on the page rather
+       than as a bar bolted to its edges. */
+    max-width: calc(var(--dv2-shell) - 48px);
     margin: 0 auto;
-    padding: 0 var(--dv2-gutter);
+    padding: 12px 14px 12px 26px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
+    background: #ffffff;
+    border: 1px solid var(--dv2-border);
+    border-radius: var(--dv2-radius-pill);
+    box-shadow: 0 6px 24px rgba(7, 68, 126, 0.08);
+    transition: box-shadow .25s ease;
+}
+
+.site-header.scrolled .nav-container {
+    box-shadow: 0 12px 36px rgba(7, 68, 126, 0.16);
 }
 
 .site-header .logo-img {
@@ -189,6 +205,9 @@
 /* -------------------------------------------
    HERO
    ------------------------------------------- */
+/* The two-column grid. plan/sections/plan-hero.php reuses this class for its
+   own hero, so it stays as it was -- the front page's backdrop treatment is the
+   --backdrop modifier below rather than a rewrite of this rule. */
 .dv2-hero {
     display: grid;
     /* Media capped at 500px - 20% down from the 624px the old 1fr/1.2fr split
@@ -198,6 +217,84 @@
     gap: 36px;
     align-items: center;
     padding: 45px var(--dv2-gutter) 0;
+}
+
+/* Full-bleed backdrop hero (front page). The copy is a single column now that
+   the foreground artwork is gone; the shell lives on .dv2-hero-inner so the
+   photo can run edge to edge behind it.
+
+   Pulled up under the floating header (which is sticky, so it stays in flow and
+   would otherwise leave a white band above the photo). */
+.dv2-hero--backdrop {
+    position: relative;
+    display: block;
+    margin-top: -78px;
+    padding: 150px var(--dv2-gutter) 130px;
+    background-color: var(--dv2-blue-900);
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.dv2-hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: var(--dv2-shell);
+    margin: 0 auto;
+}
+
+.dv2-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-size: cover;
+    /* The artwork's left third is near-empty dark, which is where the copy
+       sits; anchoring right keeps the busy tiles out from under the text. */
+    background-position: center right;
+    background-repeat: no-repeat;
+}
+
+/* Scrim. The photo is bright on the right, so without this the headline loses
+   contrast at wide viewports where less of the dark left edge is showing. */
+.dv2-hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            rgba(4, 42, 78, 0.94) 0%,
+            rgba(4, 42, 78, 0.82) 38%,
+            rgba(4, 42, 78, 0.45) 68%,
+            rgba(4, 42, 78, 0.30) 100%);
+}
+
+/* Bottom fade into whatever section follows, so the photo does not end on a
+   hard horizontal edge against the page background. */
+.dv2-hero--backdrop::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 220px;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(to bottom,
+            rgba(247, 251, 255, 0) 0%,
+            rgba(247, 251, 255, 0.55) 55%,
+            var(--dv2-bg) 100%);
+}
+
+/* --- Hero copy inverted for the dark backdrop --- */
+.dv2-hero--backdrop .dv2-hero-title {
+    color: #ffffff;
+}
+
+.dv2-hero--backdrop .dv2-hero-accent {
+    /* --dv2-blue only clears 3.1:1 on this backdrop; the lighter tint reads. */
+    color: var(--dv2-blue-soft);
+}
+
+.dv2-hero--backdrop .dv2-hero-sub {
+    color: rgba(255, 255, 255, 0.82);
 }
 
 .dv2-trustpilot {
@@ -290,6 +387,10 @@
     box-shadow: 0 10px 26px rgba(16, 137, 242, 0.16);
 }
 
+/* The front-page hero no longer has foreground artwork -- it is a backdrop now.
+   These stay because plan/sections/plan-hero.php still renders .dv2-hero-media
+   and .dv2-hero-glow and inherits its image styling from here (see the note in
+   plan/css/plan.css); the plan pages load this file too. */
 .dv2-hero-media {
     position: relative;
 }
@@ -788,55 +889,153 @@
    and travels exactly -50%, so the clone lands where the original started and
    the seam is invisible. Cards use margin-right rather than a flex gap so that
    half the track width is a whole number of cards. */
-.dv2-review-marquee {
-    margin-top: 44px;
+/* One arrow-driven row. The old build was two auto-scrolling marquee tracks,
+   each printed twice so the loop had a seam to hide; without autoplay none of
+   that is needed, so the duplicate pass and the keyframes are gone and each
+   review is now in the DOM exactly once. */
+.dv2-review-carousel {
+    position: relative;
+    margin-top: 36px;
+    padding: 0 var(--dv2-gutter);
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    align-items: center;
+    gap: 12px;
+    max-width: var(--dv2-shell);
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.dv2-review-row {
-    overflow: hidden;
+.dv2-review-viewport {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    /* Native scrollbar hidden: the arrows are the control, and the row still
+       scrolls by drag/trackpad/keyboard. */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    flex: 1;
+    min-width: 0;
+}
+
+.dv2-review-viewport::-webkit-scrollbar {
+    display: none;
 }
 
 .dv2-review-track {
     display: flex;
     width: max-content;
-    will-change: transform;
 }
 
-.dv2-review-row--rtl .dv2-review-track {
-    animation: dv2-marquee-rtl 64s linear infinite;
+.dv2-review-nav {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--dv2-blue-700);
+    background: #ffffff;
+    border: 1px solid var(--dv2-border-medium);
+    border-radius: 50%;
+    box-shadow: var(--dv2-shadow-sm);
+    cursor: pointer;
+    transition: border-color .18s ease, box-shadow .18s ease, opacity .18s ease;
 }
 
-.dv2-review-row--ltr .dv2-review-track {
-    animation: dv2-marquee-ltr 78s linear infinite;
+.dv2-review-nav:hover:not(:disabled) {
+    border-color: var(--dv2-blue);
+    box-shadow: 0 8px 22px rgba(16, 137, 242, 0.18);
 }
 
-.dv2-review-marquee:hover .dv2-review-track {
-    animation-play-state: paused;
+/* Disabled at the ends of the row rather than hidden, so the control does not
+   jump position as you page through. */
+.dv2-review-nav:disabled {
+    opacity: .35;
+    cursor: default;
 }
 
-@keyframes dv2-marquee-rtl {
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(-50%);
-    }
+/* --- Score summary --- */
+.dv2-review-summary {
+    display: grid;
+    grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+    gap: 40px;
+    align-items: center;
+    max-width: 900px;
+    margin: 40px auto 0;
+    padding: 28px 32px;
+    background: var(--dv2-surface);
+    border: 1px solid var(--dv2-border);
+    border-radius: var(--dv2-radius-lg);
+    box-shadow: var(--dv2-shadow-sm);
 }
 
-@keyframes dv2-marquee-ltr {
-    from {
-        transform: translateX(-50%);
-    }
+.dv2-review-score {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
 
-    to {
-        transform: translateX(0);
-    }
+.dv2-review-score-value {
+    font-family: var(--dv2-font-display);
+    font-weight: 800;
+    font-size: 62px;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: var(--dv2-ink);
+}
+
+.dv2-review-score-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.dv2-review-score-stars {
+    color: var(--dv2-amber);
+    font-size: 22px;
+    letter-spacing: 3px;
+}
+
+.dv2-review-score-label {
+    color: var(--dv2-body);
+    font-size: 15px;
+}
+
+.dv2-review-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dv2-review-bar-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--dv2-body);
+    margin-bottom: 5px;
+}
+
+.dv2-review-bar-head strong {
+    color: var(--dv2-ink);
+    font-weight: 700;
+}
+
+.dv2-review-bar-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--dv2-surface-tint);
+    overflow: hidden;
+}
+
+.dv2-review-bar-fill {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    background: var(--dv2-amber);
 }
 
 .dv2-review-card {
@@ -847,10 +1046,10 @@
     display: flex;
     flex-direction: column;
     box-shadow: var(--dv2-shadow-sm);
-    /* Fixed width keeps every track half the same length. */
     width: 360px;
     flex: 0 0 360px;
     margin-right: 16px;
+    scroll-snap-align: start;
 }
 
 .dv2-review-top {
@@ -1843,6 +2042,59 @@
     margin: 6px 0 0;
 }
 
+/* The card is one big link, so the CTA is a span styled as a button rather
+   than a nested anchor. It inherits the card's click target. */
+.dv2-support-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+    padding: 11px 20px;
+    border-radius: var(--dv2-radius-pill);
+    font-family: var(--dv2-font-body);
+    font-weight: 700;
+    font-size: 14px;
+    color: #ffffff;
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.dv2-support-cta--blue {
+    background: var(--dv2-blue);
+    box-shadow: 0 8px 20px rgba(16, 137, 242, 0.26);
+}
+
+.dv2-support-cta--green {
+    /* WhatsApp brand green, not --dv2-green (that one is the Trustpilot
+       green used by the review stars). */
+    background: #25d366;
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.30);
+}
+
+.dv2-support-card:hover .dv2-support-cta {
+    transform: translateY(-1px);
+}
+
+/* The WhatsApp number is the card's payload, so it gets the weight the
+   generic muted line would not give it. */
+.dv2-support-card--whatsapp p {
+    color: var(--dv2-ink);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: .2px;
+}
+
+/* --- Features CTA (hands off to the pricing configurator below) --- */
+.dv2-features-cta {
+    margin-top: 36px;
+    text-align: center;
+}
+
+.dv2-features-cta-note {
+    margin: 14px 0 0;
+    color: var(--dv2-muted);
+    font-size: 14px;
+}
+
 /* -------------------------------------------
    FINAL CTA (dark-cta section)
    ------------------------------------------- */
@@ -2019,14 +2271,23 @@
         display: flex;
     }
 
-    .dv2-hero {
-        grid-template-columns: 1fr;
-        gap: 28px;
-        padding: 26px var(--dv2-gutter) 0;
+    .dv2-hero--backdrop {
+        margin-top: -70px;
+        padding: 116px var(--dv2-gutter) 90px;
     }
 
-    /* Stacked, the media has the full column width, so cap it or the image
-       row swallows the fold. */
+    /* Narrow viewports crop a wide backdrop to its middle, which on this
+       artwork is the busiest part. Hold the dark left edge instead. */
+    .dv2-hero-bg {
+        background-position: center left;
+    }
+
+    .dv2-hero--backdrop::after {
+        height: 150px;
+    }
+
+    /* Plan-page hero only (see the base rule). Stacked, the media has the full
+       column width, so cap it or the image row swallows the fold. */
     .dv2-hero-media {
         max-width: 560px;
         width: 100%;
@@ -2081,12 +2342,36 @@
 
 @media (max-width: 768px) {
 
-    /* The hero image runs nearly the full width on a phone, so the glow's -30px
-       horizontal bleed lands outside the viewport and gives the whole page a
-       horizontal scrollbar. Keep the vertical bleed, drop the horizontal —
-       invisible on a blurred 28%-opacity radial gradient. */
+    /* Plan-page hero. The image runs nearly the full width on a phone, so the
+       glow's -30px horizontal bleed lands outside the viewport and gives the
+       whole page a horizontal scrollbar. Keep the vertical bleed, drop the
+       horizontal — invisible on a blurred 28%-opacity radial gradient. */
     .dv2-hero-glow {
         inset: -30px 0;
+    }
+
+    /* Score above, breakdown below — side by side there is not enough width
+       left for the bars to mean anything. */
+    .dv2-review-summary {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 24px;
+        margin-top: 28px;
+    }
+
+    .dv2-review-score-value {
+        font-size: 48px;
+    }
+
+    .dv2-review-carousel {
+        padding: 0 16px;
+        gap: 8px;
+    }
+
+    .dv2-review-nav {
+        width: 38px;
+        height: 38px;
+        font-size: 22px;
     }
 
     .dv2-feature-grid {
@@ -2283,31 +2568,11 @@
         transform: none;
     }
 
-    /* Stop the loop and let the rows wrap into a plain, readable list. The
-       duplicated half of each track exists only to hide the loop seam, so it
-       is dropped here rather than shown twice. */
-    .dv2-review-track {
-        animation: none !important;
-        flex-wrap: wrap;
-        width: 100%;
-        justify-content: center;
-    }
-
-    .dv2-review-row {
-        overflow: visible;
-    }
-
-    .dv2-review-track > [aria-hidden="true"] {
-        display: none;
-    }
-
-    .dv2-review-marquee {
-        -webkit-mask-image: none;
-        mask-image: none;
-    }
-
-    .dv2-review-card {
-        margin-bottom: 16px;
+    /* The reviews row no longer animates on its own -- it only moves when the
+       arrows are pressed -- so there is no loop to stop here. All that is left
+       is to make that arrow-driven jump instant rather than smooth. */
+    .dv2-review-viewport {
+        scroll-behavior: auto;
     }
 }
 
