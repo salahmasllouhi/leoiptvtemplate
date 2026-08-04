@@ -2279,8 +2279,35 @@
         display: none;
     }
 
+    /* flex-direction matters here: header.css lays the three spans out as
+       stacked blocks, and a bare `display:flex` put them in a row instead —
+       the burger rendered as one 72px hairline. */
     .site-header .mobile-menu-toggle {
         display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        /* 44px square: the bars are only 2px tall, so the button needs its own
+           box to be a reliable tap target. */
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        margin-right: -6px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .site-header .mobile-menu-toggle span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        /* header.css sets margin:5px 0; with gap that would double the
+           spacing, so it is cleared rather than inherited. */
+        margin: 0;
+        border-radius: 2px;
+        background: #ffffff;
     }
 
     .dv2-hero--backdrop {
