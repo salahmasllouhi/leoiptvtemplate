@@ -80,6 +80,35 @@ function iptv_asset_version($relative)
     return file_exists($path) ? (string) filemtime($path) : false;
 }
 
+/**
+ * Purge the LiteSpeed page cache once after a deploy.
+ *
+ * Most templates inline their CSS into a <style> block, so the stylesheet is
+ * baked into the cached HTML rather than fetched from a URL -- versioning the
+ * enqueues cannot reach it. WP Pusher rewrites the files in place and the page
+ * cache never notices, so visitors keep getting HTML built from the previous
+ * CSS until it expires on its own (max-age=604800, a week).
+ *
+ * Fingerprint the inlined stylesheets and purge when it moves. The option is
+ * autoloaded, so the common case is a comparison against already-loaded data.
+ */
+add_action('init', function () {
+    $fingerprint = (string) max(
+        (int) iptv_asset_version('front-page/css/design-v2.css'),
+        (int) iptv_asset_version('front-page/css/design-v2-sections.css'),
+        (int) iptv_asset_version('front-page/css/sticky-cta.css')
+    );
+
+    if ($fingerprint === '0' || get_option('iptv_deployed_assets') === $fingerprint) {
+        return;
+    }
+
+    // Written before the purge so a failure here cannot leave every subsequent
+    // request purging the whole cache.
+    update_option('iptv_deployed_assets', $fingerprint, true);
+    do_action('litespeed_purge_all');
+}, 5);
+
 // Enqueue theme styles
 function my_iptv_enqueue_styles()
 {
