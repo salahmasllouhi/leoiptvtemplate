@@ -89,10 +89,11 @@
     scroll-margin-top: calc(var(--dv2-header-h, 71px) + 12px);
 }
 
-/* The light (white) logo — the dark one is black type, which disappears
-   against the bar. */
+/* Same 34px as .site-footer .footer-logo-img, so the mark reads at one size
+   across the page. The light (white) variant of the same lockup, because the
+   dark one is black type and would disappear against this bar. */
 .site-header .logo-img {
-    height: 28px;
+    height: 34px;
     width: auto;
     display: block;
 }
