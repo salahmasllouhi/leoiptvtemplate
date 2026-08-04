@@ -4,7 +4,8 @@
         <div class="footer-grid">
             <div>
                 <div class="footer-brand">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/logo/dark logo 500_150.png"
+                    <?php // Light (white) logo, matching the header — the footer is dark. ?>
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/logo/light logo 500_150.png"
                         alt="Nordic IPTV" class="footer-logo-img">
                 </div>
                 <p class="footer-desc">

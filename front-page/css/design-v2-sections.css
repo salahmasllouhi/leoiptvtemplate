@@ -2181,12 +2181,15 @@
    behind it is not, so any margin above it showed as a band of page colour
    between the support section and the footer. The gap is padding instead, which
    sits inside the tinted area. */
+/* Dark footer. --dv2-ink is exactly the header bar's base colour
+   (rgba(11,31,51,.78) is this at 78%), so the two bookends match and both
+   carry the light logo. Everything inside is inverted to suit. */
 .site-footer {
-    border-top: 1px solid var(--dv2-border);
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
     margin-top: 0;
     padding: 80px 0 40px;
-    background: var(--dv2-surface-alt);
-    color: var(--dv2-body);
+    background: var(--dv2-ink);
+    color: rgba(255, 255, 255, 0.72);
 }
 
 .site-footer .container {
@@ -2209,7 +2212,7 @@
 }
 
 .site-footer .footer-desc {
-    color: var(--dv2-faint);
+    color: rgba(255, 255, 255, 0.62);
     font-size: 15px;
     line-height: 1.6;
     max-width: 320px;
@@ -2219,7 +2222,7 @@
     font-family: var(--dv2-font-display);
     font-weight: 700;
     font-size: 20px;
-    color: var(--dv2-ink);
+    color: #ffffff;
     margin-bottom: 18px;
     text-transform: none;
     letter-spacing: 0;
@@ -2236,17 +2239,19 @@
 }
 
 .site-footer .footer-col a {
-    color: var(--dv2-body);
+    color: rgba(255, 255, 255, 0.72);
     font-size: 15px;
 }
 
+/* --dv2-blue only reaches 4.7:1 on this background; the lighter tint is the
+   same accent the dark panels elsewhere use. */
 .site-footer .footer-col a:hover {
-    color: var(--dv2-blue);
+    color: var(--dv2-blue-soft);
 }
 
 .site-footer .footer-bottom {
     text-align: center;
-    color: var(--dv2-muted);
+    color: rgba(255, 255, 255, 0.52);
     font-size: 14px;
     margin-top: 48px;
     border-top: none;
@@ -2254,15 +2259,16 @@
 }
 
 .site-footer .footer-country-btn {
-    background: var(--dv2-surface);
-    border: 1px solid var(--dv2-border-medium);
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: var(--dv2-radius-pill);
-    color: var(--dv2-ink);
+    color: #ffffff;
     padding: 9px 14px;
 }
 
 .site-footer .footer-country-btn:hover {
-    border-color: var(--dv2-border-strong);
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.30);
 }
 
 /* -------------------------------------------
