@@ -62,10 +62,28 @@ function iptv_meta_pixel()
 }
 add_action('wp_head', 'iptv_meta_pixel', 1);
 
+/**
+ * Cache-busting version for a theme asset, from its file mtime.
+ *
+ * Hardcoded version strings only bust the cache if someone remembers to bump
+ * them by hand, and that is easy to miss: a deploy that edits a stylesheet but
+ * leaves its version alone serves returning visitors the stale cached copy off
+ * the unchanged URL. mtime changes whenever the file does, so the URL does too.
+ *
+ * @param string $relative Theme-root-relative path, e.g. 'front-page/css/base.css'.
+ * @return string|false mtime, or false so WP falls back to its own version.
+ */
+function iptv_asset_version($relative)
+{
+    $path = get_template_directory() . '/' . ltrim($relative, '/');
+
+    return file_exists($path) ? (string) filemtime($path) : false;
+}
+
 // Enqueue theme styles
 function my_iptv_enqueue_styles()
 {
-    wp_enqueue_style('my-iptv-style', get_stylesheet_uri(), array(), '1.0.0');
+    wp_enqueue_style('my-iptv-style', get_stylesheet_uri(), array(), iptv_asset_version('style.css'));
 
     // Design v2 typography. Enqueued rather than @import-ed because most
     // templates concatenate the CSS files into an inline <style> block,
@@ -79,16 +97,16 @@ function my_iptv_enqueue_styles()
 
     // Load product page styles on single product pages
     if (function_exists('is_product') && is_product()) {
-        wp_enqueue_style('iptv-variables', get_template_directory_uri() . '/front-page/css/variables.css', array(), '1.0.1');
-        wp_enqueue_style('iptv-redesign', get_template_directory_uri() . '/front-page/css/redesign-theme.css', array(), '1.0.1');
-        wp_enqueue_style('iptv-base', get_template_directory_uri() . '/front-page/css/base.css', array(), '1.0.1');
-        wp_enqueue_style('iptv-header', get_template_directory_uri() . '/front-page/css/header.css', array(), '1.0.1');
-        wp_enqueue_style('iptv-footer', get_template_directory_uri() . '/front-page/css/footer.css', array(), '1.0.1');
-        wp_enqueue_style('iptv-responsive', get_template_directory_uri() . '/front-page/css/responsive.css', array(), '1.0.1');
-        wp_enqueue_style('iptv-product-page', get_template_directory_uri() . '/front-page/css/product-page.css', array(), '1.0.1');
+        wp_enqueue_style('iptv-variables', get_template_directory_uri() . '/front-page/css/variables.css', array(), iptv_asset_version('front-page/css/variables.css'));
+        wp_enqueue_style('iptv-redesign', get_template_directory_uri() . '/front-page/css/redesign-theme.css', array(), iptv_asset_version('front-page/css/redesign-theme.css'));
+        wp_enqueue_style('iptv-base', get_template_directory_uri() . '/front-page/css/base.css', array(), iptv_asset_version('front-page/css/base.css'));
+        wp_enqueue_style('iptv-header', get_template_directory_uri() . '/front-page/css/header.css', array(), iptv_asset_version('front-page/css/header.css'));
+        wp_enqueue_style('iptv-footer', get_template_directory_uri() . '/front-page/css/footer.css', array(), iptv_asset_version('front-page/css/footer.css'));
+        wp_enqueue_style('iptv-responsive', get_template_directory_uri() . '/front-page/css/responsive.css', array(), iptv_asset_version('front-page/css/responsive.css'));
+        wp_enqueue_style('iptv-product-page', get_template_directory_uri() . '/front-page/css/product-page.css', array(), iptv_asset_version('front-page/css/product-page.css'));
         // Design v2 must load last so its tokens override the older layers.
-        wp_enqueue_style('iptv-design-v2', get_template_directory_uri() . '/front-page/css/design-v2.css', array(), '2.0.0');
-        wp_enqueue_style('iptv-design-v2-sections', get_template_directory_uri() . '/front-page/css/design-v2-sections.css', array('iptv-design-v2'), '2.0.0');
+        wp_enqueue_style('iptv-design-v2', get_template_directory_uri() . '/front-page/css/design-v2.css', array(), iptv_asset_version('front-page/css/design-v2.css'));
+        wp_enqueue_style('iptv-design-v2-sections', get_template_directory_uri() . '/front-page/css/design-v2-sections.css', array('iptv-design-v2'), iptv_asset_version('front-page/css/design-v2-sections.css'));
     }
 }
 add_action('wp_enqueue_scripts', 'my_iptv_enqueue_styles', 20);
