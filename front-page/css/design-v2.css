@@ -52,6 +52,13 @@
     --dv2-shell: 1280px;
     --dv2-gutter: 40px;
 
+    /* Header flow height, pinned rather than left to the content. The hero
+       pulls itself up by exactly this much to sit under the floating bar, so
+       the two have to agree — if this were implicit the hero would drift and
+       leave a strip of page background above it. */
+    --dv2-header-h: 71px;
+    --dv2-header-rail: 12px;
+
     /* --- Remap redesign-theme.css tokens --- */
     --color-navy: var(--dv2-ink);
     --color-indigo: var(--dv2-blue);

@@ -19,15 +19,19 @@
    to jump. It works here because nothing above it scrolls or clips: .dv2-page
    carries overflow:hidden but no markup ever uses that class, and no loaded
    stylesheet puts overflow-x on html/body. */
+/* Fixed height, not content-derived: the hero pulls itself up by
+   --dv2-header-h to sit beneath the bar, and any disagreement between the two
+   shows as a strip of page background above the hero. */
 .site-header {
     position: sticky;
-    top: 14px;
+    top: var(--dv2-header-rail, 12px);
     left: 0;
     transform: none;
     width: 100%;
     max-width: none;
+    height: var(--dv2-header-h, 71px);
     margin: 0;
-    padding: 14px 0 0;
+    padding: var(--dv2-header-rail, 12px) 0 0;
     background: transparent;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -38,11 +42,10 @@
 }
 
 /* .scrolled is still toggled by header.js. Sticky already does the floating,
-   so it only has to deepen the shadow to lift the pill off the content. */
+   so it only has to firm the bar up once it is over page content. */
 .site-header.scrolled {
     position: sticky;
-    top: 14px;
-    padding: 14px 0 0;
+    padding: var(--dv2-header-rail, 12px) 0 0;
     background: transparent;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -50,29 +53,46 @@
     box-shadow: none;
 }
 
+/* Dark translucent bar. It reads as glass over the hero photo, and the alpha
+   is high enough (0.78) that it still composites dark over the light pages
+   this header is also used on — universal-header.php includes it everywhere,
+   so white nav text has to stay legible on both. */
 .site-header .nav-container {
-    /* Inset from the shell so the pill reads as floating on the page rather
-       than as a bar bolted to its edges. */
     max-width: calc(var(--dv2-shell) - 48px);
+    height: calc(var(--dv2-header-h, 71px) - var(--dv2-header-rail, 12px));
     margin: 0 auto;
-    padding: 12px 14px 12px 26px;
+    padding: 0 10px 0 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    background: #ffffff;
-    border: 1px solid var(--dv2-border);
+    background: rgba(11, 31, 51, 0.78);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--dv2-radius-pill);
-    box-shadow: 0 6px 24px rgba(7, 68, 126, 0.08);
-    transition: box-shadow .25s ease;
+    box-shadow: 0 8px 30px rgba(4, 20, 40, 0.28);
+    transition: background .25s ease, box-shadow .25s ease;
 }
 
 .site-header.scrolled .nav-container {
-    box-shadow: 0 12px 36px rgba(7, 68, 126, 0.16);
+    background: rgba(11, 31, 51, 0.90);
+    box-shadow: 0 12px 38px rgba(4, 20, 40, 0.38);
 }
 
+/* Anchor targets stop below the floating bar instead of under it. */
+#features,
+#pricing,
+#contact,
+#faq,
+.dv2-section[id] {
+    scroll-margin-top: calc(var(--dv2-header-h, 71px) + 12px);
+}
+
+/* The light (white) logo — the dark one is black type, which disappears
+   against the bar. */
 .site-header .logo-img {
-    height: 38px;
+    height: 28px;
     width: auto;
     display: block;
 }
@@ -81,7 +101,7 @@
 .site-header .nav-links ul {
     display: flex;
     align-items: center;
-    gap: 36px;
+    gap: 30px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -90,12 +110,13 @@
 .site-header .nav-links a {
     font-family: var(--dv2-font-body);
     font-weight: 600;
-    font-size: 16px;
-    color: var(--dv2-ink);
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.86);
+    white-space: nowrap;
 }
 
 .site-header .nav-links a:hover {
-    color: var(--dv2-blue);
+    color: #ffffff;
 }
 
 .site-header .nav-right {
@@ -108,20 +129,22 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--dv2-surface);
-    border: 1px solid var(--dv2-border-medium);
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: var(--dv2-radius-pill);
-    padding: 9px 14px;
-    color: var(--dv2-ink);
+    padding: 7px 12px;
+    color: #ffffff;
     font-family: var(--dv2-font-body);
     font-weight: 600;
-    font-size: 14px;
-    box-shadow: var(--dv2-shadow-sm);
+    font-size: 13px;
+    box-shadow: none;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .site-header .country-btn:hover {
-    border-color: var(--dv2-border-strong);
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.30);
 }
 
 .country-dropdown,
@@ -148,23 +171,24 @@
 }
 
 .site-header .nav-btn-primary {
-    background: var(--dv2-ink);
+    background: var(--dv2-blue);
     color: #ffffff;
     font-family: var(--dv2-font-body);
     font-weight: 700;
-    font-size: 16px;
-    padding: 14px 26px;
+    font-size: 15px;
+    padding: 10px 22px;
     border-radius: var(--dv2-radius-pill);
-    box-shadow: none;
+    box-shadow: 0 6px 18px rgba(16, 137, 242, 0.35);
+    white-space: nowrap;
 }
 
 .site-header .nav-btn-primary:hover {
-    background: var(--dv2-blue);
+    background: var(--dv2-blue-600);
     color: #ffffff;
 }
 
 .site-header .mobile-menu-toggle span {
-    background: var(--dv2-ink);
+    background: #ffffff;
 }
 
 .mobile-menu {
@@ -228,8 +252,11 @@
 .dv2-hero--backdrop {
     position: relative;
     display: block;
-    margin-top: -78px;
-    padding: 150px var(--dv2-gutter) 130px;
+    /* Exactly the header's flow height, so the photo starts at the very top of
+       the page and the bar floats on it. Any mismatch here is visible as a
+       band of page background above the hero. */
+    margin-top: calc(-1 * var(--dv2-header-h, 71px));
+    padding: calc(var(--dv2-header-h, 71px) + 70px) var(--dv2-gutter) 110px;
     background-color: var(--dv2-blue-900);
     isolation: isolate;
     overflow: hidden;
@@ -253,34 +280,19 @@
     background-repeat: no-repeat;
 }
 
-/* Scrim. The photo is bright on the right, so without this the headline loses
-   contrast at wide viewports where less of the dark left edge is showing. */
+/* Scrim: a flat dark wash over the whole photo, plus a little extra weight on
+   the left where the copy sits. No light fade anywhere — the section ends on
+   its own dark edge rather than dissolving into the page background. */
 .dv2-hero-bg::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg,
-            rgba(4, 42, 78, 0.94) 0%,
-            rgba(4, 42, 78, 0.82) 38%,
-            rgba(4, 42, 78, 0.45) 68%,
-            rgba(4, 42, 78, 0.30) 100%);
-}
-
-/* Bottom fade into whatever section follows, so the photo does not end on a
-   hard horizontal edge against the page background. */
-.dv2-hero--backdrop::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 220px;
-    z-index: 1;
-    pointer-events: none;
-    background: linear-gradient(to bottom,
-            rgba(247, 251, 255, 0) 0%,
-            rgba(247, 251, 255, 0.55) 55%,
-            var(--dv2-bg) 100%);
+    background:
+        linear-gradient(90deg,
+            rgba(4, 22, 42, 0.72) 0%,
+            rgba(4, 22, 42, 0.46) 55%,
+            rgba(4, 22, 42, 0.30) 100%),
+        rgba(4, 22, 42, 0.42);
 }
 
 /* --- Hero copy inverted for the dark backdrop --- */
@@ -2272,18 +2284,14 @@
     }
 
     .dv2-hero--backdrop {
-        margin-top: -70px;
-        padding: 116px var(--dv2-gutter) 90px;
+        margin-top: calc(-1 * var(--dv2-header-h, 71px));
+        padding: calc(var(--dv2-header-h, 71px) + 40px) var(--dv2-gutter) 70px;
     }
 
     /* Narrow viewports crop a wide backdrop to its middle, which on this
        artwork is the busiest part. Hold the dark left edge instead. */
     .dv2-hero-bg {
         background-position: center left;
-    }
-
-    .dv2-hero--backdrop::after {
-        height: 150px;
     }
 
     /* Plan-page hero only (see the base rule). Stacked, the media has the full

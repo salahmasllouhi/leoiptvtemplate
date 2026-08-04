@@ -61,7 +61,8 @@ $nav_guide = function_exists('iptv_page_url')
 <header class="site-header" id="site-header">
     <div class="container nav-container">
         <a href="<?php echo esc_url($nav_home); ?>" class="logo">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/logo/dark logo 500_150.png" alt="Nordic IPTV"
+            <?php // Light (white) logo: the bar is dark on every page. ?>
+            <img src="<?php echo get_template_directory_uri(); ?>/images/logo/light logo 500_150.png" alt="Nordic IPTV"
                 class="logo-img">
         </a>
         <?php if (has_nav_menu('primary')): ?>
