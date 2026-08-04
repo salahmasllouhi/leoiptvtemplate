@@ -11,15 +11,15 @@
    ------------------------------------------- */
 :root {
     --color-navy: #0F2847;
-    --color-indigo: #5B4FE8;
-    --color-indigo-hover: #4A3FD4;
-    --color-teal: #00D4AA;
+    --color-indigo: #1089F2;
+    --color-indigo-hover: #0B70D0;
+    --color-teal: #1089F2;
     --color-coral: #FF6B4A;
     --color-gold: #FFB830;
     --color-live: #FF4757;
 
-    --bg-page: #F5F5FF;
-    --bg-section: #EBEBFF;
+    --bg-page: #F2F8FE;
+    --bg-section: #E2EFFD;
     --bg-card: #FFFFFF;
     --bg-nav: #FFFFFF;
     --bg-dark: #0F2847;
@@ -29,17 +29,17 @@
     --text-secondary: #4A6282;
     --text-muted: #8B9DB8;
     --text-inverse: #FFFFFF;
-    --text-nav: #4A4470;
+    --text-nav: #22364C;
 
     --border-subtle: rgba(15, 40, 71, 0.07);
-    --border-indigo: rgba(91, 79, 232, 0.15);
-    --border-teal: rgba(0, 212, 170, 0.35);
-    --color-teal-text: #0a9e82;
+    --border-indigo: rgba(16, 137, 242, 0.15);
+    --border-teal: rgba(16, 137, 242, 0.35);
+    --color-teal-text: #0b70d0;
     --border-medium: rgba(15, 40, 71, 0.12);
     --shadow-sm: 0 2px 8px rgba(15, 40, 71, 0.06);
     --shadow-md: 0 8px 32px rgba(15, 40, 71, 0.08);
     --shadow-lg: 0 16px 64px rgba(15, 40, 71, 0.12);
-    --shadow-glow: 0 8px 40px rgba(0, 212, 170, 0.25);
+    --shadow-glow: 0 8px 40px rgba(16, 137, 242, 0.25);
 
     /* Spacing */
     --space-xs: 0.5rem;
@@ -92,7 +92,7 @@ body {
 
 .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 48px rgba(0, 212, 170, 0.4);
+    box-shadow: 0 12px 48px rgba(16, 137, 242, 0.4);
 }
 
 .btn-secondary {
@@ -103,7 +103,7 @@ body {
 
 .btn-secondary:hover {
     border-color: var(--color-teal);
-    background: rgba(0, 212, 170, 0.05);
+    background: rgba(16, 137, 242, 0.05);
 }
 
 /* Boxed Section Wrapper */
@@ -174,7 +174,7 @@ body {
 .section-tag {
     display: inline-block;
     padding: 10px 22px;
-    background: rgba(0, 212, 170, 0.12);
+    background: rgba(16, 137, 242, 0.12);
     border-radius: var(--radius-lg);
     font-size: 0.95rem;
     font-weight: 700;
@@ -255,8 +255,8 @@ body {
     z-index: -1;
     pointer-events: none;
     background-image:
-        radial-gradient(circle 400px at 20% 80%, rgba(0, 212, 170, 0.2), transparent),
-        radial-gradient(circle 400px at 80% 20%, rgba(91, 79, 232, 0.2), transparent);
+        radial-gradient(circle 400px at 20% 80%, rgba(16, 137, 242, 0.2), transparent),
+        radial-gradient(circle 400px at 80% 20%, rgba(16, 137, 242, 0.2), transparent);
     background-size: 100% 100%, 100% 100%;
 }
 
@@ -268,7 +268,7 @@ body {
     width: 200%;
     height: 200%;
     background:
-        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(0, 212, 170, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(16, 137, 242, 0.06) 0%, transparent 50%),
         radial-gradient(ellipse 60% 40% at 80% 20%, rgba(26, 75, 124, 0.05) 0%, transparent 50%),
         radial-gradient(ellipse 50% 30% at 50% 80%, rgba(255, 107, 74, 0.03) 0%, transparent 50%);
     animation: auroraMove 25s ease-in-out infinite;
@@ -333,8 +333,8 @@ body {
     gap: 8px;
     padding: 8px 16px;
     /* Match padding to rating */
-    background: rgba(0, 212, 170, 0.1);
-    border: 1px solid rgba(0, 212, 170, 0.3);
+    background: rgba(16, 137, 242, 0.1);
+    border: 1px solid rgba(16, 137, 242, 0.3);
     border-radius: var(--radius-full);
     font-size: 0.85rem;
     /* Match font size to rating */
@@ -417,7 +417,7 @@ body {
 
 .hero-feature:hover {
     border-color: var(--color-teal);
-    background: rgba(0, 212, 170, 0.05);
+    background: rgba(16, 137, 242, 0.05);
 }
 
 .hero-feature svg {
@@ -438,7 +438,7 @@ body {
     justify-content: center;
     margin-bottom: var(--space-xl);
     padding: 1.5rem 3rem;
-    background: radial-gradient(ellipse 80% 100% at 50% 50%, rgba(0, 212, 170, 0.15), transparent 70%);
+    background: radial-gradient(ellipse 80% 100% at 50% 50%, rgba(16, 137, 242, 0.15), transparent 70%);
     border-radius: var(--radius-xl);
 }
 
@@ -485,7 +485,7 @@ body {
 .stat-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-md);
-    border-color: rgba(0, 212, 170, 0.3);
+    border-color: rgba(16, 137, 242, 0.3);
 }
 
 .stat-card:hover::before {
@@ -685,7 +685,7 @@ h3 {
 .feature-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, rgba(0, 212, 170, 0.12), rgba(26, 75, 124, 0.08));
+    background: linear-gradient(135deg, rgba(16, 137, 242, 0.12), rgba(26, 75, 124, 0.08));
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
@@ -759,7 +759,7 @@ h3 {
 .sport-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-md);
-    border-color: rgba(0, 212, 170, 0.3);
+    border-color: rgba(16, 137, 242, 0.3);
 }
 
 .sport-icon {
@@ -784,7 +784,7 @@ h3 {
 }
 
 .sports-container .section-tag {
-    background: rgba(0, 212, 170, 0.12);
+    background: rgba(16, 137, 242, 0.12);
     color: var(--color-teal-text);
 }
 
@@ -800,7 +800,7 @@ h3 {
     gap: 6px;
     margin-top: var(--space-sm);
     padding: 5px 12px;
-    background: rgba(0, 212, 170, 0.1);
+    background: rgba(16, 137, 242, 0.1);
     border-radius: var(--radius-full);
     font-size: 0.75rem;
     font-weight: 700;
@@ -904,7 +904,7 @@ h3 {
 /* Annual cost card */
 .annual-card {
     background: #0d1f35;
-    border: 1px solid rgba(0, 212, 170, 0.25);
+    border: 1px solid rgba(16, 137, 242, 0.25);
     border-radius: 10px;
     padding: 16px;
     margin-top: 12px;
@@ -954,8 +954,8 @@ h3 {
 /* Savings bar */
 .savings-bar {
     margin-top: 12px;
-    background: rgba(0, 212, 170, 0.08);
-    border: 1px solid rgba(0, 212, 170, 0.2);
+    background: rgba(16, 137, 242, 0.08);
+    border: 1px solid rgba(16, 137, 242, 0.2);
     border-radius: 10px;
     padding: 14px;
     text-align: center;
@@ -1045,7 +1045,7 @@ h3 {
     font-size: 1.5rem;
     font-weight: 800;
     color: white;
-    box-shadow: 0 8px 32px rgba(0, 212, 170, 0.3);
+    box-shadow: 0 8px 32px rgba(16, 137, 242, 0.3);
     line-height: 1.1;
     text-align: center;
 }
@@ -1075,7 +1075,7 @@ h3 {
 }
 
 .steps .steps-container .section-tag {
-    background: rgba(0, 212, 170, 0.12);
+    background: rgba(16, 137, 242, 0.12);
     color: var(--color-teal-text);
 }
 
@@ -1149,7 +1149,7 @@ h3 {
 .device-item:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-md);
-    border-color: rgba(0, 212, 170, 0.3);
+    border-color: rgba(16, 137, 242, 0.3);
 }
 
 .device-icon {
@@ -1222,7 +1222,7 @@ h3 {
 }
 
 .faq-item:hover {
-    border-color: rgba(0, 212, 170, 0.3);
+    border-color: rgba(16, 137, 242, 0.3);
 }
 
 .faq-question {
@@ -1301,8 +1301,8 @@ h3 {
     right: 0;
     bottom: 0;
     background:
-        radial-gradient(circle at 20% 50%, rgba(0, 212, 170, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 50%, rgba(0, 245, 196, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(16, 137, 242, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(85, 167, 246, 0.1) 0%, transparent 50%);
     pointer-events: none;
     border-radius: var(--radius-xl);
 }
@@ -1377,7 +1377,7 @@ h3 {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(0,212,170,0.12), rgba(99,102,241,0.10));
+    background: linear-gradient(135deg, rgba(16,137,242,0.12), rgba(99,102,241,0.10));
     border-radius: var(--radius-md);
     color: var(--color-teal);
 }

@@ -103,7 +103,7 @@ if (!empty($offer_faq_rows)) {
 
     .offer-faq__item.open {
         border-color: var(--color-teal);
-        box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.08);
+        box-shadow: 0 0 0 3px rgba(16, 137, 242, 0.08);
     }
 
     .offer-faq__question {

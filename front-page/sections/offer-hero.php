@@ -94,7 +94,7 @@ $hero_image = 'https://nordictv.io/wp-content/uploads/2026/03/offer-123.png';
         content: '';
         position: absolute;
         inset: 0;
-        background: radial-gradient(ellipse at 70% 50%, rgba(0, 212, 170, 0.12) 0%, transparent 65%);
+        background: radial-gradient(ellipse at 70% 50%, rgba(16, 137, 242, 0.12) 0%, transparent 65%);
         pointer-events: none;
     }
 
@@ -121,8 +121,8 @@ $hero_image = 'https://nordictv.io/wp-content/uploads/2026/03/offer-123.png';
         display: inline-flex;
         align-items: center;
         gap: 0.4rem;
-        background: rgba(0, 212, 170, 0.15);
-        border: 1px solid rgba(0, 212, 170, 0.35);
+        background: rgba(16, 137, 242, 0.15);
+        border: 1px solid rgba(16, 137, 242, 0.35);
         color: var(--color-teal);
         padding: 0.45rem 1.1rem;
         border-radius: var(--radius-full);
@@ -176,7 +176,7 @@ $hero_image = 'https://nordictv.io/wp-content/uploads/2026/03/offer-123.png';
     .offer-hero__cta {
         font-size: 1.05rem;
         padding: 15px 36px;
-        box-shadow: 0 8px 32px rgba(0, 212, 170, 0.35);
+        box-shadow: 0 8px 32px rgba(16, 137, 242, 0.35);
     }
 
     /* ── Right column: image ─────────────────────────────────── */

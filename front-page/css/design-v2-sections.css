@@ -1,7 +1,7 @@
 /* ============================================
    DESIGN V2 — SECTION COMPONENTS
    Class-based translation of the
-   "NordicTV Light Purple" mockup.
+   "NordicTV Blue & White" mockup.
    Loaded last so it wins over the old layers.
    ============================================ */
 
@@ -37,12 +37,12 @@
     transform: none;
     padding-top: 14px;
     padding-bottom: 14px;
-    background: rgba(250, 247, 255, 0.88);
+    background: rgba(247, 251, 255, 0.88);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
     border: none;
     border-bottom: 1px solid var(--dv2-border);
-    box-shadow: 0 6px 24px rgba(76, 29, 149, 0.06);
+    box-shadow: 0 6px 24px rgba(7, 68, 126, 0.06);
 }
 
 .site-header .nav-container {
@@ -79,7 +79,7 @@
 }
 
 .site-header .nav-links a:hover {
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
 }
 
 .site-header .nav-right {
@@ -128,7 +128,7 @@
 .footer-country-option:hover,
 .country-option.selected {
     background: var(--dv2-surface-tint);
-    color: var(--dv2-purple-700);
+    color: var(--dv2-blue-700);
 }
 
 .site-header .nav-btn-primary {
@@ -143,7 +143,7 @@
 }
 
 .site-header .nav-btn-primary:hover {
-    background: var(--dv2-purple);
+    background: var(--dv2-blue);
     color: #ffffff;
 }
 
@@ -163,7 +163,7 @@
 }
 
 .mobile-menu a:hover {
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
 }
 
 .mobile-menu-close {
@@ -183,7 +183,7 @@
 
 .mobile-lang-btn:hover {
     background: var(--dv2-surface-tint);
-    color: var(--dv2-purple-700);
+    color: var(--dv2-blue-700);
 }
 
 /* -------------------------------------------
@@ -210,7 +210,7 @@
     padding: 8px 14px;
     font-size: 14px;
     color: var(--dv2-body);
-    box-shadow: 0 2px 10px rgba(76, 29, 149, 0.05);
+    box-shadow: 0 2px 10px rgba(7, 68, 126, 0.05);
 }
 
 .dv2-trustpilot-name {
@@ -254,7 +254,7 @@
 /* Second line of the hero headline. Matches .dv2-split-title em, which is how
    the split sections already mark their accent words. */
 .dv2-hero-accent {
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
 }
 
 .dv2-hero-sub {
@@ -278,16 +278,16 @@
    near-white page background. */
 .dv2-hero-link {
     background: #ffffff;
-    color: var(--dv2-purple-700);
+    color: var(--dv2-blue-700);
     border: 1px solid var(--dv2-border-strong);
-    box-shadow: 0 6px 20px rgba(76, 29, 149, 0.08);
+    box-shadow: 0 6px 20px rgba(7, 68, 126, 0.08);
 }
 
 .dv2-hero-link:hover {
     background: #ffffff;
-    color: var(--dv2-purple-600);
-    border-color: var(--dv2-purple);
-    box-shadow: 0 10px 26px rgba(124, 58, 237, 0.16);
+    color: var(--dv2-blue-600);
+    border-color: var(--dv2-blue);
+    box-shadow: 0 10px 26px rgba(16, 137, 242, 0.16);
 }
 
 .dv2-hero-media {
@@ -297,7 +297,7 @@
 .dv2-hero-glow {
     position: absolute;
     inset: -30px;
-    background: radial-gradient(ellipse 60% 55% at 50% 55%, rgba(124, 58, 237, 0.28), transparent 70%);
+    background: radial-gradient(ellipse 60% 55% at 50% 55%, rgba(16, 137, 242, 0.28), transparent 70%);
     filter: blur(20px);
     pointer-events: none;
 }
@@ -362,7 +362,7 @@
     padding: 1.5px;
     background: conic-gradient(from var(--dv2-border-angle),
             transparent 0%,
-            var(--dv2-purple) 12%,
+            var(--dv2-blue) 12%,
             transparent 28%);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -388,7 +388,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
     flex-shrink: 0;
 }
 
@@ -411,8 +411,8 @@
 }
 
 .dv2-chip-badge {
-    border: 1.6px solid var(--dv2-purple);
-    color: var(--dv2-purple);
+    border: 1.6px solid var(--dv2-blue);
+    color: var(--dv2-blue);
     border-radius: 5px;
     padding: 2px 6px;
     font-family: var(--dv2-font-display);
@@ -430,7 +430,7 @@
     width: calc(100% - 2 * var(--dv2-gutter));
     max-width: calc(var(--dv2-shell) - 2 * var(--dv2-gutter));
     margin: 26px auto 0;
-    /* --dv2-ink is #1c1033. Dark panels, light type. */
+    /* --dv2-ink is #0b1f33. Dark panels, light type. */
     background: var(--dv2-ink);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--dv2-radius-xl);
@@ -464,11 +464,11 @@
     font-size: 42px;
 }
 
-/* The lighter purple: --dv2-purple (#7c3aed) is too close to the #1c1033 panel
-   to read as an accent. */
+/* --dv2-blue only clears 4.7:1 against the #0b1f33 panel; the lighter
+   --dv2-blue-soft gets to 6.5:1, so the accent stays legible on the dark. */
 .dv2-split-title em {
     font-style: normal;
-    color: var(--dv2-purple-soft);
+    color: var(--dv2-blue-soft);
 }
 
 .dv2-split-copy p {
@@ -533,7 +533,7 @@
 }
 
 .dv2-channel-row--active {
-    background: var(--dv2-purple);
+    background: var(--dv2-blue);
 }
 
 .dv2-channel-row--active .dv2-channel-num,
@@ -557,7 +557,7 @@
     align-items: center;
     gap: 10px;
     background: var(--dv2-surface);
-    border: 1px solid rgba(76, 29, 149, 0.08);
+    border: 1px solid rgba(7, 68, 126, 0.08);
     border-radius: var(--dv2-radius-sm);
     padding: 12px 14px;
     margin-bottom: 14px;
@@ -582,7 +582,7 @@
     width: 44px;
     height: 60px;
     border-radius: 6px;
-    background: repeating-linear-gradient(135deg, #e9e1ff, #e9e1ff 6px, #ded3ff 6px, #ded3ff 12px);
+    background: repeating-linear-gradient(135deg, #e6f2fe, #e6f2fe 6px, #d5e9fd 6px, #d5e9fd 12px);
     flex-shrink: 0;
 }
 
@@ -591,7 +591,7 @@
     align-items: center;
     gap: 10px;
     padding: 10px 6px;
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
     font-size: 15px;
 }
 
@@ -599,7 +599,7 @@
     width: 22px;
     height: 22px;
     border-radius: var(--dv2-radius-pill);
-    border: 1.5px solid var(--dv2-purple);
+    border: 1.5px solid var(--dv2-blue);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -630,11 +630,11 @@
 .dv2-sport-tile {
     aspect-ratio: 16 / 10;
     border-radius: 10px;
-    background: repeating-linear-gradient(135deg, #ece5ff, #ece5ff 8px, #e2d8ff 8px, #e2d8ff 16px);
+    background: repeating-linear-gradient(135deg, #e9f4fe, #e9f4fe 8px, #dceafd 8px, #dceafd 16px);
     display: flex;
     align-items: flex-end;
     padding: 8px;
-    color: #8a7ab0;
+    color: #7d94ab;
     font-family: monospace;
     font-size: 11px;
     overflow: hidden;
@@ -654,7 +654,7 @@
 }
 
 .dv2-sport-tile--solid {
-    background: var(--dv2-purple-900);
+    background: var(--dv2-blue-900);
     align-items: center;
     justify-content: center;
     color: #ffffff;
@@ -673,7 +673,7 @@
     justify-content: center;
     gap: 24px;
     margin-top: 34px;
-    background: var(--dv2-purple);
+    background: var(--dv2-blue);
     color: #ffffff;
     font-family: var(--dv2-font-display);
     font-weight: 800;
@@ -682,11 +682,11 @@
     text-align: center;
     padding: 34px;
     border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(124, 58, 237, 0.35);
+    box-shadow: 0 20px 60px rgba(16, 137, 242, 0.35);
 }
 
 .dv2-cta-bar:hover {
-    background: var(--dv2-purple-600);
+    background: var(--dv2-blue-600);
     color: #ffffff;
 }
 
@@ -713,7 +713,7 @@
 }
 
 .dv2-compare-head-ours {
-    background: var(--dv2-purple);
+    background: var(--dv2-blue);
     color: #ffffff;
     padding: 26px 30px;
 }
@@ -747,7 +747,7 @@
 .dv2-compare-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    border-top: 1px solid rgba(76, 29, 149, 0.08);
+    border-top: 1px solid rgba(7, 68, 126, 0.08);
 }
 
 .dv2-compare-good,
@@ -766,7 +766,7 @@
 
 .dv2-compare-good::before {
     content: "✓";
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
     flex-shrink: 0;
 }
 
@@ -777,7 +777,7 @@
 
 .dv2-compare-bad::before {
     content: "✗";
-    color: #c4b5e8;
+    color: #a9d4fb;
     flex-shrink: 0;
 }
 
@@ -999,7 +999,7 @@
 .dv2-total-lock strong {
     font-family: var(--dv2-font-display);
     font-weight: 700;
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
     font-variant-numeric: tabular-nums;
 }
 
@@ -1044,7 +1044,7 @@
     height: 24px;
     flex-shrink: 0;
     border-radius: var(--dv2-radius-pill);
-    background: var(--dv2-purple);
+    background: var(--dv2-blue);
     color: #ffffff;
     display: inline-flex;
     align-items: center;
@@ -1066,7 +1066,7 @@
 }
 
 .configurator .config-title svg {
-    color: var(--dv2-purple) !important;
+    color: var(--dv2-blue) !important;
 }
 
 /* Step 1 - screen pills */
@@ -1090,7 +1090,7 @@
 }
 
 .dv2-screen-pill:focus-visible {
-    outline: 2px solid var(--dv2-purple);
+    outline: 2px solid var(--dv2-blue);
     outline-offset: 2px;
 }
 
@@ -1125,7 +1125,7 @@
 }
 
 .dv2-duration-card:focus-visible {
-    outline: 2px solid var(--dv2-purple);
+    outline: 2px solid var(--dv2-blue);
     outline-offset: 2px;
 }
 
@@ -1215,7 +1215,7 @@
 
 .dv2-loaded-list li::before {
     content: "✓";
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
     font-weight: 700;
     flex-shrink: 0;
 }
@@ -1242,7 +1242,7 @@
 }
 
 .dv2-trial-btn {
-    background: var(--dv2-purple);
+    background: var(--dv2-blue);
     color: #ffffff;
     font-size: 15px;
     padding: 13px 22px;
@@ -1250,7 +1250,7 @@
 }
 
 .dv2-trial-btn:hover {
-    background: var(--dv2-purple-600);
+    background: var(--dv2-blue-600);
     color: #ffffff;
 }
 
@@ -1357,9 +1357,9 @@
 
 .select-card.selected,
 .select-card.active {
-    border-color: var(--dv2-purple);
+    border-color: var(--dv2-blue);
     background: var(--dv2-surface-tint);
-    box-shadow: 0 8px 26px rgba(124, 58, 237, 0.18);
+    box-shadow: 0 8px 26px rgba(16, 137, 242, 0.18);
 }
 
 .select-card .num,
@@ -1401,7 +1401,7 @@
 }
 
 .badge-orange {
-    background: var(--dv2-purple);
+    background: var(--dv2-blue);
     color: #ffffff;
 }
 
@@ -1409,14 +1409,14 @@
 .cta-btn {
     display: flex;
     width: 100%;
-    background: var(--dv2-purple) !important;
-    box-shadow: 0 14px 40px rgba(124, 58, 237, 0.28) !important;
+    background: var(--dv2-blue) !important;
+    box-shadow: 0 14px 40px rgba(16, 137, 242, 0.28) !important;
     font-family: var(--dv2-font-display) !important;
 }
 
 .cta-btn:hover {
-    background: var(--dv2-purple-600) !important;
-    box-shadow: 0 18px 48px rgba(124, 58, 237, 0.38) !important;
+    background: var(--dv2-blue-600) !important;
+    box-shadow: 0 18px 48px rgba(16, 137, 242, 0.38) !important;
 }
 
 .trust-badges {
@@ -1436,7 +1436,7 @@
 }
 
 .trust-badges svg {
-    stroke: var(--dv2-purple) !important;
+    stroke: var(--dv2-blue) !important;
 }
 
 .trust-badges > div > div:first-child {
@@ -1509,7 +1509,7 @@
 }
 
 .dv2-faq-icon {
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
     font-size: 20px;
     line-height: 1;
     transition: transform .2s ease;
@@ -1538,7 +1538,7 @@
 }
 
 .dv2-faq-a-inner a {
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
     font-weight: 600;
 }
 
@@ -1553,7 +1553,7 @@
     width: calc(100% - 2 * var(--dv2-gutter));
     max-width: calc(var(--dv2-shell) - 2 * var(--dv2-gutter));
     margin: 64px auto 0;
-    background: radial-gradient(ellipse at 30% 20%, #a855f7, #6d28d9 70%);
+    background: radial-gradient(ellipse at 30% 20%, #55a7f6, #0b70d0 70%);
     border: 8px solid var(--dv2-bg);
     border-radius: 32px;
     padding: 48px;
@@ -1581,7 +1581,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #ede4ff;
+    color: #eaf4fe;
     font-size: 16px;
     margin: 22px 0 28px;
 }
@@ -1589,7 +1589,7 @@
 .dv2-journey-note-mark {
     width: 20px;
     height: 20px;
-    border: 1.5px solid #ede4ff;
+    border: 1.5px solid #eaf4fe;
     border-radius: var(--dv2-radius-pill);
     display: inline-flex;
     align-items: center;
@@ -1614,14 +1614,14 @@
     position: relative;
     overflow: hidden;
     background: #ffffff;
-    border: 1px solid rgba(76, 29, 149, 0.08);
+    border: 1px solid rgba(7, 68, 126, 0.08);
     border-radius: var(--dv2-radius-md);
     padding: 18px 16px 16px;
     display: flex;
     flex-direction: column;
     gap: 12px;
     min-width: 0;
-    box-shadow: 0 6px 18px rgba(46, 16, 101, 0.12);
+    box-shadow: 0 6px 18px rgba(4, 42, 78, 0.12);
     transition: transform .2s ease, box-shadow .2s ease;
 }
 
@@ -1633,12 +1633,12 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--dv2-purple), var(--dv2-purple-soft));
+    background: linear-gradient(90deg, var(--dv2-blue), var(--dv2-blue-soft));
 }
 
 .dv2-journey-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 16px 34px rgba(46, 16, 101, 0.22);
+    box-shadow: 0 16px 34px rgba(4, 42, 78, 0.22);
 }
 
 .dv2-journey-head {
@@ -1652,7 +1652,7 @@
     width: 26px;
     height: 26px;
     border-radius: var(--dv2-radius-pill);
-    background: var(--dv2-purple);
+    background: var(--dv2-blue);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1660,7 +1660,7 @@
     font-weight: 700;
     font-size: 13px;
     color: #ffffff;
-    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.35);
+    box-shadow: 0 4px 10px rgba(16, 137, 242, 0.35);
     flex-shrink: 0;
 }
 
@@ -1684,7 +1684,7 @@
     gap: 8px;
     min-height: 92px;
     background: var(--dv2-surface-alt);
-    border: 1px solid #efe9fb;
+    border: 1px solid #dfeefd;
     border-radius: var(--dv2-radius-sm);
     padding: 12px;
 }
@@ -1693,7 +1693,7 @@
     display: block;
     height: 12px;
     background: #ffffff;
-    border: 1px solid #e4dcf5;
+    border: 1px solid #dfeefd;
     border-radius: 4px;
 }
 
@@ -1712,7 +1712,7 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    background: var(--dv2-purple);
+    background: var(--dv2-blue);
     color: #ffffff;
     text-align: center;
     padding: 7px 10px;
@@ -1742,10 +1742,10 @@
 .dv2-journey-tile {
     width: 28px;
     height: 28px;
-    border: 1px solid #e4dcf5;
+    border: 1px solid #dfeefd;
     border-radius: 6px;
     background: #ffffff;
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1759,12 +1759,12 @@
 }
 
 .dv2-journey-format {
-    border: 1px solid #ddd0f7;
+    border: 1px solid #cfe6fc;
     border-radius: var(--dv2-radius-pill);
     padding: 3px 9px;
     font-size: 10px;
     font-weight: 700;
-    color: var(--dv2-purple-700);
+    color: var(--dv2-blue-700);
     background: #ffffff;
 }
 
@@ -1778,7 +1778,7 @@
 /* -------------------------------------------
    SUPPORT
    ------------------------------------------- */
-/* The support block is a purple panel, matching .dv2-journey — same gradient,
+/* The support block is a blue panel, matching .dv2-journey — same gradient,
    same 8px page-coloured border and 32px radius. The white background lives on
    .contact in contact.css, so it is cleared here by the higher-specificity ID.
    The panel is the .container, not the section, so the tint stays inset. */
@@ -1793,13 +1793,13 @@
     /* No bottom margin: the footer's 80px top padding provides the gap, and it
        sits inside the footer's tint so no band of page colour appears. */
     margin: 64px auto 0;
-    background: radial-gradient(ellipse at 30% 20%, #a855f7, #6d28d9 70%);
+    background: radial-gradient(ellipse at 30% 20%, #55a7f6, #0b70d0 70%);
     border: 8px solid var(--dv2-bg);
     border-radius: 32px;
     padding: 48px;
 }
 
-/* Heading and subtitle default to dark ink, which disappears on purple. */
+/* Heading and subtitle default to dark ink, which disappears on the blue panel. */
 #contact .dv2-section-head h2,
 #contact .dv2-section-head p {
     color: #ffffff;
@@ -1853,7 +1853,7 @@
 .cta .cta-box {
     max-width: var(--dv2-shell);
     margin: 0 auto;
-    background: radial-gradient(ellipse at 30% 20%, #a855f7, #6d28d9 70%);
+    background: radial-gradient(ellipse at 30% 20%, #55a7f6, #0b70d0 70%);
     border-radius: var(--dv2-radius-xl);
     padding: 56px var(--dv2-gutter);
     text-align: center;
@@ -1871,7 +1871,7 @@
 }
 
 .cta .cta-box p {
-    color: #ede4ff;
+    color: #eaf4fe;
     font-size: 18px;
     max-width: 620px;
     margin: 18px auto 28px;
@@ -1880,7 +1880,7 @@
 .cta .cta-box .btn,
 .cta .cta-box .btn-primary {
     background: #ffffff;
-    color: var(--dv2-purple-800);
+    color: var(--dv2-blue-800);
     box-shadow: none;
     font-size: 19px;
     padding: 20px 40px;
@@ -1888,7 +1888,7 @@
 
 .cta .cta-box .btn:hover {
     background: #ffffff;
-    color: var(--dv2-purple-600);
+    color: var(--dv2-blue-600);
 }
 
 .cta-features {
@@ -1904,7 +1904,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #ede4ff;
+    color: #eaf4fe;
     font-size: 15px;
 }
 
@@ -1976,7 +1976,7 @@
 }
 
 .site-footer .footer-col a:hover {
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
 }
 
 .site-footer .footer-bottom {
@@ -2327,7 +2327,7 @@
     margin: 0 0 28px;
     font-size: 17px;
     line-height: 1.6;
-    color: var(--dv2-body, #5b5175);
+    color: var(--dv2-body, #4a5c70);
 }
 
 .dv2-contact-page .dv2-support-grid {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Section: Hero (Design v2 — NordicTV Light Purple)
+ * Section: Hero (Design v2 — NordicTV Blue & White)
  */
 
 // Hero image, per language. `hero_image` is an ACF image field if one is ever
@@ -42,7 +42,7 @@ $secondary_url   = iptv_text('hero_secondary_cta_url', '#pricing');
         <?php
         // Two lines, each a block so the break is deliberate rather than left to
         // wrapping. The second line is split so only its opening phrase
-        // (hero_title_span) takes the purple accent.
+        // (hero_title_span) takes the blue accent.
         ?>
         <h1 class="dv2-hero-title">
             <span class="dv2-hero-line">

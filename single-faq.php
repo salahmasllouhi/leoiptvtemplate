@@ -39,7 +39,7 @@ echo '<\/style>';
 /* ── FAQ Single Page ─────────────────────────────────────────────── */
 .faq-single {
     padding: 8rem 0 var(--space-lg, 3rem);
-    background: var(--bg-page, #F5F5FF);
+    background: var(--bg-page, #F2F8FE);
 }
 
 /* Push content below the absolute-positioned floating header */
@@ -66,11 +66,11 @@ body.single-faq .faq-single {
 /* First paragraph — highlighted answer capsule */
 .faq-single__answer-capsule {
     background: var(--bg-card, #FFFFFF);
-    border-left: 4px solid var(--color-teal, #00D4AA);
+    border-left: 4px solid var(--color-teal, #1089F2);
     border-radius: var(--radius-lg, 20px);
     padding: var(--space-md, 1.5rem) var(--space-lg, 2rem);
     margin-bottom: var(--space-xl, 3rem);
-    box-shadow: var(--shadow-glow, 0 8px 40px rgba(0, 212, 170, 0.25));
+    box-shadow: var(--shadow-glow, 0 8px 40px rgba(16, 137, 242, 0.25));
     font-size: 1.1rem;
     line-height: 1.7;
     color: var(--text-primary, #0F2847);
@@ -92,7 +92,7 @@ body.single-faq .faq-single {
     padding: 0.85rem 1.25rem 0.85rem 1.25rem;
     background: #ffffff;
     border: 1px solid #e8e8f0;
-    border-left: 4px solid #5B4FE8;
+    border-left: 4px solid #1089F2;
     border-radius: 0 12px 12px 0;
     box-shadow: 0 2px 8px rgba(15,40,71,0.06);
     display: block;
@@ -110,14 +110,14 @@ body.single-faq .faq-single {
 }
 
 .faq-single__body a {
-    color: var(--color-teal, #00D4AA);
+    color: var(--color-teal, #1089F2);
     text-decoration: underline;
 }
 
 /* ── Related FAQs ────────────────────────────────────────────────── */
 .faq-related {
     padding: 4rem 0 5rem;
-    background: var(--bg-section, #EBEBFF);
+    background: var(--bg-section, #E2EFFD);
 }
 
 .faq-related__container {
@@ -157,8 +157,8 @@ body.single-faq .faq-single {
 }
 
 .faq-related__card:hover {
-    border-color: var(--color-teal, #00D4AA);
-    box-shadow: var(--shadow-glow, 0 8px 40px rgba(0,212,170,0.25));
+    border-color: var(--color-teal, #1089F2);
+    box-shadow: var(--shadow-glow, 0 8px 40px rgba(16,137,242,0.25));
     transform: translateY(-2px);
 }
 
@@ -172,7 +172,7 @@ body.single-faq .faq-single {
 
 .faq-related__card-arrow {
     font-size: 0.8rem;
-    color: var(--color-teal, #00D4AA);
+    color: var(--color-teal, #1089F2);
     font-weight: 600;
 }
 </style>

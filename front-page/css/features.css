@@ -53,15 +53,15 @@
 
 .feature-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 20px 40px -15px rgba(124, 58, 237, 0.15);
-    border-color: rgba(124, 58, 237, 0.2);
+    box-shadow: 0 20px 40px -15px rgba(16, 137, 242, 0.15);
+    border-color: rgba(16, 137, 242, 0.2);
 }
 
-/* Icon Wrapper - Light Purple Circle with Hover Animation */
+/* Icon Wrapper - Light Blue Circle with Hover Animation */
 .feature-card .icon-wrapper {
     width: 64px;
     height: 64px;
-    background: #f3e8ff;
+    background: #eaf4fe;
     border-radius: 16px;
     display: flex;
     align-items: center;
@@ -78,7 +78,7 @@
     transition: all 0.4s;
 }
 
-/* Icon Hover - Solid Purple Background, White Icon */
+/* Icon Hover - Solid Blue Background, White Icon */
 .feature-card:hover .icon-wrapper {
     background: var(--color-teal);
     transform: scale(1.05);

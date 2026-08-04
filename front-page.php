@@ -27,7 +27,7 @@ $sections_dir = $front_page_dir . '/sections';
         'redesign-theme', // Previous redesign (Overrides + New Sections)
         'cta',            // CTA Section Styles
         'activity-ticker', // Social proof notifications
-        'design-v2',      // DESIGN V2 tokens (light purple) - must come after the old layers
+        'design-v2',      // DESIGN V2 tokens (blue & white) - must come after the old layers
         'design-v2-sections' // DESIGN V2 section components
     );
 
@@ -49,7 +49,7 @@ $sections_dir = $front_page_dir . '/sections';
 
 <?php
 // Load all sections in order
-// Order follows the "NordicTV Light Purple" design.
+// Order follows the "NordicTV Blue & White" design.
 $sections = array(
     'header',           // Front-page header (source of truth for all headers)
     'hero',             // Split hero with Trustpilot badge

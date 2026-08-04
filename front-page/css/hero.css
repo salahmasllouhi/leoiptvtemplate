@@ -100,7 +100,7 @@
 
 .hero-badge {
     display: inline-block;
-    background: rgba(124, 58, 237, 0.1);
+    background: rgba(16, 137, 242, 0.1);
     color: var(--violet-500);
     padding: 0.5rem 1rem;
     border-radius: 2rem;
@@ -138,13 +138,13 @@
     font-size: 1rem;
     text-decoration: none;
     transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(109, 40, 217, 0.3);
+    box-shadow: 0 4px 15px rgba(11, 112, 208, 0.3);
 }
 
 .hero-btn:hover {
     background: var(--blue-700);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(109, 40, 217, 0.4);
+    box-shadow: 0 6px 20px rgba(11, 112, 208, 0.4);
 }
 
 .hero-price {

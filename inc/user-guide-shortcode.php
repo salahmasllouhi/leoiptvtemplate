@@ -33,9 +33,9 @@ function render_user_guide_shortcode($atts)
     <style>
         :root {
             --ug-bg: #FFFFFF;
-            --ug-tint: #F5F3FF;
+            --ug-tint: #F2F8FE;
             --ug-text: #1F2937;
-            --ug-accent: #7C3AED;
+            --ug-accent: #1089F2;
             --ug-border: #E5E7EB;
         }
 

@@ -55,14 +55,14 @@
 
 .step-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 212, 170, 0.15);
-    border-color: rgba(0, 212, 170, 0.3);
+    box-shadow: 0 20px 40px rgba(16, 137, 242, 0.15);
+    border-color: rgba(16, 137, 242, 0.3);
 }
 
-/* Step Badge - Light Purple Capsule */
+/* Step Badge - Light Blue Capsule */
 .step-badge {
     display: inline-block;
-    background: rgba(0, 212, 170, 0.1);
+    background: rgba(16, 137, 242, 0.1);
     color: var(--color-teal);
     padding: 0.375rem 1rem;
     border-radius: 2rem;
@@ -77,8 +77,8 @@
 .step-icon {
     width: 72px;
     height: 72px;
-    background: linear-gradient(135deg, rgba(0, 212, 170, 0.1), rgba(61, 122, 184, 0.1));
-    border: 2px solid rgba(0, 212, 170, 0.2);
+    background: linear-gradient(135deg, rgba(16, 137, 242, 0.1), rgba(61, 122, 184, 0.1));
+    border: 2px solid rgba(16, 137, 242, 0.2);
     border-radius: 1.25rem;
     display: flex;
     align-items: center;
@@ -95,7 +95,7 @@
     transition: all 0.4s;
 }
 
-/* Icon Hover State - Solid Purple & Scale */
+/* Icon Hover State - Solid Blue & Scale */
 .step-card:hover .step-icon {
     background: linear-gradient(135deg, var(--color-teal), var(--color-indigo-hover));
     border-color: transparent;

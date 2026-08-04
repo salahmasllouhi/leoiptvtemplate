@@ -23,7 +23,7 @@
 .plan-hero-eyebrow {
     display: inline-block;
     background: var(--dv2-surface-tint);
-    color: var(--dv2-purple-700);
+    color: var(--dv2-blue-700);
     border-radius: var(--dv2-radius-pill);
     padding: 7px 16px;
     margin: 0;
@@ -79,7 +79,7 @@
     font-size: 44px;
     line-height: 1;
     letter-spacing: -1.5px;
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
 }
 
 .plan-hero-price-per {
@@ -139,7 +139,7 @@
     border: 2px dashed var(--dv2-border-strong);
     border-radius: var(--dv2-radius-xl);
     background: rgba(255, 255, 255, 0.55);
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
 }
 
 .plan-hero-placeholder span {
@@ -185,8 +185,8 @@
 /* The recommended screen count. Raised, outlined and given the deeper shadow so
    it is the card the eye lands on first. */
 .plan-price-card--popular {
-    border-color: var(--dv2-purple);
-    box-shadow: 0 18px 44px rgba(124, 58, 237, 0.18);
+    border-color: var(--dv2-blue);
+    box-shadow: 0 18px 44px rgba(16, 137, 242, 0.18);
     transform: translateY(-6px);
 }
 
@@ -199,7 +199,7 @@
     top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--dv2-purple);
+    background: var(--dv2-blue);
     color: #ffffff;
     font-family: var(--dv2-font-display);
     font-weight: 700;
@@ -281,7 +281,7 @@
     padding: 13px 18px;
     /* The grid puts four of these side by side; the front page's 40px shadow is
        too heavy repeated four times. */
-    box-shadow: 0 10px 26px rgba(124, 58, 237, 0.22);
+    box-shadow: 0 10px 26px rgba(16, 137, 242, 0.22);
 }
 
 /* Reuses the front page's trust list and payment badges; only the spacing
@@ -373,7 +373,7 @@
    is obvious at a glance which row is not a link. */
 .plan-compare-row--current {
     background: var(--dv2-surface-tint);
-    box-shadow: inset 3px 0 0 var(--dv2-purple);
+    box-shadow: inset 3px 0 0 var(--dv2-blue);
 }
 
 .plan-compare-name {
@@ -430,7 +430,7 @@
 .plan-compare-action a {
     font-weight: 600;
     font-size: 15px;
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
     white-space: nowrap;
 }
 
@@ -496,13 +496,13 @@
 }
 
 .plan-content-body a {
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
     text-decoration: underline;
     text-underline-offset: 2px;
 }
 
 .plan-content-body a:hover {
-    color: var(--dv2-purple-600);
+    color: var(--dv2-blue-600);
 }
 
 .plan-content-body img {
@@ -523,7 +523,7 @@
    ------------------------------------------- */
 .plan-final {
     margin-top: 96px;
-    background: var(--dv2-purple-900);
+    background: var(--dv2-blue-900);
     padding: 68px 0;
     text-align: center;
 }

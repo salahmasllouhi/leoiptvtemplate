@@ -51,7 +51,7 @@ get_header();
     }
 
     .woocommerce table.shop_table.cart thead th {
-        background: #F5F3FF;
+        background: #F2F8FE;
         padding: 1rem;
         font-size: 0.875rem;
         font-weight: 600;
@@ -69,7 +69,7 @@ get_header();
         width: 60px;
         height: 60px;
         object-fit: contain;
-        background: #F5F3FF;
+        background: #F2F8FE;
         border-radius: 8px;
     }
 
@@ -100,7 +100,7 @@ get_header();
     .woocommerce .checkout-button {
         width: 100%;
         padding: 1rem;
-        background: #7C3AED;
+        background: #1089F2;
         color: #fff;
         border: none;
         border-radius: 8px;
@@ -110,7 +110,7 @@ get_header();
     }
 
     .woocommerce .checkout-button:hover {
-        background: #6D28D9;
+        background: #0B70D0;
     }
 
     @media (max-width: 768px) {

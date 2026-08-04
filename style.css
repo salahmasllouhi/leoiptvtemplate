@@ -217,7 +217,7 @@ img {
 .woocommerce button.button.alt:hover,
 .woocommerce a.button.alt:hover {
     background: var(--color-indigo-hover);
-    box-shadow: 0 4px 15px rgba(91, 79, 232, 0.3);
+    box-shadow: 0 4px 15px rgba(16, 137, 242, 0.3);
 }
 
 /* Form Fields */
@@ -236,7 +236,7 @@ img {
 .woocommerce form .form-row select:focus {
     border-color: var(--color-indigo);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(91, 79, 232, 0.1);
+    box-shadow: 0 0 0 3px rgba(16, 137, 242, 0.1);
 }
 
 /* Notices / Alerts */

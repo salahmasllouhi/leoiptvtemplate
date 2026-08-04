@@ -134,7 +134,7 @@ if (!empty($offer_steps_rows)) {
         justify-content: center;
         flex-shrink: 0;
         margin-bottom: 1rem;
-        box-shadow: 0 4px 16px rgba(0, 212, 170, 0.3);
+        box-shadow: 0 4px 16px rgba(16, 137, 242, 0.3);
     }
 
     .offer-steps__content {

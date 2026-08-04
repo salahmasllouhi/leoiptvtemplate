@@ -27,7 +27,7 @@ http_response_code(404);
     <style>
         body {
             font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
-            background: var(--bg-alt, #F5F3FF);
+            background: var(--bg-alt, #F2F8FE);
             color: var(--text, #1F2937);
             margin: 0;
             padding: 0;
@@ -53,7 +53,7 @@ http_response_code(404);
             font-size: clamp(6rem, 20vw, 10rem);
             font-weight: 800;
             line-height: 1;
-            background: linear-gradient(135deg, #00D4AA 0%, #1A4B7C 100%);
+            background: linear-gradient(135deg, #1089F2 0%, #095BAA 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -85,7 +85,7 @@ http_response_code(404);
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: linear-gradient(135deg, #00D4AA 0%, #1A4B7C 100%);
+            background: linear-gradient(135deg, #1089F2 0%, #095BAA 100%);
             color: #fff;
             text-decoration: none;
             padding: 0.75rem 1.75rem;
@@ -104,18 +104,18 @@ http_response_code(404);
             align-items: center;
             gap: 0.5rem;
             background: transparent;
-            color: var(--blue-600, #1A4B7C);
+            color: var(--blue-600, #095BAA);
             text-decoration: none;
             padding: 0.75rem 1.75rem;
             border-radius: 9999px;
             font-weight: 600;
             font-size: 0.95rem;
-            border: 2px solid var(--blue-600, #1A4B7C);
+            border: 2px solid var(--blue-600, #095BAA);
             transition: background 0.2s, color 0.2s;
         }
 
         .btn-secondary:hover {
-            background: var(--blue-600, #1A4B7C);
+            background: var(--blue-600, #095BAA);
             color: #fff;
         }
     </style>

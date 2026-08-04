@@ -147,7 +147,7 @@
 .woocommerce div.product form.cart table.variations select:focus {
     outline: none !important;
     border-color: var(--color-teal) !important;
-    box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1) !important;
+    box-shadow: 0 0 0 3px rgba(16, 137, 242, 0.1) !important;
 }
 
 /* Quantity + Button Row */
@@ -465,7 +465,7 @@
 
 .woocommerce .related.products ul.products li.product:hover {
     transform: translateY(-4px) !important;
-    background: rgba(0, 212, 170, 0.05) !important;
+    background: rgba(16, 137, 242, 0.05) !important;
 }
 
 .woocommerce .related.products ul.products li.product a img {

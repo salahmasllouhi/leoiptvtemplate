@@ -1,5 +1,5 @@
 /* ============================================
-   DESIGN V2 — "NordicTV Light Purple"
+   DESIGN V2 — "NordicTV Blue & White"
    Token layer. Loaded AFTER variables.css and
    redesign-theme.css so it remaps their custom
    properties and reskins every page at once.
@@ -9,34 +9,35 @@
 
 :root {
     /* --- Design v2 palette --- */
-    --dv2-bg: #faf7ff;
+    --dv2-bg: #f7fbff;
     --dv2-surface: #ffffff;
-    --dv2-surface-alt: #f5f0ff;
-    --dv2-surface-tint: #f1ebff;
+    --dv2-surface-alt: #eef6fe;
+    --dv2-surface-tint: #e2effd;
 
-    --dv2-purple: #7c3aed;
-    --dv2-purple-600: #6d28d9;
-    --dv2-purple-700: #5b21b6;
-    --dv2-purple-800: #4c1d95;
-    --dv2-purple-900: #2e1065;
-    --dv2-purple-soft: #a855f7;
+    /* Brand blue scale, all derived from #1089f2 (h 209deg). */
+    --dv2-blue: #1089f2;
+    --dv2-blue-600: #0b70d0;
+    --dv2-blue-700: #095baa;
+    --dv2-blue-800: #07447e;
+    --dv2-blue-900: #042a4e;
+    --dv2-blue-soft: #55a7f6;
 
-    --dv2-ink: #1c1033;
-    --dv2-ink-2: #3d2e5c;
-    --dv2-body: #5b5175;
-    --dv2-faint: #6f6489;
-    --dv2-muted: #8a80a3;
+    --dv2-ink: #0b1f33;
+    --dv2-ink-2: #22364c;
+    --dv2-body: #4a5c70;
+    --dv2-faint: #5b6d80;
+    --dv2-muted: #6f8298;
 
     --dv2-green: #00b67a;
     --dv2-amber: #ffb800;
 
-    --dv2-border: rgba(76, 29, 149, 0.10);
-    --dv2-border-medium: rgba(76, 29, 149, 0.12);
-    --dv2-border-strong: rgba(124, 58, 237, 0.30);
+    --dv2-border: rgba(7, 68, 126, 0.10);
+    --dv2-border-medium: rgba(7, 68, 126, 0.12);
+    --dv2-border-strong: rgba(16, 137, 242, 0.30);
 
-    --dv2-shadow-sm: 0 2px 10px rgba(76, 29, 149, 0.04);
-    --dv2-shadow-md: 0 8px 30px rgba(76, 29, 149, 0.06);
-    --dv2-shadow-lg: 0 24px 60px rgba(124, 58, 237, 0.35);
+    --dv2-shadow-sm: 0 2px 10px rgba(7, 68, 126, 0.05);
+    --dv2-shadow-md: 0 8px 30px rgba(7, 68, 126, 0.08);
+    --dv2-shadow-lg: 0 24px 60px rgba(16, 137, 242, 0.35);
     --dv2-shadow-green: 0 18px 50px rgba(0, 182, 122, 0.32);
 
     --dv2-font-display: 'Sora', sans-serif;
@@ -53,11 +54,11 @@
 
     /* --- Remap redesign-theme.css tokens --- */
     --color-navy: var(--dv2-ink);
-    --color-indigo: var(--dv2-purple);
-    --color-indigo-hover: var(--dv2-purple-600);
-    --color-teal: var(--dv2-purple);
-    --color-teal-text: var(--dv2-purple-600);
-    --color-coral: var(--dv2-purple-soft);
+    --color-indigo: var(--dv2-blue);
+    --color-indigo-hover: var(--dv2-blue-600);
+    --color-teal: var(--dv2-blue);
+    --color-teal-text: var(--dv2-blue-600);
+    --color-coral: var(--dv2-blue-soft);
     --color-gold: var(--dv2-amber);
     --color-live: #e5484d;
 
@@ -65,7 +66,7 @@
     --bg-section: var(--dv2-surface-alt);
     --bg-card: var(--dv2-surface);
     --bg-nav: var(--dv2-surface);
-    --bg-dark: var(--dv2-purple-900);
+    --bg-dark: var(--dv2-blue-900);
     --bg-footer: var(--dv2-surface-alt);
 
     --text-primary: var(--dv2-ink);
@@ -82,26 +83,26 @@
     --shadow-sm: var(--dv2-shadow-sm);
     --shadow-md: var(--dv2-shadow-md);
     --shadow-lg: var(--dv2-shadow-md);
-    --shadow-glow: 0 18px 50px rgba(124, 58, 237, 0.30);
+    --shadow-glow: 0 18px 50px rgba(16, 137, 242, 0.30);
 
     /* --- Remap variables.css tokens --- */
     --white: #ffffff;
     --bg: var(--dv2-surface);
     --bg-alt: var(--dv2-surface-alt);
     --dark: var(--dv2-ink);
-    --dark-alt: var(--dv2-purple-900);
+    --dark-alt: var(--dv2-blue-900);
     --text: var(--dv2-ink);
     --border: var(--dv2-border-medium);
 
-    --violet-500: var(--dv2-purple);
-    --violet-600: var(--dv2-purple-600);
-    --violet-700: var(--dv2-purple-700);
+    --violet-500: var(--dv2-blue);
+    --violet-600: var(--dv2-blue-600);
+    --violet-700: var(--dv2-blue-700);
 
     --blue-50: var(--dv2-bg);
     --blue-100: var(--dv2-surface-tint);
-    --blue-500: var(--dv2-purple);
-    --blue-600: var(--dv2-purple-600);
-    --blue-700: var(--dv2-purple-800);
+    --blue-500: var(--dv2-blue);
+    --blue-600: var(--dv2-blue-600);
+    --blue-700: var(--dv2-blue-800);
 
     --amber-400: var(--dv2-amber);
     --amber-500: #f59e0b;
@@ -141,17 +142,17 @@ body {
 
 body::selection,
 ::selection {
-    background: var(--dv2-purple);
+    background: var(--dv2-blue);
     color: #ffffff;
 }
 
 a {
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
     text-decoration: none;
 }
 
 a:hover {
-    color: var(--dv2-purple-600);
+    color: var(--dv2-blue-600);
 }
 
 h1,
@@ -169,13 +170,13 @@ h6,
 }
 
 /* The old palette leaned on gradient text for emphasis.
-   Design v2 uses a flat purple accent instead. */
+   Design v2 uses a flat blue accent instead. */
 .gradient-text {
     background: none;
     -webkit-background-clip: initial;
     -webkit-text-fill-color: currentColor;
     background-clip: initial;
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
 }
 
 /* -------------------------------------------
@@ -216,8 +217,8 @@ h6,
     position: fixed;
     inset: 0;
     background-image:
-        linear-gradient(rgba(90, 40, 180, 0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(90, 40, 180, 0.07) 1px, transparent 1px);
+        linear-gradient(rgba(16, 137, 242, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 137, 242, 0.07) 1px, transparent 1px);
     background-size: 64px 64px;
     /* Solid through the middle, gone by the edges and corners. */
     -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, #000 35%, transparent 78%);
@@ -268,7 +269,7 @@ h6,
 .section-tag {
     display: inline-block;
     background: var(--dv2-surface-tint);
-    color: var(--dv2-purple-700);
+    color: var(--dv2-blue-700);
     border-radius: var(--dv2-radius-pill);
     padding: 7px 16px;
     font-family: var(--dv2-font-display);
@@ -312,9 +313,9 @@ h6,
 .button-primary,
 .cta-btn,
 .nav-btn-primary {
-    background: var(--dv2-purple);
+    background: var(--dv2-blue);
     color: #ffffff;
-    box-shadow: 0 14px 40px rgba(124, 58, 237, 0.28);
+    box-shadow: 0 14px 40px rgba(16, 137, 242, 0.28);
 }
 
 .dv2-btn-primary:hover,
@@ -322,7 +323,7 @@ h6,
 .button-primary:hover,
 .cta-btn:hover,
 .nav-btn-primary:hover {
-    background: var(--dv2-purple-600);
+    background: var(--dv2-blue-600);
     color: #ffffff;
 }
 
@@ -343,7 +344,7 @@ h6,
 .dv2-btn-ink:hover,
 .btn-secondary:hover,
 .button-secondary:hover {
-    background: var(--dv2-purple-900);
+    background: var(--dv2-blue-900);
     color: #ffffff;
 }
 
@@ -354,19 +355,19 @@ h6,
 }
 
 .dv2-btn-soft:hover {
-    background: #e7dcff;
+    background: #e2effd;
     color: var(--dv2-ink);
 }
 
 .dv2-btn-white {
     background: #ffffff;
-    color: var(--dv2-purple-800);
+    color: var(--dv2-blue-800);
     box-shadow: none;
 }
 
 .dv2-btn-white:hover {
     background: #ffffff;
-    color: var(--dv2-purple-600);
+    color: var(--dv2-blue-600);
 }
 
 /* Circular arrow chip used inside panel CTAs. */
@@ -378,7 +379,7 @@ h6,
     height: 26px;
     border-radius: var(--dv2-radius-pill);
     background: #ffffff;
-    color: var(--dv2-purple);
+    color: var(--dv2-blue);
     font-size: 15px;
     line-height: 1;
     flex-shrink: 0;

@@ -111,8 +111,8 @@
 
 .select-card.active {
     border-color: var(--color-teal);
-    background: rgba(0, 212, 170, 0.08);
-    box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.15);
+    background: rgba(16, 137, 242, 0.08);
+    box-shadow: 0 0 0 3px rgba(16, 137, 242, 0.15);
 }
 
 .select-card .num {
@@ -170,13 +170,13 @@
 }
 
 .badge-green {
-    background: #00D4AA !important;
+    background: #1089F2 !important;
     color: #fff !important;
     border: none !important;
 }
 
 .badge-orange {
-    background: linear-gradient(135deg, #5B4FE8, #7C3AED) !important;
+    background: linear-gradient(135deg, #1089F2, #1089F2) !important;
     color: #fff !important;
     border: none !important;
 }
@@ -203,7 +203,7 @@
 .trust-badges .icon-circle {
     width: 2.5rem;
     height: 2.5rem;
-    background: rgba(0, 212, 170, 0.1);
+    background: rgba(16, 137, 242, 0.1);
     border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
@@ -233,7 +233,7 @@
     justify-content: center !important;
     width: 100% !important;
     padding: 1.15rem 2rem !important;
-    background: linear-gradient(90deg, #3B28CC 0%, #5B4FE8 50%, #7B61FF 100%) !important;
+    background: linear-gradient(90deg, #095BAA 0%, #1089F2 50%, #55A7F6 100%) !important;
     background-size: unset !important;
     color: #ffffff !important;
     border-radius: var(--radius-full) !important;
@@ -241,7 +241,7 @@
     font-size: 1.15rem !important;
     letter-spacing: 0.02em !important;
     text-decoration: none !important;
-    box-shadow: 0 6px 32px rgba(59, 40, 204, 0.6) !important;
+    box-shadow: 0 6px 32px rgba(9, 91, 170, 0.6) !important;
     animation: none !important;
     transition: transform 0.3s ease, box-shadow 0.3s ease !important;
     margin-bottom: 1rem !important;
@@ -249,7 +249,7 @@
 
 .cta-btn:hover {
     transform: translateY(-3px) scale(1.015) !important;
-    box-shadow: 0 14px 52px rgba(59, 40, 204, 0.75) !important;
+    box-shadow: 0 14px 52px rgba(9, 91, 170, 0.75) !important;
     animation: none !important;
 }
 

@@ -63,7 +63,7 @@ $cta = !empty($offer_final_cta_text) ? $offer_final_cta_text : $offer_cta_text;
         content: '';
         position: absolute;
         inset: 0;
-        background: radial-gradient(ellipse at 50% 80%, rgba(0, 212, 170, 0.1) 0%, transparent 65%);
+        background: radial-gradient(ellipse at 50% 80%, rgba(16, 137, 242, 0.1) 0%, transparent 65%);
         pointer-events: none;
     }
 
@@ -92,7 +92,7 @@ $cta = !empty($offer_final_cta_text) ? $offer_final_cta_text : $offer_cta_text;
     .offer-final-cta__btn {
         font-size: 1.1rem;
         padding: 16px 44px;
-        box-shadow: 0 8px 32px rgba(0, 212, 170, 0.35);
+        box-shadow: 0 8px 32px rgba(16, 137, 242, 0.35);
     }
 
     .offer-final-cta__urgency {

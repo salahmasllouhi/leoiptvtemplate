@@ -125,7 +125,7 @@
 .form-group textarea:focus {
     border-color: var(--color-teal);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1);
+    box-shadow: 0 0 0 3px rgba(16, 137, 242, 0.1);
 }
 
 .form-group textarea {
@@ -184,8 +184,8 @@
 }
 
 .subscription-option label:hover {
-    border-color: #C4B5FD;
-    background: #FAF5FF;
+    border-color: #A9D4FB;
+    background: #F2F8FE;
 }
 
 .subscription-option input:checked+label {
@@ -239,7 +239,7 @@
 .cart-item-image {
     width: 60px;
     height: 60px;
-    background: #F5F3FF;
+    background: #F2F8FE;
     border-radius: 8px;
     overflow: hidden;
     flex-shrink: 0;
@@ -595,7 +595,7 @@
 
 /* What Happens Next */
 .next-steps {
-    background: #F5F3FF;
+    background: #F2F8FE;
     border-radius: 12px;
     padding: 1.5rem;
     margin: 2rem 0;
@@ -651,7 +651,7 @@
 
 .btn-return-home:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+    box-shadow: 0 4px 12px rgba(16, 137, 242, 0.4);
 }
 
 /* ======================= */
@@ -670,7 +670,7 @@
     overflow: hidden;
     border: 1px solid rgba(15, 23, 42, 0.12);
     box-shadow: 0 12px 42px rgba(15, 23, 42, 0.08);
-    background: linear-gradient(180deg, #f5f3ff 0%, #ede9fe 100%);
+    background: linear-gradient(180deg, #f2f8fe 0%, #dcebfd 100%);
 }
 
 .payment-card-container::before {
@@ -821,7 +821,7 @@
     font-weight: 800;
     color: #fff;
     background: linear-gradient(180deg, var(--color-teal) 0%, var(--color-indigo-hover) 100%);
-    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.25);
+    box-shadow: 0 4px 10px rgba(16, 137, 242, 0.25);
 }
 
 .payment-pay-btn {
@@ -837,14 +837,14 @@
     padding: 1rem 1.25rem;
     border-radius: 12px;
     background: linear-gradient(90deg, var(--color-teal) 0%, var(--color-indigo-hover) 100%);
-    box-shadow: 0 10px 26px rgba(124, 58, 237, 0.28);
+    box-shadow: 0 10px 26px rgba(16, 137, 242, 0.28);
     transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
 }
 
 .payment-pay-btn:hover {
     transform: translateY(-1px);
     filter: saturate(1.05);
-    box-shadow: 0 12px 30px rgba(124, 58, 237, 0.32);
+    box-shadow: 0 12px 30px rgba(16, 137, 242, 0.32);
 }
 
 .payment-brands {
