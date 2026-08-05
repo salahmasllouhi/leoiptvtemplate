@@ -70,9 +70,14 @@ add_filter('rank_math/frontend/canonical', function ($canonical) {
     // as the English home, while /dk/ and /sv/, which it does not treat as
     // front pages, came back right. pll_home_url() asks the question directly.
     if (function_exists('pll_home_url') && function_exists('pll_get_post_language')) {
-        $language = pll_get_post_language($post_id);
+        // 'slug' explicitly: that is what pll_home_url() keys off, and a
+        // language name would quietly hand back the default language's home.
+        $language = pll_get_post_language($post_id, 'slug');
         if ($language) {
-            return pll_home_url($language);
+            $home = pll_home_url($language);
+            if ($home) {
+                return $home;
+            }
         }
     }
 
