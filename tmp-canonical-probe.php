@@ -25,6 +25,16 @@ foreach (array('en', 'sv', 'no', 'dk', 'fi', 'is') as $slug) {
 
 echo "\n";
 foreach (array(6, 419, 3179, 3180, 3181, 3182) as $id) {
+    $terms = get_the_terms($id, 'language');
+    $slugs = is_array($terms) ? implode(',', wp_list_pluck($terms, 'slug')) : 'none';
+
     echo $id . ' lang=' . (function_exists('pll_get_post_language') ? var_export(pll_get_post_language($id, 'slug'), true) : 'n/a')
+        . ' terms=' . $slugs
         . ' permalink=' . get_permalink($id) . "\n";
+}
+
+echo "\npage_on_front = " . get_option('page_on_front') . "\n";
+echo "translations of the front page:\n";
+if (function_exists('pll_get_post_translations')) {
+    print_r(pll_get_post_translations((int) get_option('page_on_front')));
 }

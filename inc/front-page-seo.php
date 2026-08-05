@@ -69,15 +69,14 @@ add_filter('rank_math/frontend/canonical', function ($canonical) {
     // home_url() for a whitelist of callers — so /no/, /fi/ and /is/ came back
     // as the English home, while /dk/ and /sv/, which it does not treat as
     // front pages, came back right. pll_home_url() asks the question directly.
-    if (function_exists('pll_home_url') && function_exists('pll_get_post_language')) {
-        // 'slug' explicitly: that is what pll_home_url() keys off, and a
-        // language name would quietly hand back the default language's home.
-        $language = pll_get_post_language($post_id, 'slug');
-        if ($language) {
-            $home = pll_home_url($language);
-            if ($home) {
-                return $home;
-            }
+    // Keyed off the language being served rather than the language stored on
+    // the page: page 3180, the Danish home, is filed under English in Polylang,
+    // so asking the post would canonicalise /dk/ to the English home. The URL
+    // being canonicalised is the one in front of us either way.
+    if (function_exists('pll_home_url')) {
+        $home = pll_home_url();
+        if ($home) {
+            return $home;
         }
     }
 
