@@ -735,6 +735,10 @@ require_once get_template_directory() . '/inc/offer-strings.php';
 // Site Config options page (checkout URLs + pricing configurator defaults)
 require_once get_template_directory() . '/inc/site-config.php';
 
+// Rank Math analysis for the front page. The page body is empty — the sections
+// render everything — so Rank Math needs to be handed the rendered content.
+require_once get_template_directory() . '/inc/front-page-seo.php';
+
 // Sticky mobile CTA bar (countdown + pricing/trial buttons) — loads after
 // site-config.php and iptv-text.php, both of which it reads through.
 require_once get_template_directory() . '/inc/sticky-cta.php';
