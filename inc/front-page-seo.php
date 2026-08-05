@@ -54,12 +54,29 @@ if (!defined('ABSPATH')) {
  */
 add_filter('rank_math/frontend/canonical', function ($canonical) {
     // is_page() as well as is_front_page(): a front page showing the blog has
-    // no page to take a permalink from.
+    // no page to take a URL from.
     if (!is_front_page() || !is_page()) {
         return $canonical;
     }
 
-    $permalink = get_permalink(get_queried_object_id());
+    $post_id = (int) get_queried_object_id();
+    if (!$post_id) {
+        return $canonical;
+    }
+
+    // get_permalink() is not enough on its own. For a page WordPress considers
+    // the front page it returns home_url('/'), and Polylang only filters
+    // home_url() for a whitelist of callers — so /no/, /fi/ and /is/ came back
+    // as the English home, while /dk/ and /sv/, which it does not treat as
+    // front pages, came back right. pll_home_url() asks the question directly.
+    if (function_exists('pll_home_url') && function_exists('pll_get_post_language')) {
+        $language = pll_get_post_language($post_id);
+        if ($language) {
+            return pll_home_url($language);
+        }
+    }
+
+    $permalink = get_permalink($post_id);
 
     return $permalink ? $permalink : $canonical;
 });
