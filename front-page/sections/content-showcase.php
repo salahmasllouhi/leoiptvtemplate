@@ -79,8 +79,15 @@ $vod_cta_target = (!empty($vod_cta_field['target'])) ? ' target="' . esc_attr($v
     </div>
 
     <div class="dv2-split-aside dv2-split-aside--image">
+        <?php // 528px in the split at full width, full-bleed once it stacks at 1024px. ?>
         <img src="https://nordictv.io/wp-content/uploads/2026/08/vodnordic.webp"
+             srcset="https://nordictv.io/wp-content/uploads/2026/08/vodnordic-300x224.webp 300w,
+                     https://nordictv.io/wp-content/uploads/2026/08/vodnordic-768x573.webp 768w,
+                     https://nordictv.io/wp-content/uploads/2026/08/vodnordic-1024x765.webp 1024w,
+                     https://nordictv.io/wp-content/uploads/2026/08/vodnordic.webp 1200w"
+             sizes="(max-width: 1024px) calc(100vw - 152px), (max-width: 1280px) calc((100vw - 224px) / 2), 528px"
+             width="1200" height="896"
              alt="<?php echo esc_attr(iptv_text('vod_image_alt', 'A selection of movies and series available on NordicTV')); ?>"
-             loading="lazy">
+             loading="lazy" decoding="async">
     </div>
 </section>

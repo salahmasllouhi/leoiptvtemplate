@@ -61,9 +61,23 @@ $nav_guide = function_exists('iptv_page_url')
 <header class="site-header" id="site-header">
     <div class="container nav-container">
         <a href="<?php echo esc_url($nav_home); ?>" class="logo">
-            <?php // Light (white) logo: the bar is dark on every page. ?>
-            <img src="<?php echo get_template_directory_uri(); ?>/images/logo/light logo 500_150.png" alt="Nordic IPTV"
-                class="logo-img">
+            <?php
+            // Light (white) logo: the bar is dark on every page.
+            //
+            // The lockup renders 34px tall, so ~113px wide. The 500px original
+            // was the only file, which meant every visitor downloaded four
+            // times the pixels they could see; the 230px copy covers 1x and 2x
+            // and the original stays in the set for 3x screens. The original's
+            // name contains spaces, so it has to be encoded — srcset splits on
+            // whitespace and would otherwise read it as several candidates.
+            $iptv_logo_dir = get_template_directory_uri() . '/images/logo/';
+            $iptv_logo_2x  = $iptv_logo_dir . 'light-logo-230x69.png';
+            $iptv_logo_3x  = $iptv_logo_dir . rawurlencode('light logo 500_150.png');
+            ?>
+            <img src="<?php echo esc_url($iptv_logo_2x); ?>"
+                srcset="<?php echo esc_url($iptv_logo_2x); ?> 230w, <?php echo esc_url($iptv_logo_3x); ?> 500w"
+                sizes="115px" width="500" height="150" alt="Nordic IPTV"
+                class="logo-img" fetchpriority="high">
         </a>
         <?php if (has_nav_menu('primary')): ?>
             <?php wp_nav_menu(array(

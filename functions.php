@@ -35,32 +35,9 @@ add_action('init', function () {
 remove_action('wp_head', 'print_emoji_detection_script', 7);
 remove_action('wp_print_styles', 'print_emoji_styles');
 
-// Meta Pixel - fires on ALL pages (front page, checkout, product pages, subsites)
-function iptv_meta_pixel()
-{
-    ?>
-    <!-- Meta Pixel Code -->
-    <script>
-        !function (f, b, e, v, n, t, s) {
-            if (f.fbq) return; n = f.fbq = function () {
-                n.callMethod ?
-                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
-            n.queue = []; t = b.createElement(e); t.async = !0;
-            t.src = v; s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '2000858220840148');
-        fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=2000858220840148&ev=PageView&noscript=1" /></noscript>
-    <!-- End Meta Pixel Code -->
-    <?php
-}
-add_action('wp_head', 'iptv_meta_pixel', 1);
+// Meta Pixel - fires on ALL pages (front page, checkout, product pages, subsites).
+// Now lives in inc/performance.php, which keeps the PageView synchronous but
+// lets fbevents.js download once the page is usable.
 
 /**
  * Cache-busting version for a theme asset, from its file mtime.
@@ -114,15 +91,10 @@ function my_iptv_enqueue_styles()
 {
     wp_enqueue_style('my-iptv-style', get_stylesheet_uri(), array(), iptv_asset_version('style.css'));
 
-    // Design v2 typography. Enqueued rather than @import-ed because most
-    // templates concatenate the CSS files into an inline <style> block,
-    // where a non-leading @import is ignored by the browser.
-    wp_enqueue_style(
-        'iptv-design-v2-fonts',
-        'https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap',
-        array(),
-        null
-    );
+    // Design v2 typography is self-hosted now. inc/performance.php inlines the
+    // @font-face block and preloads the latin subsets, which removes the
+    // render-blocking request to fonts.googleapis.com along with the extra DNS
+    // lookup, TLS handshake and redirect it needed.
 
     // Load product page styles on single product pages
     if (function_exists('is_product') && is_product()) {
@@ -686,9 +658,9 @@ add_action('after_setup_theme', 'my_iptv_theme_setup');
 // inc/geo-redirect.php, which picked a language from the visitor's IP.
 require_once get_template_directory() . '/inc/language-preference.php';
 
-// TEMPORARY: reports why the front page is served no-cache. Delete both this
-// line and the file once the homepage caches.
-require_once get_template_directory() . '/inc/tmp-nocache-probe.php';
+// Dequeues unused plugin assets, self-hosts the webfonts, and defers the
+// analytics tags. No markup, copy or layout changes.
+require_once get_template_directory() . '/inc/performance.php';
 
 // SEO Manager disabled - Using Rank Math Pro instead
 // require_once get_template_directory() . '/inc/seo-manager.php';

@@ -4,8 +4,16 @@
         <div class="footer-grid">
             <div>
                 <div class="footer-brand">
-                    <?php // Light (white) logo, matching the header — the footer is dark. ?>
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/logo/light logo 500_150.png"
+                    <?php
+                    // Light (white) logo, matching the header — the footer is dark.
+                    // Same responsive set as the header; see the note there.
+                    $iptv_footer_logo_dir = get_template_directory_uri() . '/images/logo/';
+                    $iptv_footer_logo_2x  = $iptv_footer_logo_dir . 'light-logo-230x69.png';
+                    $iptv_footer_logo_3x  = $iptv_footer_logo_dir . rawurlencode('light logo 500_150.png');
+                    ?>
+                    <img src="<?php echo esc_url($iptv_footer_logo_2x); ?>"
+                        srcset="<?php echo esc_url($iptv_footer_logo_2x); ?> 230w, <?php echo esc_url($iptv_footer_logo_3x); ?> 500w"
+                        sizes="120px" width="500" height="150" loading="lazy" decoding="async"
                         alt="Nordic IPTV" class="footer-logo-img">
                 </div>
                 <p class="footer-desc">
