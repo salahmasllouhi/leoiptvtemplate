@@ -686,6 +686,10 @@ add_action('after_setup_theme', 'my_iptv_theme_setup');
 // inc/geo-redirect.php, which picked a language from the visitor's IP.
 require_once get_template_directory() . '/inc/language-preference.php';
 
+// TEMPORARY: reports why the front page is served no-cache. Delete both this
+// line and the file once the homepage caches.
+require_once get_template_directory() . '/inc/tmp-nocache-probe.php';
+
 // SEO Manager disabled - Using Rank Math Pro instead
 // require_once get_template_directory() . '/inc/seo-manager.php';
 
