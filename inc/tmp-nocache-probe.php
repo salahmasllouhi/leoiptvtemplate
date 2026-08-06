@@ -71,19 +71,48 @@ add_action('litespeed_control_set_nocache', function ($reason = '') {
 }, 1);
 
 /**
- * Sample the cacheable flag through the request, so the stage where it flips
- * is visible even when whatever flipped it never fired the public action.
+ * Sample the cacheable flag and the cache header through the request, so the
+ * stage where it flips is visible even when whatever flipped it never fired the
+ * public action.
+ *
+ * template_redirect is sampled either side of priority 1, because that is where
+ * inc/language-preference.php sets its headers — bracketing it says whether the
+ * header comes from there or from something else on the same hook.
  */
-foreach (array('muplugins_loaded', 'plugins_loaded', 'init', 'wp', 'template_redirect', 'wp_head', 'wp_footer') as $nordictv_probe_hook) {
-    add_action($nordictv_probe_hook, function () use ($nordictv_probe_hook) {
+$nordictv_probe_points = array(
+    'muplugins_loaded'    => 99999,
+    'plugins_loaded'      => 99999,
+    'init'                => 99999,
+    'wp'                  => 99999,
+    'template_redirect@0' => 0,
+    'template_redirect@2' => 2,
+    'template_redirect'   => 99999,
+    'wp_head'             => 99999,
+    'wp_footer'           => 99999,
+);
+
+foreach ($nordictv_probe_points as $nordictv_probe_label => $nordictv_probe_prio) {
+    $nordictv_probe_hook = strtok($nordictv_probe_label, '@');
+
+    add_action($nordictv_probe_hook, function () use ($nordictv_probe_label) {
         if (!nordictv_nocache_probe_on()) {
             return;
         }
 
-        $GLOBALS['nordictv_nocache_stages'][$nordictv_probe_hook] = nordictv_nocache_probe_cacheable();
-    }, 99999);
+        $cache_header = '';
+        foreach (headers_list() as $header) {
+            if (stripos($header, 'X-LiteSpeed-Cache-Control') === 0) {
+                $cache_header = $header;
+            }
+        }
+
+        $GLOBALS['nordictv_nocache_stages'][$nordictv_probe_label] = array(
+            'cacheable' => nordictv_nocache_probe_cacheable(),
+            'header'    => $cache_header,
+        );
+    }, $nordictv_probe_prio);
 }
-unset($nordictv_probe_hook);
+unset($nordictv_probe_points, $nordictv_probe_label, $nordictv_probe_prio, $nordictv_probe_hook);
 
 /**
  * Print the report as a comment at the very end of the response.
