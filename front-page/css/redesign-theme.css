@@ -3,8 +3,9 @@
    Aggregated from user provided assets
    ============================================ */
 
-/* Font Imports */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+/* Font Imports — Outfit is self-hosted; inc/performance.php inlines its
+   @font-face block in the head. Space Mono was imported here but never named
+   in a font-family rule anywhere in the theme, so it is simply dropped. */
 
 /* -------------------------------------------
    00 - VARIABLES & BASE
