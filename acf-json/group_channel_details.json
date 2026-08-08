@@ -46,7 +46,7 @@
             "instructions": "Short description about this channel shown below the headline in the hero section. Keep it under 200 characters for best display.",
             "required": 0,
             "default_value": "",
-            "placeholder": "e.g. Stream ESPN live with NordicTV. No cable required. No blackouts. No restrictions.",
+            "placeholder": "e.g. Stream live sport with NordicTV. No cable required. No blackouts. No restrictions.",
             "maxlength": 250,
             "rows": 3,
             "new_lines": "br"

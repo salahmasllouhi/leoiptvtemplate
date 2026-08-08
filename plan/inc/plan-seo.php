@@ -94,7 +94,7 @@ if (!function_exists('iptv_plan_analysis_digest')) {
             'Stable, fast servers',
             'Full TV guide (EPG)',
             'Anti-Buffer™ 9.8',
-            'SHL, NHL, Premier League & handball',
+            'Live hockey, football & handball',
             'Pay-Per-View (PPV) events',
             'Auto-updating channels & VOD',
             '24/7 support',

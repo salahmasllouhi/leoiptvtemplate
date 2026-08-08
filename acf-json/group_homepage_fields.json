@@ -634,7 +634,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "UFC, Boxing - All Included",
+            "default_value": "Combat sports - All Included",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -1368,7 +1368,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "UFC, Boxing, Wrestling — all Pay-Per-View events included free.",
+            "default_value": "Combat sports — all Pay-Per-View events included free.",
             "new_lines": "",
             "maxlength": "",
             "placeholder": "",
@@ -1408,7 +1408,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "EPL, La Liga, Champions League, NFL, NBA, F1 — every game, live.",
+            "default_value": "Football, European club nights, basketball, motorsport — every game, live.",
             "new_lines": "",
             "maxlength": "",
             "placeholder": "",
@@ -1764,7 +1764,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Premier League, Champions League, World Cup",
+            "default_value": "Football",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -1784,7 +1784,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "NBA",
+            "default_value": "Basketball",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -1824,7 +1824,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "MLB",
+            "default_value": "Baseball",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -1864,7 +1864,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "NFL",
+            "default_value": "American football",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -1944,7 +1944,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "UFC/Boxing",
+            "default_value": "Combat sports",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -2100,7 +2100,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Netflix",
+            "default_value": "Movies",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -2160,7 +2160,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Disney+",
+            "default_value": "Family & Kids",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -2220,7 +2220,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "HBO Max",
+            "default_value": "Series",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",

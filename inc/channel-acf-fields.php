@@ -69,9 +69,9 @@ function iptv_register_channel_acf_fields()
                 'label' => 'Networks & Leagues',
                 'name' => 'channel_networks',
                 'type' => 'text',
-                'instructions' => 'Comma-separated list of leagues, events or networks on this channel. E.g. "NFL, NBA, MLB, UFC, Premier League"',
+                'instructions' => 'Comma-separated list of the sports or genres on this channel. E.g. "football, basketball, motorsport, combat sports"',
                 'required' => 0,
-                'placeholder' => 'e.g. NFL, NBA, UFC, MLB, Premier League',
+                'placeholder' => 'e.g. football, basketball, motorsport, combat sports',
             ],
 
             // ── Launch Year ───────────────────────────────────────────────────

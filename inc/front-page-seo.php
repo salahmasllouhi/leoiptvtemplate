@@ -195,7 +195,7 @@ if (!function_exists('iptv_front_page_analysis_elements')) {
 
         // Features.
         $out[] = array('structure', '<h2>' . $f('features_title', 'Built for global viewers') . '</h2>');
-        $out[] = array('copy', '<p>' . $f('features_subtitle', 'From Nordic public TV to Premier League, Bollywood to Hollywood.') . '</p>');
+        $out[] = array('copy', '<p>' . $f('features_subtitle', 'From live news to live sport, Bollywood to Hollywood.') . '</p>');
         for ($i = 1; $i <= 8; $i++) {
             $title = $f("feature_{$i}_title");
             $desc  = $f("feature_{$i}_desc");

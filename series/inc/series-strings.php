@@ -65,7 +65,7 @@ add_action('init', function () {
     pll_register_string('series_feat_3_desc', 'Beyond %s, enjoy 40,000+ live channels from 198 countries. Sports, news, entertainment — all included.', $group);
     // Feature 4
     pll_register_string('series_feat_4_title', '$0 PPV Events', $group);
-    pll_register_string('series_feat_4_desc', 'All UFC, Boxing, Wrestling Pay-Per-View events at zero extra cost alongside your favorite series like %s.', $group);
+    pll_register_string('series_feat_4_desc', 'All combat-sports and Pay-Per-View events at zero extra cost alongside your favorite series like %s.', $group);
     // Feature 5
     pll_register_string('series_feat_5_title', 'Crystal Clear 4K', $group);
     pll_register_string('series_feat_5_desc', 'Watch %s in crystal-clear 4K resolution with Dolby audio. No buffering, no lag, no compromise.', $group);

@@ -701,9 +701,18 @@ require_once get_template_directory() . '/inc/admin-bulk-editor.php';
 require_once get_template_directory() . '/inc/sync-prices.php';
 
 
-// Include Polylang string helpers for channel / sport / series templates
+// Retires the `sport` post type (unregisters it, drafts its posts). Loaded
+// before the string helpers below so sport/inc/sport-strings.php can stay out.
+require_once get_template_directory() . '/inc/sport-retire.php';
+
+// One-shot scrub of broadcaster / competition names left in post content.
+// Safe to delete along with the file once the option records it has run.
+require_once get_template_directory() . '/inc/trademark-scrub.php';
+
+// Include Polylang string helpers for channel / sport / series templates.
+// sport-strings.php is not loaded: the post type it serves is retired, and
+// registering its strings would keep them in the Polylang translation UI.
 require_once get_template_directory() . '/inc/channel-strings.php';
-require_once get_template_directory() . '/sport/inc/sport-strings.php';
 require_once get_template_directory() . '/series/inc/series-strings.php';
 require_once get_template_directory() . '/inc/front-page-strings.php';
 require_once get_template_directory() . '/inc/offer-strings.php';

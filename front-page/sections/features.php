@@ -64,7 +64,7 @@ $allowed_svg = [
         <div class="dv2-section-head">
             <h2><?php echo esc_html(iptv_text('features_title', 'Built for global viewers')); ?></h2>
             <p>
-                <?php echo esc_html(iptv_text('features_subtitle', 'From Nordic public TV to Premier League, Bollywood to Hollywood — all sports, all genres, all countries in one affordable package')); ?>
+                <?php echo esc_html(iptv_text('features_subtitle', 'From live news to live sport, Bollywood to Hollywood — all genres, all countries in one affordable package')); ?>
             </p>
         </div>
 

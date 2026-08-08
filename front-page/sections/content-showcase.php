@@ -9,16 +9,16 @@ $showcase_cta_url    = (!empty($showcase_cta_field['url'])) ? $showcase_cta_fiel
 $showcase_cta_label  = (!empty($showcase_cta_field['title'])) ? $showcase_cta_field['title'] : iptv_text('showcase_cta', 'Explore the full channel lineup');
 $showcase_cta_target = (!empty($showcase_cta_field['target'])) ? ' target="' . esc_attr($showcase_cta_field['target']) . '"' : '';
 
-// The best-known channel in each Nordic market, plus Sweden's two majors —
-// the names a visitor from any of the five countries will recognise as "mine".
-// Row 2 is the highlighted one, as in the design.
+// Genre labels rather than broadcaster names: the row is there to show what a
+// channel list looks like, and naming real networks put third-party trademarks
+// on the front page for no gain. Row 2 is the highlighted one, as in the design.
 $channel_rows = [
-    1 => ['101', 'SVT1 HD'],
-    2 => ['102', 'TV4 HD'],
-    3 => ['103', 'NRK1 HD'],
-    4 => ['104', 'TV 2 Danmark'],
-    5 => ['105', 'Yle TV1 HD'],
-    6 => ['106', 'RÚV HD'],
+    1 => ['101', 'News & Current Affairs HD'],
+    2 => ['102', 'Entertainment HD'],
+    3 => ['103', 'Sports 1 HD'],
+    4 => ['104', 'Movies HD'],
+    5 => ['105', 'Family & Kids HD'],
+    6 => ['106', 'Documentary HD'],
 ];
 $highlight_row = 2;
 ?>

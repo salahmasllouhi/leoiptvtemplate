@@ -59,10 +59,10 @@ add_action('init', function () {
     pll_register_string('feat_1_desc', 'Stream %s alongside 40,000+ channels from 198 countries. Sports, news, entertainment — all included.', $group);
     // Feature 2
     pll_register_string('feat_2_title', '$0 PPV Events', $group);
-    pll_register_string('feat_2_desc', 'Watch %s and all UFC, Boxing, Wrestling Pay-Per-View events at zero extra cost. Save $70+ per event.', $group);
+    pll_register_string('feat_2_desc', 'Watch %s and every combat-sports Pay-Per-View event at zero extra cost. Save $70+ per event.', $group);
     // Feature 3
     pll_register_string('feat_3_title', 'All Sports Live', $group);
-    pll_register_string('feat_3_desc', 'EPL, La Liga, Champions League, NFL, NBA, F1 — every game live. Perfect for %s fans.', $group);
+    pll_register_string('feat_3_desc', 'Top-flight football, European club nights, basketball, motorsport — every game live. Perfect for %s fans.', $group);
     // Feature 4
     pll_register_string('feat_4_title', '200K+ Movies & Shows', $group);
     pll_register_string('feat_4_desc', 'Massive VOD library with latest releases alongside your live %s stream. New content added daily.', $group);
