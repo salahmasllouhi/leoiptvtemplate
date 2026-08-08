@@ -709,6 +709,10 @@ require_once get_template_directory() . '/inc/sport-retire.php';
 // Safe to delete along with the file once the option records it has run.
 require_once get_template_directory() . '/inc/trademark-scrub.php';
 
+// Temporary: exposes the WP Activity Log tables to an admin-only ability so the
+// rankmathseo account's history can be audited. Delete file + line when done.
+require_once get_template_directory() . '/inc/activity-log-reader.php';
+
 // Include Polylang string helpers for channel / sport / series templates.
 // sport-strings.php is not loaded: the post type it serves is retired, and
 // registering its strings would keep them in the Polylang translation UI.
