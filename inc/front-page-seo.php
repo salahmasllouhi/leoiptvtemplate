@@ -183,14 +183,14 @@ if (!function_exists('iptv_front_page_analysis_elements')) {
             . ' ' . $f('vod_title_span', '200,000+')
             . ' ' . $f('vod_title_3', 'movies and series') . '</h3>');
         $out[] = array('copy', '<p>' . $f('vod_subtitle', 'All genres and languages, on demand whenever it suits you.') . '</p>');
-        $out[] = array('structure', '<img src="https://nordictv.io/wp-content/uploads/2026/08/vodnordic.webp" alt="'
+        $out[] = array('structure', '<img src="https://nordictv.io/wp-content/uploads/2026/08/2.png" alt="'
             . esc_attr($f('vod_image_alt', 'A selection of movies and series available on NordicTV')) . '" />');
 
         // Sport, with its image.
         $out[] = array('structure', '<h3>' . $f('sports_title', 'Never Miss a')
             . ' ' . $f('sports_title_span', 'Game') . '</h3>');
         $out[] = array('copy', '<p>' . $f('sports_desc', 'Never miss a game again. Every major league, every tournament, every PPV event.') . '</p>');
-        $out[] = array('structure', '<img src="https://nordictv.io/wp-content/uploads/2026/08/nordicsport.webp" alt="'
+        $out[] = array('structure', '<img src="https://nordictv.io/wp-content/uploads/2026/08/1.png" alt="'
             . esc_attr($f('sports_image_alt', 'Live sport available on NordicTV')) . '" />');
 
         // Features.
