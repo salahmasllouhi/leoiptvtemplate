@@ -170,31 +170,25 @@ add_action('template_redirect', function () {
  * Keep the redirecting FAQ archive out of the sitemap.
  *
  * Rank Math lists a post type archive using get_post_type_archive_link(),
- * which returns the URL for the language the sitemap is being built in — the
- * default one, English, which is the single language with no FAQ posts. So
- * faq-sitemap.xml advertised /faq: a URL the rule above 404s and the redirect
- * engine then sends elsewhere. Publishing a redirect in a sitemap is the exact
- * defect this change set is clearing out of Search Console.
+ * which resolves in the language the sitemap is built in — the default one,
+ * English, which is the single language with no FAQ posts. So faq-sitemap.xml
+ * advertised /faq: a URL the rule above 404s and the redirect engine then
+ * sends elsewhere. Publishing a redirect in a sitemap is the exact defect this
+ * change set is clearing out of Search Console.
  *
- * Only the empty case is dropped. /sv/faq, the archive that has the 92
- * questions, keeps its entry — and is linked from the footer besides.
+ * The archive link has its own filter — `rank_math/sitemap/entry` never sees
+ * it, which is why filtering there changed nothing.
+ *
+ * Only the empty case is dropped. /sv/faq, the archive holding the 92
+ * questions, keeps its entry, and is linked from the footer besides.
  */
-add_filter('rank_math/sitemap/entry', function ($url, $type, $object) {
-    // Matched on the URL alone. Rank Math passes the post type name here, not
-    // a literal 'post_type', and the exact-URL comparison below is the precise
-    // test anyway — it can only ever match this one entry.
-    if (empty($url['loc'])) {
-        return $url;
-    }
-
-    $archive = get_post_type_archive_link('faq');
-
-    if (!$archive || untrailingslashit($url['loc']) !== untrailingslashit($archive)) {
-        return $url;
+add_filter('rank_math/sitemap/post_type_archive_link', function ($link, $post_type) {
+    if ($post_type !== 'faq' || !$link) {
+        return $link;
     }
 
     // No 'lang' argument: Polylang scopes this to the language being built,
-    // which is the same test the 404 rule above applies to the request.
+    // the same test the 404 rule above applies to the request.
     $has_faqs = new WP_Query([
         'post_type'              => 'faq',
         'post_status'            => 'publish',
@@ -205,8 +199,8 @@ add_filter('rank_math/sitemap/entry', function ($url, $type, $object) {
         'update_post_meta_cache' => false,
     ]);
 
-    return empty($has_faqs->posts) ? false : $url;
-}, 10, 3);
+    return empty($has_faqs->posts) ? false : $link;
+}, 10, 2);
 
 /**
  * Flush rewrite rules once after a deploy that changes them.
