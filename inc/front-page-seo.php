@@ -85,6 +85,67 @@ add_filter('rank_math/frontend/canonical', function ($canonical) {
     return $permalink ? $permalink : $canonical;
 });
 
+/**
+ * Send each home page's stray second URL to the real one.
+ *
+ * The same defect described above — a home page filed under English in
+ * Polylang — does not only misdirect the canonical. It gives the page an
+ * English-shaped permalink that WordPress serves as an ordinary page, so the
+ * Finnish and Icelandic home pages answer on two URLs at once:
+ *
+ *   /fi/     and /home    are both page 3181
+ *   /is/     and /home-5  are both page 3182
+ *
+ * Verified by the page ID in each response's wp-json link. Search Console had
+ * both strays as "Duplicate without user-selected canonical", which understates
+ * it: /home returns <html lang="en-US">, canonicalises to itself, and publishes
+ * an hreflang set claiming /home is both the English and the Finnish home —
+ * contradicting the set on /fi/ and invalidating the cluster for both.
+ *
+ * /home-2 and /home-4, the Norwegian and Danish equivalents, were fixed with
+ * Rank Math redirect rules; Finnish and Icelandic were missed. Rank Math runs
+ * on `wp`, before this, so those two rules still win and nothing here changes
+ * their behaviour — this covers all six consistently and keeps the fix in
+ * version control.
+ *
+ * The IDs are written out rather than read from pll_get_post_translations(),
+ * for the same reason inc/trademark-scrub.php writes them out: the pages are
+ * mis-filed, so Polylang is the one source that cannot be trusted to name them.
+ *
+ * The redirect is deliberately conditional on !is_front_page(). At /fi/ the
+ * queried object is also 3181, and redirecting there would take the Finnish
+ * home page down.
+ */
+add_action('template_redirect', function () {
+    if (is_admin() || !is_page() || is_front_page() || headers_sent()) {
+        return;
+    }
+
+    $homes = apply_filters('iptv_front_page_languages', array(
+        6    => 'en',
+        419  => 'sv',
+        3179 => 'no',
+        3180 => 'dk',
+        3181 => 'fi',
+        3182 => 'is',
+    ));
+
+    $post_id = (int) get_queried_object_id();
+
+    if (!isset($homes[$post_id]) || !function_exists('pll_home_url')) {
+        return;
+    }
+
+    $target = pll_home_url($homes[$post_id]);
+
+    if (!$target || untrailingslashit($target) === untrailingslashit(get_permalink($post_id))) {
+        return;
+    }
+
+    wp_redirect($target, 301);
+    exit;
+}, 5);
+
 if (!function_exists('iptv_front_page_ids')) {
     /**
      * Every translation of the front page.

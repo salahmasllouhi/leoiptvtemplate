@@ -26,16 +26,32 @@ if (!function_exists('iptv_page_url')) {
     /**
      * Permalink of a page in the current language, looked up by slug.
      *
+     * $lang exists for inc/legacy-redirects.php. On a 404 under a prefix
+     * Polylang does not know — /de/…, /da/… — the current language is always
+     * the site default, so a redirect that needs to land on a specific
+     * language has to name it rather than rely on the request.
+     *
+     * $strict refuses to cross languages. The default is to return whatever
+     * translation was found — a link to the English page beats a dead one in a
+     * footer. A 301 is not a footer link: sending /no/pages/checkout to an
+     * English page contradicts hreflang and reads to Google as a soft 404, so
+     * inc/legacy-redirects.php asks for a miss it can turn into a better guess.
+     *
      * @param string $slug     Page slug in any language — Polylang maps it across.
      * @param string $fallback Returned when no such page exists.
+     * @param string $lang     Target language slug. Empty means the current one.
+     * @param bool   $strict   Return $fallback rather than another language's page.
      * @return string Permalink, or $fallback, or '' if there is neither.
      */
-    function iptv_page_url($slug, $fallback = '')
+    function iptv_page_url($slug, $fallback = '', $lang = '', $strict = false)
     {
         static $cache = array();
 
-        $lang = function_exists('pll_current_language') ? pll_current_language('slug') : '';
-        $key  = $slug . '|' . $lang;
+        if ($lang === '') {
+            $lang = function_exists('pll_current_language') ? pll_current_language('slug') : '';
+        }
+
+        $key = $slug . '|' . $lang . '|' . (int) $strict;
 
         if (isset($cache[$key])) {
             return $cache[$key];
@@ -76,13 +92,15 @@ if (!function_exists('iptv_page_url')) {
             $id = $query->posts[0]->ID;
 
             if (function_exists('pll_get_post')) {
-                $translated = pll_get_post($id);
+                $translated = pll_get_post($id, $lang);
                 if ($translated) {
                     $id = $translated;
+                } elseif ($strict) {
+                    $id = 0;
                 }
             }
 
-            $url = get_permalink($id);
+            $url = $id ? get_permalink($id) : '';
         }
 
         if (!$url) {

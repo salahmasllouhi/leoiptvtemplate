@@ -128,13 +128,41 @@ function iptv_register_faq_post_type() {
         'public'            => true,
         'show_in_rest'      => true,
         'supports'          => ['title', 'editor', 'thumbnail', 'excerpt', 'revisions'],
-        'has_archive'       => false,
+        // The 100 FAQ posts were "Discovered - currently not indexed" in Search
+        // Console: nothing on the site linked to them, so the only route in was
+        // the sitemap and Google never spent a crawl on one. An archive gives
+        // them a hub (/faq, /sv/faq - the latter already has 383 impressions
+        // against a 404), and nav menus let that hub be linked like any page.
+        'has_archive'       => true,
         'rewrite'           => ['slug' => 'faq', 'with_front' => false],
         'menu_icon'         => 'dashicons-editor-help',
-        'show_in_nav_menus' => false,
+        'show_in_nav_menus' => true,
     ]);
 }
 add_action('init', 'iptv_register_faq_post_type');
+
+/**
+ * Flush rewrite rules once after a deploy that changes them.
+ *
+ * register_post_type() adds its rules to the in-memory set but never writes
+ * them, so turning on the FAQ archive leaves /faq and /sv/faq 404ing until
+ * something flushes. The existing auto-flush at the top of this file only
+ * fires for sitemap URLs whose rule has gone missing, which this is not.
+ *
+ * Same shape as the asset purge above: the option is written before the work,
+ * so a failure cannot leave every request flushing. Bump the version string
+ * whenever a future change touches rewrite rules.
+ */
+add_action('init', function () {
+    $version = 'faq-archive-1';
+
+    if (get_option('iptv_rewrite_version') === $version) {
+        return;
+    }
+
+    update_option('iptv_rewrite_version', $version, true);
+    flush_rewrite_rules(false);
+}, 99);
 
 function iptv_register_faq_rest_meta() {
     $fields = ['rank_math_focus_keyword', 'rank_math_title', 'rank_math_description'];
@@ -751,6 +779,12 @@ require_once get_template_directory() . '/plan/inc/plan-pages-setup.php';
 // Hands Rank Math the copy a plan page actually renders. Without it the
 // content tests score against an all-but-empty post_content.
 require_once get_template_directory() . '/plan/inc/plan-seo.php';
+
+// 301s for the URL space the previous site left behind — retired languages,
+// WooCommerce, /setup-guides/, /sports/. Runs only on requests WordPress has
+// already resolved to a 404, so it can never shadow a live page. Loads after
+// plan-data.php and page-links.php, whose lookups it reuses.
+require_once get_template_directory() . '/inc/legacy-redirects.php';
 
 /**
  * WooCommerce: Redirect all cart operations to checkout page

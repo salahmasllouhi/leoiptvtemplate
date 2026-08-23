@@ -352,16 +352,31 @@ if (!function_exists('iptv_plan_url')) {
      * result back. This is the same trick iptv_page_url() uses, and for the
      * same reason: a translated plan page will have its own slug.
      *
-     * @param int $months 1, 3, 6 or 12.
+     * $lang exists for inc/legacy-redirects.php, which resolves the plan page
+     * for a language the request itself cannot name — a retired /da/product/…
+     * URL has to land on the Danish plan page, but Polylang reads /da/ as the
+     * default language. See the same parameter on iptv_page_url().
+     *
+     * $strict refuses to fall back to another language's plan page, for the
+     * same reason iptv_page_url() has it: a cross-language 301 contradicts
+     * hreflang. The compare table wants the fallback; a redirect does not.
+     *
+     * @param int    $months 1, 3, 6 or 12.
+     * @param string $lang   Target language slug. Empty means the current one.
+     * @param bool   $strict Return '' rather than another language's plan page.
      * @return string Permalink, or '' when that plan has no page yet.
      */
-    function iptv_plan_url($months)
+    function iptv_plan_url($months, $lang = '', $strict = false)
     {
         static $cache = array();
 
         $months = (int) $months;
-        $lang   = function_exists('pll_current_language') ? pll_current_language('slug') : '';
-        $key    = $months . '|' . $lang;
+
+        if ($lang === '') {
+            $lang = function_exists('pll_current_language') ? pll_current_language('slug') : '';
+        }
+
+        $key = $months . '|' . $lang . '|' . (int) $strict;
 
         if (isset($cache[$key])) {
             return $cache[$key];
@@ -401,13 +416,15 @@ if (!function_exists('iptv_plan_url')) {
             $id = $query->posts[0]->ID;
 
             if (function_exists('pll_get_post')) {
-                $translated = pll_get_post($id);
+                $translated = pll_get_post($id, $lang);
                 if ($translated) {
                     $id = $translated;
+                } elseif ($strict) {
+                    $id = 0;
                 }
             }
 
-            $url = get_permalink($id);
+            $url = $id ? get_permalink($id) : '';
         }
 
         $cache[$key] = $url;

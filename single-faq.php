@@ -32,7 +32,7 @@ foreach ($shared_css as $file) {
         echo file_get_contents($path);
     }
 }
-echo '<\/style>';
+echo '</style>';
 ?>
 
 <style>
@@ -326,7 +326,7 @@ foreach ($js_files as $file) {
         echo file_get_contents($path);
     }
 }
-echo '<\/script>';
+echo '</script>';
 ?>
 
 <?php get_footer(); ?>

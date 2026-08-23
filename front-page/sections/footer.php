@@ -122,11 +122,19 @@
                     // home_url() ignores the current language, so this column used
                     // to send Swedish visitors to the English blog and guide.
                     $home = function_exists('pll_home_url') ? pll_home_url() : home_url('/');
+                    // The FAQ hub is a post type archive, not a page, so it is
+                    // passed as a URL. This link is the point of the archive:
+                    // without it the 100 FAQ posts stay orphaned, which is why
+                    // Google discovered them from the sitemap and never crawled
+                    // one. get_post_type_archive_link() is language-aware.
+                    $faq_archive = get_post_type_archive_link('faq');
+
                     iptv_footer_links(array(
                         array('slug' => 'blog', 'key' => 'footer_link_blog', 'label' => 'Blog',
                               'fallback' => trailingslashit($home) . 'blog/'),
                         array('slug' => 'iptv-guide-setup-apps-devices-tips', 'key' => 'footer_link_guide', 'label' => 'Setup Guide'),
                         array('slug' => 'm3u-playlist-convert-your-m3u-url', 'key' => 'footer_link_m3u', 'label' => 'M3U Converter'),
+                        array('url' => $faq_archive ? $faq_archive : '', 'key' => 'footer_link_faq', 'label' => 'FAQ'),
                         array('slug' => 'contact-us', 'key' => 'footer_link_contact', 'label' => 'Contact Us'),
                         array('url' => 'https://panel.nordictv.io/login', 'key' => 'footer_link_account', 'label' => 'My Account'),
                     ));

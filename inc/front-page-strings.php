@@ -62,6 +62,7 @@ add_action('init', function () {
     pll_register_string('footer_link_blog', 'Blog', $group);
     pll_register_string('footer_link_guide', 'Setup Guide', $group);
     pll_register_string('footer_link_m3u', 'M3U Converter', $group);
+    pll_register_string('footer_link_faq', 'FAQ', $group);
     pll_register_string('footer_link_contact', 'Contact Us', $group);
     pll_register_string('footer_link_account', 'My Account', $group);
 
@@ -69,4 +70,23 @@ add_action('init', function () {
     pll_register_string('footer_link_privacy', 'Privacy Policy', $group);
     pll_register_string('footer_link_terms', 'Terms of Service', $group);
     pll_register_string('footer_link_refund', 'Return & Refund Policy', $group);
+
+    // ── FAQ hub (archive-faq.php) ────────────────────────────────────────────
+    // The archive has no page behind it, so there is no ACF field for iptv_text()
+    // to prefer and these registrations are the only way its copy is translated.
+    // The group headings are labels for a slug-keyword grouping; renaming one
+    // here is safe, the grouping itself keys off the needle lists in the
+    // template (filter: nordictv_faq_hub_groups).
+    pll_register_string('faq_hub_title', 'IPTV questions and answers', $group);
+    pll_register_string(
+        'faq_hub_intro',
+        'Everything people ask us about IPTV — what it costs, which devices it runs on, how to set it up, and where the law stands.',
+        $group
+    );
+    pll_register_string('faq_hub_group_legal', 'Legality and safety', $group);
+    pll_register_string('faq_hub_group_price', 'Price and payment', $group);
+    pll_register_string('faq_hub_group_devices', 'Devices and apps', $group);
+    pll_register_string('faq_hub_group_setup', 'Setup and troubleshooting', $group);
+    pll_register_string('faq_hub_group_choosing', 'Choosing a provider', $group);
+    pll_register_string('faq_hub_group_other', 'More questions', $group);
 });
