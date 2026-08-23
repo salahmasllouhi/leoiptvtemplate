@@ -300,8 +300,10 @@ function nordictv_legacy_target($path)
                 true
             );
 
-        // A pruned duplicate question points at the one it duplicated. The
-        // archive itself (/faq, /sv/faq) resolves now, so it never lands here.
+        // A pruned duplicate question points at the one it duplicated. A bare
+        // /faq only reaches here when that language's archive is empty and
+        // functions.php has 404ed it, so it goes to the FAQ page instead --
+        // which exists in English and Swedish, and nowhere else.
         case 'faq':
             if (count($segments) > 1) {
                 $retired_faqs = nordictv_retired_faq_slugs();
@@ -309,9 +311,16 @@ function nordictv_legacy_target($path)
                 if (isset($retired_faqs[$slug])) {
                     return nordictv_post_url_by_slug($retired_faqs[$slug], $lang, 'faq');
                 }
+
+                return '';
             }
 
-            return '';
+            return iptv_page_url(
+                'iptv-services-faq-everything-you-need-to-know',
+                nordictv_lang_home($lang),
+                $lang,
+                true
+            );
 
         // Retired with the sport post type. /sport/* is already handled in Rank
         // Math and redirects to the same place; this covers the plural archive

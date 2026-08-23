@@ -142,6 +142,31 @@ function iptv_register_faq_post_type() {
 add_action('init', 'iptv_register_faq_post_type');
 
 /**
+ * An empty FAQ archive is not a page.
+ *
+ * The FAQ posts exist in Swedish only, so switching the archive on also
+ * created /faq, /no/faq, /dk/faq, /fi/faq and /is/faq — five indexable pages
+ * with nothing on them. Those are soft 404s, which is the very thing this
+ * change set exists to remove; trading 81 uncrawled FAQs for five empty
+ * archives would be no trade at all.
+ *
+ * Serving a real 404 keeps them out of the index and out of the sitemap, and
+ * hands them to inc/legacy-redirects.php, which sends each one to that
+ * language's FAQ page or, where there is none, to its home page.
+ */
+add_action('template_redirect', function () {
+    global $wp_query;
+
+    if (!is_post_type_archive('faq') || $wp_query->post_count > 0) {
+        return;
+    }
+
+    $wp_query->set_404();
+    status_header(404);
+    nocache_headers();
+}, 15);
+
+/**
  * Flush rewrite rules once after a deploy that changes them.
  *
  * register_post_type() adds its rules to the in-memory set but never writes
