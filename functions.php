@@ -167,6 +167,45 @@ add_action('template_redirect', function () {
 }, 15);
 
 /**
+ * Keep the redirecting FAQ archive out of the sitemap.
+ *
+ * Rank Math lists a post type archive using get_post_type_archive_link(),
+ * which returns the URL for the language the sitemap is being built in — the
+ * default one, English, which is the single language with no FAQ posts. So
+ * faq-sitemap.xml advertised /faq: a URL the rule above 404s and the redirect
+ * engine then sends elsewhere. Publishing a redirect in a sitemap is the exact
+ * defect this change set is clearing out of Search Console.
+ *
+ * Only the empty case is dropped. /sv/faq, the archive that has the 92
+ * questions, keeps its entry — and is linked from the footer besides.
+ */
+add_filter('rank_math/sitemap/entry', function ($url, $type, $object) {
+    if (empty($url['loc']) || $type !== 'post_type') {
+        return $url;
+    }
+
+    $archive = get_post_type_archive_link('faq');
+
+    if (!$archive || untrailingslashit($url['loc']) !== untrailingslashit($archive)) {
+        return $url;
+    }
+
+    // No 'lang' argument: Polylang scopes this to the language being built,
+    // which is the same test the 404 rule above applies to the request.
+    $has_faqs = new WP_Query([
+        'post_type'              => 'faq',
+        'post_status'            => 'publish',
+        'posts_per_page'         => 1,
+        'fields'                 => 'ids',
+        'no_found_rows'          => true,
+        'update_post_term_cache' => false,
+        'update_post_meta_cache' => false,
+    ]);
+
+    return empty($has_faqs->posts) ? false : $url;
+}, 10, 3);
+
+/**
  * Flush rewrite rules once after a deploy that changes them.
  *
  * register_post_type() adds its rules to the in-memory set but never writes
