@@ -86,6 +86,27 @@ add_filter('rank_math/frontend/canonical', function ($canonical) {
 });
 
 /**
+ * Which language each translation of the home page belongs to.
+ *
+ * Written out rather than read from pll_get_post_translations(), for the same
+ * reason inc/trademark-scrub.php writes them out: these pages are mis-filed in
+ * Polylang, so Polylang is the one source that cannot be trusted to name them.
+ *
+ * @return array<int,string> page ID => language slug
+ */
+function iptv_front_page_language_map()
+{
+    return apply_filters('iptv_front_page_languages', array(
+        6    => 'en',
+        419  => 'sv',
+        3179 => 'no',
+        3180 => 'dk',
+        3181 => 'fi',
+        3182 => 'is',
+    ));
+}
+
+/**
  * Send each home page's stray second URL to the real one.
  *
  * The same defect described above — a home page filed under English in
@@ -108,10 +129,6 @@ add_filter('rank_math/frontend/canonical', function ($canonical) {
  * their behaviour — this covers all six consistently and keeps the fix in
  * version control.
  *
- * The IDs are written out rather than read from pll_get_post_translations(),
- * for the same reason inc/trademark-scrub.php writes them out: the pages are
- * mis-filed, so Polylang is the one source that cannot be trusted to name them.
- *
  * The redirect is deliberately conditional on !is_front_page(). At /fi/ the
  * queried object is also 3181, and redirecting there would take the Finnish
  * home page down.
@@ -121,15 +138,7 @@ add_action('template_redirect', function () {
         return;
     }
 
-    $homes = apply_filters('iptv_front_page_languages', array(
-        6    => 'en',
-        419  => 'sv',
-        3179 => 'no',
-        3180 => 'dk',
-        3181 => 'fi',
-        3182 => 'is',
-    ));
-
+    $homes   = iptv_front_page_language_map();
     $post_id = (int) get_queried_object_id();
 
     if (!isset($homes[$post_id]) || !function_exists('pll_home_url')) {
@@ -145,6 +154,37 @@ add_action('template_redirect', function () {
     wp_redirect($target, 301);
     exit;
 }, 5);
+
+/**
+ * List each home page in the sitemap at the URL it is actually served from.
+ *
+ * The same mis-filing makes get_permalink() unstable for these six pages:
+ * Polylang only filters home_url() for a whitelist of callers, so Rank Math
+ * was publishing the Danish home as /home-4 — a URL that now 301s — while
+ * listing /fi/ and /is/ correctly. A sitemap entry that redirects is the
+ * defect being cleared, so the entry is rewritten from the same map the
+ * redirect above uses, and the two cannot disagree.
+ */
+add_filter('rank_math/sitemap/entry', function ($url, $type, $object) {
+    if (empty($url['loc']) || !is_object($object) || empty($object->ID)) {
+        return $url;
+    }
+
+    $homes   = iptv_front_page_language_map();
+    $post_id = (int) $object->ID;
+
+    if (!isset($homes[$post_id]) || !function_exists('pll_home_url')) {
+        return $url;
+    }
+
+    $home = pll_home_url($homes[$post_id]);
+
+    if ($home) {
+        $url['loc'] = $home;
+    }
+
+    return $url;
+}, 10, 3);
 
 if (!function_exists('iptv_front_page_ids')) {
     /**
