@@ -187,13 +187,25 @@ add_filter('rank_math/sitemap/post_type_archive_link', function ($link, $post_ty
         return $link;
     }
 
-    // No 'lang' argument: Polylang scopes this to the language being built,
-    // the same test the 404 rule above applies to the request.
+    // The language has to be named. Rank Math builds one sitemap for the whole
+    // site rather than one per language, and in that context Polylang does not
+    // scope the query — an unscoped count returns all 92 Swedish FAQs and the
+    // archive looks populated in every language, including the one where it is
+    // empty. So read the language out of the URL Rank Math is proposing.
+    $lang = function_exists('pll_default_language') ? pll_default_language('slug') : '';
+    $path = trim((string) wp_parse_url($link, PHP_URL_PATH), '/');
+    $head = strtok($path, '/');
+
+    if (function_exists('nordictv_lang_slugs') && in_array($head, nordictv_lang_slugs(), true)) {
+        $lang = $head;
+    }
+
     $has_faqs = new WP_Query([
         'post_type'              => 'faq',
         'post_status'            => 'publish',
         'posts_per_page'         => 1,
         'fields'                 => 'ids',
+        'lang'                   => $lang,
         'no_found_rows'          => true,
         'update_post_term_cache' => false,
         'update_post_meta_cache' => false,
