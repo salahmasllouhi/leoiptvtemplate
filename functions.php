@@ -180,7 +180,10 @@ add_action('template_redirect', function () {
  * questions, keeps its entry — and is linked from the footer besides.
  */
 add_filter('rank_math/sitemap/entry', function ($url, $type, $object) {
-    if (empty($url['loc']) || $type !== 'post_type') {
+    // Matched on the URL alone. Rank Math passes the post type name here, not
+    // a literal 'post_type', and the exact-URL comparison below is the precise
+    // test anyway — it can only ever match this one entry.
+    if (empty($url['loc'])) {
         return $url;
     }
 
