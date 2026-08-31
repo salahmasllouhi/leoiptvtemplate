@@ -10,6 +10,20 @@
 
     if (!btn || !btnText || !deviceGroup || !durationGroup) return;
 
+    // Some header/sticky CTAs use an absolute homepage URL such as
+    // "https://nordictv.io/#pricing". That navigation would otherwise replace
+    // the landing URL and drop the campaign ID before checkout is reached.
+    const landingCampaignId = new URLSearchParams(window.location.search).get('campaign_id');
+    if (landingCampaignId) {
+        document.querySelectorAll('a[href]').forEach(function (anchor) {
+            const target = new URL(anchor.href, window.location.href);
+            if (target.origin === window.location.origin && target.hash === '#pricing') {
+                target.searchParams.set('campaign_id', landingCampaignId);
+                anchor.href = target.toString();
+            }
+        });
+    }
+
     const deviceCards = Array.from(deviceGroup.querySelectorAll('[data-devices]'));
     const durationCards = Array.from(durationGroup.querySelectorAll('[data-duration]'));
 
