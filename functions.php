@@ -112,6 +112,21 @@ function my_iptv_enqueue_styles()
 }
 add_action('wp_enqueue_scripts', 'my_iptv_enqueue_styles', 20);
 
+// Campaign links may arrive on any WordPress page. Keep their campaign ID when
+// visitors use any CTA that goes to the pricing section or panel checkout.
+add_action('wp_enqueue_scripts', function () {
+    if (is_admin()) {
+        return;
+    }
+    wp_enqueue_script(
+        'iptv-campaign-attribution',
+        get_template_directory_uri() . '/front-page/js/campaign-attribution.js',
+        array(),
+        iptv_asset_version('front-page/js/campaign-attribution.js'),
+        true
+    );
+}, 20);
+
 // Register FAQ custom post type with a clean /faq/ permalink base
 function iptv_register_faq_post_type() {
     register_post_type('faq', [
