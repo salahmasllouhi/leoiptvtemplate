@@ -170,11 +170,16 @@
         setInterval(tick, 1000);
     })();
 
-    // panel.nordictv.io/checkout?connections=<1|2|3|4>&duration=<1|3|6|12>
-    // The panel derives the price from these two params - nothing else is passed.
+    // Keep a marketing campaign from the landing URL when the selected plan is
+    // sent to the panel. This is intentionally separate from referrals.
     function checkoutUrl(devices, months) {
         const base = window.iptvCheckoutBase || 'https://panel.nordictv.io/checkout';
-        return base + '?connections=' + devices + '&duration=' + months;
+        const url = new URL(base);
+        url.searchParams.set('connections', devices);
+        url.searchParams.set('duration', months);
+        const campaignId = new URLSearchParams(window.location.search).get('campaign_id');
+        if (campaignId) url.searchParams.set('campaign_id', campaignId);
+        return url.toString();
     }
 
     const ctaLabel = btnText.textContent.trim() || 'Start watching';
