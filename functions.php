@@ -829,6 +829,10 @@ require_once get_template_directory() . '/inc/trademark-scrub.php';
 // rankmathseo account's history can be audited. Delete file + line when done.
 require_once get_template_directory() . '/inc/activity-log-reader.php';
 
+// Temporary: registers German (de) with Polylang on the next request, because
+// no REST route or MCP ability can. Delete file + line once /de/ resolves.
+require_once get_template_directory() . '/inc/add-german-language.php';
+
 // Include Polylang string helpers for channel / sport / series templates.
 // sport-strings.php is not loaded: the post type it serves is retired, and
 // registering its strings would keep them in the Polylang translation UI.
