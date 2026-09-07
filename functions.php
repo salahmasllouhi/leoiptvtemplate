@@ -834,6 +834,11 @@ require_once get_template_directory() . '/inc/activity-log-reader.php';
 // inert after its build number; bump that to repair, delete both to retire it.
 require_once get_template_directory() . '/inc/german-pages-setup.php';
 
+// Assigns the Polylang language and translation groups for the six
+// competitor-brand posts, which the REST connector could not set. Inert after
+// its build number; delete both once it has run.
+require_once get_template_directory() . '/inc/competitor-posts-setup.php';
+
 // Include Polylang string helpers for channel / sport / series templates.
 // sport-strings.php is not loaded: the post type it serves is retired, and
 // registering its strings would keep them in the Polylang translation UI.
