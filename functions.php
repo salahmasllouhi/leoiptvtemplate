@@ -829,12 +829,9 @@ require_once get_template_directory() . '/inc/trademark-scrub.php';
 // rankmathseo account's history can be audited. Delete file + line when done.
 require_once get_template_directory() . '/inc/activity-log-reader.php';
 
-// Temporary: registers German (de) with Polylang on the next request, because
-// no REST route or MCP ability can. Delete file + line once /de/ resolves.
-require_once get_template_directory() . '/inc/add-german-language.php';
-
-// Temporary: creates the German copy of every page the other languages have and
-// joins each to its translation group. Delete file + line once they are live.
+// Creates the German copy of every page the other languages have, joins each to
+// its translation group, and holds the German front-page copy. Idempotent and
+// inert after its build number; bump that to repair, delete both to retire it.
 require_once get_template_directory() . '/inc/german-pages-setup.php';
 
 // Include Polylang string helpers for channel / sport / series templates.

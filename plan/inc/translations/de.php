@@ -95,7 +95,9 @@ return array(
     'Can I switch to a longer plan later?' => 'Kann ich später auf ein längeres Abo wechseln?',
     'Yes. Plenty of people start with one month and move to 6 or 12 once they have seen the service. Nothing is locked, and the longer plans cost far less per month.'
         => 'Ja. Viele starten mit einem Monat und wechseln auf 6 oder 12, sobald sie den Dienst kennen. Nichts ist festgelegt, und die längeren Abos kosten pro Monat deutlich weniger.',
-    'What do I get with the %s plan?' => 'Was bekomme ich mit %s?',
+    // The label is interpolated as-is, so the German has to put it where a
+    // nominative fits: "mit %s" would need the dative ("mit 12 Monaten").
+    'What do I get with the %s plan?' => 'Abo %s: Was ist enthalten?',
     'Everything we offer: 40,000+ live channels, 200,000+ movies and series, 4K/HD quality, the full TV guide and 24/7 support. The only thing a plan changes is how long it runs and how many screens can watch at once.'
         => 'Alles, was wir anbieten: 40.000+ Livesender, 200.000+ Filme und Serien, 4K-/HD-Qualität, die komplette Programmzeitschrift und Support rund um die Uhr. Ein Abo ändert nur, wie lange es läuft und wie viele Bildschirme gleichzeitig schauen können.',
     'How fast is my subscription activated?' => 'Wie schnell wird mein Abo aktiviert?',
@@ -115,7 +117,8 @@ return array(
         => 'Sie sind durch unsere Geld-zurück-Garantie abgesichert, und es gibt einen 24-Stunden-Test ohne Karte, falls Sie lieber vorher ausprobieren.',
 
     // ── Closing band ─────────────────────────────────────────────────────────
-    'Start your %s plan today' => 'Starten Sie heute mit %s',
+    // Same reason — "Starten Sie heute mit %s" would need "mit 12 Monaten".
+    'Start your %s plan today' => 'Jetzt %s buchen',
     'From %s. Activated in about a minute, watchable on the TV you already own.'
         => 'Ab %s. In etwa einer Minute aktiviert und auf dem Fernseher nutzbar, den Sie schon haben.',
     'Activated in about a minute, watchable on the TV you already own.'

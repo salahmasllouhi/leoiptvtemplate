@@ -33,9 +33,10 @@
  * before anything is created, so re-running repairs rather than duplicates. To
  * re-run after editing the table below, bump GERMAN_PAGES_BUILD.
  *
- * Delete this file and its require in functions.php once the German pages are
- * in place and no longer need repairing — the pages and their translation
- * groups live in the database, not here.
+ * The pages and their translation groups live in the database once this has
+ * run, so the file is inert after its build number and can be deleted along
+ * with its require in functions.php. Keeping it keeps the German copy in
+ * version control and makes a repair a one-line build bump.
  *
  * @package Nordic_IPTV
  */
