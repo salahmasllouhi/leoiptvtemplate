@@ -103,6 +103,7 @@ function iptv_front_page_language_map()
         3180 => 'dk',
         3181 => 'fi',
         3182 => 'is',
+        3411 => 'de',
     ));
 }
 

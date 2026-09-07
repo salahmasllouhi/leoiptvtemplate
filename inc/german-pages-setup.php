@@ -47,7 +47,7 @@ if (!defined('ABSPATH')) {
 // Bump to re-run after changing the table below. Re-running is safe: existing
 // pages are matched and reused, and only an *empty* German page ever has its
 // content rewritten, so nothing edited in wp-admin is overwritten.
-define('GERMAN_PAGES_BUILD', 1);
+define('GERMAN_PAGES_BUILD', 2);
 
 if (!function_exists('iptv_de_page_definitions')) {
     /**
@@ -57,8 +57,10 @@ if (!function_exists('iptv_de_page_definitions')) {
      * where the page has a keyword to bear, and only applied at creation, so
      * editing this table never moves a live URL. `copy` names a substitution
      * table in inc/german-content/; without one the English content is used.
+     * `fields` names an ACF table in the same directory, for a page whose copy
+     * is fields rather than content.
      *
-     * @return array<int,array{source:int,title:string,slug:string,copy:string}>
+     * @return array<int,array{source:int,title:string,slug:string,copy:string,fields?:string}>
      */
     function iptv_de_page_definitions()
     {
@@ -67,7 +69,7 @@ if (!function_exists('iptv_de_page_definitions')) {
             // post content, so there is nothing to substitute — see
             // inc/iptv-text.php. Joining page 6's group is what makes Polylang
             // serve this one at /de/.
-            array('source' => 6,   'title' => 'Startseite',                        'slug' => 'home-de',                      'copy' => ''),
+            array('source' => 6,   'title' => 'Startseite',                        'slug' => 'home-de',                      'copy' => '', 'fields' => 'home-fields'),
 
             array('source' => 16,  'title' => 'Über uns',                          'slug' => 'ueber-uns',                    'copy' => 'about-us'),
             array('source' => 18,  'title' => 'Kontakt',                           'slug' => 'kontakt',                      'copy' => ''),
@@ -116,6 +118,68 @@ if (!function_exists('iptv_de_translate_content')) {
     }
 }
 
+if (!function_exists('iptv_de_fill_fields')) {
+    /**
+     * Write the German front-page copy into the German home page's ACF fields.
+     *
+     * The front page keeps no post content — iptv_text() reads every heading and
+     * paragraph from an ACF field on the page being served — so the German home
+     * page is translated here rather than through the substitution tables the
+     * other pages use.
+     *
+     * Only ever fills an *empty* field, for the same reason
+     * iptv_plan_fill_acf() does: a re-run after someone has edited the page in
+     * wp-admin must not overwrite their wording. That is the whole point of the
+     * copy living in ACF rather than only in the theme.
+     *
+     * @param int    $post_id German page.
+     * @param string $table   File basename in inc/german-content/.
+     * @return int Number of fields written.
+     */
+    function iptv_de_fill_fields($post_id, $table)
+    {
+        if ($table === '' || !function_exists('update_field') || !function_exists('get_field')) {
+            return 0;
+        }
+
+        $file = get_template_directory() . '/inc/german-content/' . $table . '.php';
+
+        if (!file_exists($file)) {
+            return 0;
+        }
+
+        $written = 0;
+
+        foreach ((array) include $file as $name => $value) {
+            if ($value === '' || $value === array()) {
+                continue;
+            }
+
+            $existing = get_field($name, $post_id);
+
+            // A link field comes back as an array whose parts can all be empty;
+            // treat that as unset rather than as content someone typed.
+            if (is_array($existing)) {
+                $existing = implode('', array_filter(array_map(
+                    function ($part) {
+                        return is_scalar($part) ? (string) $part : '';
+                    },
+                    $existing
+                )));
+            }
+
+            if ($existing !== null && $existing !== '' && $existing !== false) {
+                continue; // edited in wp-admin — leave it alone
+            }
+
+            update_field($name, $value, $post_id);
+            $written++;
+        }
+
+        return $written;
+    }
+}
+
 if (!function_exists('iptv_de_build_pages')) {
     /**
      * Create anything missing, then wire the translation groups.
@@ -124,7 +188,7 @@ if (!function_exists('iptv_de_build_pages')) {
      */
     function iptv_de_build_pages()
     {
-        $summary = array('created' => 0, 'reused' => 0, 'linked' => 0, 'missing' => array());
+        $summary = array('created' => 0, 'reused' => 0, 'linked' => 0, 'fields' => 0, 'missing' => array());
 
         foreach (iptv_de_page_definitions() as $def) {
             $source = get_post($def['source']);
@@ -214,6 +278,13 @@ if (!function_exists('iptv_de_build_pages')) {
 
                 pll_save_post_translations($payload);
                 $summary['linked']++;
+            }
+
+            // The home page's copy is fields, not content. Done after the
+            // language is set, so anything reading the page's language while
+            // the fields are written gets the right answer.
+            if (!empty($def['fields'])) {
+                $summary['fields'] += iptv_de_fill_fields($post_id, $def['fields']);
             }
         }
 
