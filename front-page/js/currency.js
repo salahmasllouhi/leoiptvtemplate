@@ -10,13 +10,30 @@ function toggleFooterDropdown() {
     if (dropdown) dropdown.classList.toggle('active');
 }
 
+// A switcher key resolved to a Polylang slug.
+//
+// The options name a language now, because currency codes cannot: Finnish and
+// German are both `eur`, so keying the switcher on currency made them the same
+// option. A currency code still resolves, for anything still passing one.
+function languageSlugFor(key) {
+    if (window.nordictvLangSlug) {
+        const resolved = window.nordictvLangSlug(key);
+        if (resolved) return resolved;
+    }
+
+    const cfg = window.nordictvLang;
+    if (!cfg) return null;
+    if (cfg.byLang && cfg.byLang[key]) return key;
+    return (cfg.byCurrency && cfg.byCurrency[key]) || null;
+}
+
 // Remember the language the visitor just picked, so the next visit opens in it.
 // inc/language-preference.php reads this cookie and prints window.nordictvLang.
-function rememberLanguageChoice(currency) {
+function rememberLanguageChoice(key) {
     const cfg = window.nordictvLang;
-    if (!cfg || !cfg.byCurrency) return;
+    if (!cfg) return;
 
-    const slug = cfg.byCurrency[currency];
+    const slug = languageSlugFor(key);
     if (!slug) return;
 
     document.cookie = cfg.cookie + '=' + encodeURIComponent(slug) +
@@ -30,21 +47,16 @@ function rememberLanguageChoice(currency) {
 // translation's URL and falls back to that language's front page by itself.
 // Switching language from /sv/about-us used to drop you on /no/ rather than
 // /no/about-us, because only the language roots below were ever consulted.
-function languageTargetUrl(currency) {
-    const countryUrls = {
-        usd: '/',
-        eur: '/fi/',
-        sek: '/sv/',
-        nok: '/no/',
-        dkk: '/dk/',
-        isk: '/is/'
-    };
-
-    const translated = window.nordictvLangUrl && window.nordictvLangUrl(currency);
+function languageTargetUrl(key) {
+    const translated = window.nordictvLangUrl && window.nordictvLangUrl(key);
     if (translated) return translated;
 
-    const path = countryUrls[currency];
-    return path ? window.location.origin + path : null;
+    const slug = languageSlugFor(key);
+    if (!slug) return null;
+
+    // Polylang hides the default language's directory, so English is the root.
+    const path = slug === 'en' ? '/' : '/' + slug + '/';
+    return window.location.origin + path;
 }
 
 // The preference redirect only runs on a front page, so only guard those — no
@@ -63,11 +75,11 @@ function withLangRedirectGuard(url) {
 }
 
 // Redirect to the chosen language
-function redirectToRegion(currency) {
-    const target = languageTargetUrl(currency);
+function redirectToRegion(key) {
+    const target = languageTargetUrl(key);
     if (!target) return;
 
-    rememberLanguageChoice(currency);
+    rememberLanguageChoice(key);
     window.location.href = withLangRedirectGuard(target);
 }
 
@@ -87,67 +99,75 @@ document.addEventListener('click', function (e) {
     }
 });
 
-// Currency data — `name` is the native language label shown in the switcher,
-// `code` stays for price formatting and anything reading the currency code.
+// Currency data — `symbol`, `code` and `position` format a price. The label the
+// switcher shows lives in langData below: a currency cannot name a language,
+// because Finnish and German share the euro.
 const currencyData = {
-    usd: { symbol: '$', flag: '🇺🇸', code: 'USD', name: 'English', position: 'before' },
-    eur: { symbol: '€', flag: '🇫🇮', code: 'EUR', name: 'Suomi', position: 'before' },
-    sek: { symbol: 'kr', flag: '🇸🇪', code: 'SEK', name: 'Svenska', position: 'after' },
-    nok: { symbol: 'kr', flag: '🇳🇴', code: 'NOK', name: 'Norsk', position: 'after' },
-    dkk: { symbol: 'kr', flag: '🇩🇰', code: 'DKK', name: 'Dansk', position: 'after' },
-    isk: { symbol: 'kr', flag: '🇮🇸', code: 'ISK', name: 'Íslenska', position: 'after' }
+    usd: { symbol: '$', code: 'USD', position: 'before' },
+    eur: { symbol: '€', code: 'EUR', position: 'before' },
+    sek: { symbol: 'kr', code: 'SEK', position: 'after' },
+    nok: { symbol: 'kr', code: 'NOK', position: 'after' },
+    dkk: { symbol: 'kr', code: 'DKK', position: 'after' },
+    isk: { symbol: 'kr', code: 'ISK', position: 'after' }
 };
 
-// URL mappings for each currency/country
-const countryUrls = {
-    usd: '/',
-    eur: '/fi/',
-    sek: '/sv/',
-    nok: '/no/',
-    dkk: '/dk/',
-    isk: '/is/'
+// One entry per Polylang language: the switcher label, and the currency that
+// language prices in. Mirrors nordictv_currency_by_lang() in PHP.
+const langData = {
+    en: { flag: '🇺🇸', name: 'English', currency: 'usd' },
+    sv: { flag: '🇸🇪', name: 'Svenska', currency: 'sek' },
+    no: { flag: '🇳🇴', name: 'Norsk', currency: 'nok' },
+    dk: { flag: '🇩🇰', name: 'Dansk', currency: 'dkk' },
+    fi: { flag: '🇫🇮', name: 'Suomi', currency: 'eur' },
+    is: { flag: '🇮🇸', name: 'Íslenska', currency: 'isk' },
+    de: { flag: '🇩🇪', name: 'Deutsch', currency: 'eur' }
 };
 
-// Get default currency from URL path or localStorage
-// Get default currency from URL path
+// Detect the language being served from the URL. Polylang hides the default
+// language's directory, so a path with no language segment is English.
+function getCurrentLangFromUrl() {
+    const first = window.location.pathname.split('/')[1];
+    return langData[first] ? first : 'en';
+}
+
+// Kept because the pricing code asks in currency, not in language.
+function getCurrentCurrencyFromUrl() {
+    return langData[getCurrentLangFromUrl()].currency;
+}
+
 function getDefaultCurrency() {
     return getCurrentCurrencyFromUrl();
 }
 
-// Detect current currency from URL
-function getCurrentCurrencyFromUrl() {
-    const currentPath = window.location.pathname;
-    if (currentPath.startsWith('/sv')) return 'sek';
-    if (currentPath.startsWith('/no')) return 'nok';
-    if (currentPath.startsWith('/dk')) return 'dkk';
-    if (currentPath.startsWith('/fi')) return 'eur';
-    if (currentPath.startsWith('/is')) return 'isk';
-    return 'usd';
-}
+// Update the switcher label and the prices for one language.
+function setLanguage(slug) {
+    const lang = langData[slug];
+    if (!lang) return;
 
-// Update UI and prices for selected currency
-function setCurrency(currency) {
-    const data = currencyData[currency];
-    if (!data) return;
-
-    // Update header dropdown
     const headerFlag = document.getElementById('selectedFlag');
     const headerCode = document.getElementById('selectedCode');
-    if (headerFlag) headerFlag.textContent = data.flag;
-    if (headerCode) headerCode.textContent = data.name;
+    if (headerFlag) headerFlag.textContent = lang.flag;
+    if (headerCode) headerCode.textContent = lang.name;
 
-    // Update footer dropdown
     const footerFlag = document.getElementById('footerSelectedFlag');
     const footerCode = document.getElementById('footerSelectedCode');
-    if (footerFlag) footerFlag.textContent = data.flag;
-    if (footerCode) footerCode.textContent = data.name;
+    if (footerFlag) footerFlag.textContent = lang.flag;
+    if (footerCode) footerCode.textContent = lang.name;
 
     document.querySelectorAll('.country-option').forEach(opt => {
         opt.classList.remove('selected');
-        if (opt.dataset.currency === currency) {
+        if ((opt.dataset.lang || opt.dataset.currency) === slug) {
             opt.classList.add('selected');
         }
     });
+
+    setCurrency(lang.currency);
+}
+
+// Update prices for a currency. The switcher label is set by setLanguage().
+function setCurrency(currency) {
+    const data = currencyData[currency];
+    if (!data) return;
 
     window.currentCurrency = currency;
     updateAllPrices();
@@ -159,21 +179,23 @@ function setCurrency(currency) {
     if (footerDropdown) footerDropdown.classList.remove('active');
 }
 
-// Footer currency setter (syncs with header)
-function setFooterCurrency(currency) {
-    const currentCurrency = getCurrentCurrencyFromUrl();
+// Footer switcher (syncs with header). Takes a language slug; a currency code
+// still resolves, for any markup not yet carrying data-lang.
+function setFooterCurrency(key) {
+    const slug = languageSlugFor(key);
+    if (!slug) return;
 
     // Same as the header switcher: this is a deliberate choice, so record it.
-    rememberLanguageChoice(currency);
+    rememberLanguageChoice(slug);
 
-    if (currency !== currentCurrency) {
-        const target = languageTargetUrl(currency);
+    if (slug !== getCurrentLangFromUrl()) {
+        const target = languageTargetUrl(slug);
         if (target) {
             window.location.href = withLangRedirectGuard(target);
             return;
         }
     }
-    setCurrency(currency);
+    setLanguage(slug);
 }
 
 // Update all prices based on selected device count and currency
@@ -238,25 +260,26 @@ document.addEventListener('DOMContentLoaded', function () {
         option.addEventListener('click', function (e) {
             e.preventDefault(); // Prevent default link behavior to ensure storage save
 
-            const currency = this.dataset.currency;
+            // data-lang names the language; data-currency is the price
+            // currency and is only a fallback for markup without data-lang.
+            const slug = languageSlugFor(this.dataset.lang || this.dataset.currency);
+            if (!slug) return;
 
             // This is the visitor choosing — remember it for next time.
-            rememberLanguageChoice(currency);
+            rememberLanguageChoice(slug);
 
-            const currentCurrency = htmlCurrentCurrency(); // Helper to safely get current
-            const target = languageTargetUrl(currency);
+            const target = languageTargetUrl(slug);
 
-            if (currency !== currentCurrency && target) {
+            if (slug !== getCurrentLangFromUrl() && target) {
                 window.location.href = withLangRedirectGuard(target);
             } else {
-                setCurrency(currency);
+                setLanguage(slug);
             }
         });
     });
 
-    // Set default currency based on current URL
-    const defaultCurrency = getDefaultCurrency();
-    setCurrency(defaultCurrency);
+    // Label and prices follow the language this URL is serving.
+    setLanguage(getCurrentLangFromUrl());
 });
 
 function htmlCurrentCurrency() {

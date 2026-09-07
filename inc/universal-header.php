@@ -53,31 +53,27 @@ include get_template_directory() . '/front-page/sections/header.php';
         }
     });
 
-    // Redirect to region subsite (syncs with currency.js)
-    function redirectToRegion(currency) {
-        const countryUrls = {
-            usd: '/',
-            eur: '/fi/',
-            sek: '/sv/',
-            nok: '/no/',
-            dkk: '/dk/',
-            isk: '/is/'
-        };
-
+    // Redirect to the chosen language (syncs with currency.js).
+    //
+    // The argument is a Polylang slug. A currency code still resolves, through
+    // window.nordictvLangSlug — but it cannot tell Finnish from German, which
+    // is why the switcher markup names languages now.
+    function redirectToRegion(key) {
         // Remember the choice for next visit. window.nordictvLang is printed
         // by inc/language-preference.php, which also reads the cookie back.
         const cfg = window.nordictvLang;
-        if (cfg && cfg.byCurrency && cfg.byCurrency[currency]) {
-            document.cookie = cfg.cookie + '=' + encodeURIComponent(cfg.byCurrency[currency]) +
+        const slug = window.nordictvLangSlug ? window.nordictvLangSlug(key) : key;
+        if (!slug) return;
+
+        if (cfg && cfg.cookie) {
+            document.cookie = cfg.cookie + '=' + encodeURIComponent(slug) +
                 ';path=/;max-age=' + (cfg.days * 24 * 60 * 60) + ';samesite=lax';
         }
 
         // This page's counterpart in the chosen language, not the language root.
-        let target = window.nordictvLangUrl && window.nordictvLangUrl(currency);
+        let target = window.nordictvLangUrl && window.nordictvLangUrl(slug);
         if (!target) {
-            const path = countryUrls[currency];
-            if (!path) return;
-            target = window.location.origin + path;
+            target = window.location.origin + (slug === 'en' ? '/' : '/' + slug + '/');
         }
 
         let isRoot = false;

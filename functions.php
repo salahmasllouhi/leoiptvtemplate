@@ -833,6 +833,10 @@ require_once get_template_directory() . '/inc/activity-log-reader.php';
 // no REST route or MCP ability can. Delete file + line once /de/ resolves.
 require_once get_template_directory() . '/inc/add-german-language.php';
 
+// Temporary: creates the German copy of every page the other languages have and
+// joins each to its translation group. Delete file + line once they are live.
+require_once get_template_directory() . '/inc/german-pages-setup.php';
+
 // Include Polylang string helpers for channel / sport / series templates.
 // sport-strings.php is not loaded: the post type it serves is retired, and
 // registering its strings would keep them in the Polylang translation UI.

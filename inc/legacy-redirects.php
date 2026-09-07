@@ -6,9 +6,10 @@
  * they are the URL space of the site that stood here before this theme, still
  * being crawled and still earning clicks. Four things produced them.
  *
- *   1. Languages that no longer exist — /de/, /es/, /fr/, /pt/, /nl/, and /da/,
- *      which was Danish before it became /dk/. /de alone still takes 32 clicks
- *      a quarter into a 404.
+ *   1. Languages that no longer exist — /es/, /fr/, /pt/ and /nl/ — plus /da/,
+ *      which was Danish before it became /dk/. /de/ was on this list too, and
+ *      was taking 32 clicks a quarter into a 404; it is a live language again,
+ *      so those clicks now land on the German page they asked for.
  *   2. WooCommerce, now uninstalled, taking /product/, /produkt/ and
  *      /product-category/ with it. The four plan pages replaced those products.
  *   3. A /setup-guides/ section whose posts moved to the blog under the same
@@ -41,8 +42,14 @@ if (!defined('ABSPATH')) {
 /**
  * Retired language prefixes, and the live language each one should land in.
  *
- * /da/ is the old Danish prefix and has a real destination. The other five are
+ * /da/ is the old Danish prefix and has a real destination. The other four are
  * languages the site dropped entirely, so English is the only honest target.
+ *
+ * 'de' is deliberately absent: German is a live language again. The live-slug
+ * branch in nordictv_legacy_target() is tested first and would shadow an entry
+ * here anyway, so leaving one would only mislead the next reader — and, if
+ * German were ever disabled without this file being revisited, would quietly
+ * start sending German URLs to the English home instead.
  *
  * @return array<string,string> retired prefix => live language slug
  */
@@ -50,7 +57,6 @@ function nordictv_retired_lang_prefixes()
 {
     return apply_filters('nordictv_retired_lang_prefixes', array(
         'da' => 'dk',
-        'de' => 'en',
         'es' => 'en',
         'fr' => 'en',
         'nl' => 'en',
@@ -249,7 +255,7 @@ function nordictv_legacy_target($path)
         $matched = true;
     }
 
-    // The prefix was the whole URL — /de, /da.
+    // The prefix was the whole URL — /da, /fr.
     if (empty($segments)) {
         return $matched ? nordictv_lang_home($lang) : '';
     }
@@ -281,7 +287,7 @@ function nordictv_legacy_target($path)
 
         // The guides moved to the blog keeping their slugs, so a named guide
         // resolves exactly. The bare section goes to the User guide page --
-        // "iptv-guide-setup-apps-devices-tips", live in all six languages --
+        // "iptv-guide-setup-apps-devices-tips", live in every language --
         // rather than the blog index: it is the closer topical match for
         // /setup-guides, and it avoids the Swedish blog index, which is
         // currently broken (see the note in the file header).
@@ -350,7 +356,7 @@ function nordictv_legacy_target($path)
         }
     }
 
-    // Under a retired prefix, try the tail as a page slug — /de/about-us has a
+    // Under a retired prefix, try the tail as a page slug — /fr/about-us has a
     // live English counterpart — and fall back to that language's home.
     if ($matched) {
         return iptv_page_url($slug, nordictv_lang_home($lang), $lang, true);

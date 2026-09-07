@@ -64,11 +64,37 @@ function nordictv_lang_slugs()
 }
 
 /**
+ * The currency each language prices in.
+ *
+ * This is the authoritative pairing, and it is keyed by language rather than by
+ * currency because the relationship is many-to-one: Finnish and German both
+ * price in euros. Keying it the other way — as nordictv_lang_by_currency() did
+ * on its own — cannot express that, and array_flip()ing it silently dropped
+ * whichever of the two came first.
+ *
+ * @return array<string,string> language slug => currency code
+ */
+function nordictv_currency_by_lang()
+{
+    return apply_filters('nordictv_currency_by_lang', array(
+        'en' => 'usd',
+        'sv' => 'sek',
+        'no' => 'nok',
+        'dk' => 'dkk',
+        'fi' => 'eur',
+        'is' => 'isk',
+        'de' => 'eur',
+    ));
+}
+
+/**
  * Which language each currency in the switcher corresponds to.
  *
- * The switcher is built around currencies, the redirect around Polylang slugs,
- * so the two need reconciling somewhere. Doing it here rather than in JS keeps
- * one source of truth, and lets the pairs be filtered.
+ * The switcher used to be built around currencies and the redirect around
+ * Polylang slugs, so the two needed reconciling somewhere. The switcher now
+ * names languages directly (see nordictv_lang_for_key()), and this survives as
+ * the fallback for a currency key: it answers "if all I know is `eur`, which
+ * language did the visitor mean?" with the language that had it first.
  *
  * Entries whose language is not active in Polylang are dropped, so disabling a
  * language in wp-admin is enough to take it out of circulation.
@@ -77,14 +103,17 @@ function nordictv_lang_slugs()
  */
 function nordictv_lang_by_currency()
 {
-    $map = apply_filters('nordictv_lang_by_currency', array(
-        'usd' => 'en',
-        'sek' => 'sv',
-        'nok' => 'no',
-        'dkk' => 'dk',
-        'eur' => 'fi',
-        'isk' => 'is',
-    ));
+    $map = array();
+
+    // First language claiming a currency keeps it, so German does not take the
+    // euro away from Finnish for visitors arriving with only a currency code.
+    foreach (nordictv_currency_by_lang() as $slug => $currency) {
+        if (!isset($map[$currency])) {
+            $map[$currency] = $slug;
+        }
+    }
+
+    $map = apply_filters('nordictv_lang_by_currency', $map);
 
     $active = nordictv_lang_slugs();
     if (empty($active)) {
@@ -94,6 +123,33 @@ function nordictv_lang_by_currency()
     return array_filter($map, function ($slug) use ($active) {
         return in_array($slug, $active, true);
     });
+}
+
+/**
+ * Resolve a switcher key to a language slug.
+ *
+ * The switcher's options carry a language slug now, but the currency codes they
+ * used to carry are still in circulation — in the footer switcher, in anything
+ * cached, and in a bookmarked ?set_lang. Both are accepted: a key that names an
+ * active language is that language, anything else is looked up as a currency.
+ *
+ * @param string $key Language slug or currency code.
+ * @return string Language slug, or '' if the key names neither.
+ */
+function nordictv_lang_for_key($key)
+{
+    $key    = sanitize_key($key);
+    $active = nordictv_lang_slugs();
+
+    if ($key && (empty($active) || in_array($key, $active, true))) {
+        if (isset(nordictv_currency_by_lang()[$key])) {
+            return $key;
+        }
+    }
+
+    $by_currency = nordictv_lang_by_currency();
+
+    return isset($by_currency[$key]) ? $by_currency[$key] : '';
 }
 
 /**
@@ -275,6 +331,7 @@ add_action('wp_head', function () {
         'current'    => function_exists('pll_current_language') ? pll_current_language('slug') : '',
         'slugs'      => array_values(nordictv_lang_slugs()),
         'byCurrency' => (object) nordictv_lang_by_currency(),
+        'byLang'     => (object) nordictv_currency_by_lang(),
         'urls'       => (object) $urls,
     );
 
@@ -282,9 +339,17 @@ add_action('wp_head', function () {
 
     // Shared by both copies of the switcher — front-page/js/currency.js and the
     // inline one in inc/universal-header.php — so they cannot drift apart again.
-    echo 'window.nordictvLangUrl=function(c){'
-        . 'var g=window.nordictvLang;if(!g||!g.byCurrency)return null;'
-        . 'var s=g.byCurrency[c];if(!s)return null;'
+    //
+    // The argument is a language slug now; a currency code still resolves,
+    // through the same fallback nordictv_lang_for_key() applies in PHP.
+    echo 'window.nordictvLangSlug=function(k){'
+        . 'var g=window.nordictvLang;if(!g)return null;'
+        . 'if(g.byLang&&g.byLang[k])return k;'
+        . 'return (g.byCurrency&&g.byCurrency[k])||null;};';
+
+    echo 'window.nordictvLangUrl=function(k){'
+        . 'var g=window.nordictvLang;if(!g)return null;'
+        . 'var s=window.nordictvLangSlug(k);if(!s)return null;'
         . 'return (g.urls&&g.urls[s])||null;};';
 
     echo '</script>' . "\n";

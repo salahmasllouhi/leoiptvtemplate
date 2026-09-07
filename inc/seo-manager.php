@@ -24,6 +24,7 @@ class Theme_SEO_Manager
         'dk' => 'da-DK',  // Danish
         'fi' => 'fi-FI',  // Finnish
         'is' => 'is-IS',  // Icelandic
+        'de' => 'de-DE',  // German
     );
 
     /**

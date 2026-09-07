@@ -49,7 +49,7 @@ function iptv_trademark_content_map()
  * Per-home-page meta replacements.
  *
  * Keyed by post ID because the copy is translated: the same field holds a
- * different sentence on each of the six home pages, so a single global map
+ * different sentence on each of the home pages, so a single global map
  * cannot express it. Every meta row on the page is swept, which picks up
  * repeater rows (reviews_list_1_review_text and friends) without this file
  * needing to know ACF's flattened key naming.

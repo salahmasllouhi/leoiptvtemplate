@@ -2,8 +2,8 @@
 /**
  * Plan pages — one-time provisioning
  *
- * Creates the four plan pages in each of the six languages (24 in total),
- * assigns each its Polylang language and links the six versions of each plan
+ * Creates the four plan pages in each of the seven languages (28 in total),
+ * assigns each its Polylang language and links the seven versions of each plan
  * as translations of one another.
  *
  * Why this lives in the theme rather than being done over the REST API: a
@@ -33,7 +33,7 @@ if (!defined('ABSPATH')) {
 // Bump to re-run after changing the titles or slugs below. Re-running is safe:
 // existing pages are matched and reused, so only the language, translation
 // group and plan length are rewritten — never the status or the content.
-define('PLAN_PAGES_BUILD', 3);
+define('PLAN_PAGES_BUILD', 4);
 
 if (!function_exists('iptv_plan_page_definitions')) {
     /**
@@ -88,6 +88,14 @@ if (!function_exists('iptv_plan_page_definitions')) {
                 3  => array('title' => 'IPTV áskrift 3 mánuðir', 'slug' => 'iceland-iptv', 'label' => '3 mánuðir'),
                 6  => array('title' => 'IPTV áskrift 6 mánuðir', 'slug' => 'smart-iptv', 'label' => '6 mánuðir'),
                 12 => array('title' => 'IPTV áskrift 12 mánuðir', 'slug' => 'sjonvarp-simans-askrift', 'label' => '12 mánuðir'),
+            ),
+            // German slugs carry the plan length as well as the keyword, which
+            // is the shape the live URLs settled on in the other languages.
+            'de' => array(
+                1  => array('title' => 'IPTV Abo 1 Monat', 'slug' => '1-monat-iptv-abo', 'label' => '1 Monat'),
+                3  => array('title' => 'IPTV Abo 3 Monate', 'slug' => '3-monate-iptv-deutschland', 'label' => '3 Monate'),
+                6  => array('title' => 'IPTV Abo 6 Monate', 'slug' => '6-monate-bestes-iptv', 'label' => '6 Monate'),
+                12 => array('title' => 'IPTV Abo 12 Monate', 'slug' => '12-monate-nordic-iptv', 'label' => '12 Monate'),
             ),
         );
     }
@@ -354,7 +362,7 @@ if (!function_exists('iptv_plan_build_pages')) {
             }
         }
 
-        // Link each plan's six versions as translations of one another. This is
+        // Link each plan's seven versions as translations of one another. This is
         // the step that cannot be done safely from outside WordPress.
         if (function_exists('pll_save_post_translations')) {
             foreach ($groups as $translations) {

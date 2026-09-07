@@ -164,9 +164,11 @@ if (!function_exists('iptv_plan_currency')) {
 
         $currency = 'usd';
 
-        if (function_exists('pll_current_language') && function_exists('nordictv_lang_by_currency')) {
+        // Keyed by language, not by array_flip()ing the currency map: Finnish
+        // and German both price in euros, and the flip kept only one of them.
+        if (function_exists('pll_current_language') && function_exists('nordictv_currency_by_lang')) {
             $lang = pll_current_language('slug');
-            $map  = array_flip(nordictv_lang_by_currency()); // slug => currency
+            $map  = nordictv_currency_by_lang(); // slug => currency
             if ($lang && isset($map[$lang])) {
                 $currency = $map[$lang];
                 return $currency;

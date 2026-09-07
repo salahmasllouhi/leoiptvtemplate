@@ -31,12 +31,13 @@
                             </svg>
                         </button>
                         <div class="footer-country-dropdown" id="footerCountryDropdown">
-                            <div class="footer-country-option" onclick="setFooterCurrency('usd')">🇺🇸 English</div>
-                            <div class="footer-country-option" onclick="setFooterCurrency('sek')">🇸🇪 Svenska</div>
-                            <div class="footer-country-option" onclick="setFooterCurrency('nok')">🇳🇴 Norsk</div>
-                            <div class="footer-country-option" onclick="setFooterCurrency('dkk')">🇩🇰 Dansk</div>
-                            <div class="footer-country-option" onclick="setFooterCurrency('eur')">🇫🇮 Suomi</div>
-                            <div class="footer-country-option" onclick="setFooterCurrency('isk')">🇮🇸 Íslenska</div>
+                            <div class="footer-country-option" onclick="setFooterCurrency('en')">🇺🇸 English</div>
+                            <div class="footer-country-option" onclick="setFooterCurrency('sv')">🇸🇪 Svenska</div>
+                            <div class="footer-country-option" onclick="setFooterCurrency('no')">🇳🇴 Norsk</div>
+                            <div class="footer-country-option" onclick="setFooterCurrency('dk')">🇩🇰 Dansk</div>
+                            <div class="footer-country-option" onclick="setFooterCurrency('fi')">🇫🇮 Suomi</div>
+                            <div class="footer-country-option" onclick="setFooterCurrency('is')">🇮🇸 Íslenska</div>
+                            <div class="footer-country-option" onclick="setFooterCurrency('de')">🇩🇪 Deutsch</div>
                         </div>
                     </div>
                 </div>

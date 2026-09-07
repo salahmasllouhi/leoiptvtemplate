@@ -7,7 +7,7 @@
  *
  * The cards come from the `contact_cards` ACF repeater on the front page, which
  * Polylang resolves per language, so one shortcode renders correctly translated
- * cards on all six Contact pages. Pasting the markup into each page's content
+ * cards on all seven Contact pages. Pasting the markup into each page's content
  * would have meant six copies to keep in step.
  *
  * Usage in a page: [nordictv_contact]

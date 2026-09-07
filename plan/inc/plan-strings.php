@@ -3,7 +3,7 @@
  * Plan template — Polylang string registration
  *
  * The theme ships no .mo files and never calls load_theme_textdomain(), so a
- * __() in a template renders English in all six languages. Every string a plan
+ * __() in a template renders English in every language. Every string a plan
  * page can print is therefore registered with Polylang instead, exactly as
  * sport/inc/sport-strings.php does, and shows up under
  * Languages → String translations (where AutoPoly can also reach it).

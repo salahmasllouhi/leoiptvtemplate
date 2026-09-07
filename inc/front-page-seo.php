@@ -126,7 +126,7 @@ function iptv_front_page_language_map()
  * /home-2 and /home-4, the Norwegian and Danish equivalents, were fixed with
  * Rank Math redirect rules; Finnish and Icelandic were missed. Rank Math runs
  * on `wp`, before this, so those two rules still win and nothing here changes
- * their behaviour — this covers all six consistently and keeps the fix in
+ * their behaviour — this covers every language consistently and keeps the fix in
  * version control.
  *
  * The redirect is deliberately conditional on !is_front_page(). At /fi/ the
