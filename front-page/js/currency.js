@@ -135,10 +135,6 @@ function getCurrentCurrencyFromUrl() {
     return langData[getCurrentLangFromUrl()].currency;
 }
 
-function getDefaultCurrency() {
-    return getCurrentCurrencyFromUrl();
-}
-
 // Update the switcher label and the prices for one language.
 function setLanguage(slug) {
     const lang = langData[slug];

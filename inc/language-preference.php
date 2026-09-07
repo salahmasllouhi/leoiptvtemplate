@@ -209,13 +209,17 @@ function nordictv_stored_language()
 
 /**
  * ?set_lang=sv — the no-JavaScript way to record a choice.
+ *
+ * Resolved through nordictv_lang_for_key() so a currency code works here too:
+ * the switcher named currencies until German arrived, and a bookmarked or
+ * shared ?set_lang=eur should keep doing what it did.
  */
 add_action('init', function () {
     if (empty($_GET['set_lang'])) {
         return;
     }
 
-    nordictv_remember_language(wp_unslash($_GET['set_lang']));
+    nordictv_remember_language(nordictv_lang_for_key(wp_unslash($_GET['set_lang'])));
 });
 
 /**
