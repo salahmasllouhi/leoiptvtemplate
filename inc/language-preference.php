@@ -356,6 +356,27 @@ add_action('wp_head', function () {
         . 'var s=window.nordictvLangSlug(k);if(!s)return null;'
         . 'return (g.urls&&g.urls[s])||null;};';
 
+    // Take the guard back out of the address bar.
+    //
+    // The switcher appends ?nolangredirect=1 when it sends you to a language
+    // root, so the preference redirect above cannot fight the click. By the
+    // time this runs that request is served and the parameter has done its
+    // whole job — leaving it visible only gives the visitor an odd URL to
+    // bookmark or share, and gives the page cache a second key for a page it
+    // already holds.
+    //
+    // It does mean a manual reload is no longer guarded. That is the correct
+    // trade: the guard was only ever good for the one navigation it was
+    // attached to, since any *other* route back to the front page carries no
+    // parameter either. If the cookie write really did fail, the visitor gets
+    // bounced on their next front-page visit regardless of this line.
+    echo 'try{var u=new URL(window.location.href);'
+        . 'if(u.searchParams.has("nolangredirect")){'
+        . 'u.searchParams.delete("nolangredirect");'
+        . 'var q=u.searchParams.toString();'
+        . 'window.history.replaceState(null,"",u.pathname+(q?"?"+q:"")+u.hash);'
+        . '}}catch(e){}';
+
     echo '</script>' . "\n";
 }, 5);
 
