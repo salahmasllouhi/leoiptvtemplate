@@ -79,7 +79,7 @@ return array(
         => 'Sobald Ihre Zahlung bestätigt ist, gehen Ihre vollständigen Zugangsdaten – Benutzername, Passwort und M3U-Playlist-URL – direkt an Ihre angegebene E-Mail-Adresse. In der Regel dauert das nur wenige Minuten, in Ausnahmefällen zu Spitzenzeiten bis zu 8 Stunden. Schauen Sie bitte auch im Spam-Ordner nach. Danach folgen Sie einfach unserer ausführlichen',
     'setup guide' => 'Einrichtungsanleitung',
     'to configure your device and start streaming immediately.'
-        => ', richten Ihr Gerät ein und legen sofort los.',
+        => 'und richten Ihr Gerät ein, um sofort loszulegen.',
 
     'Do You Offer Sports and Premium Channels?'
         => 'Bieten Sie Sport- und Premiumsender an?',
@@ -105,14 +105,14 @@ return array(
         => 'Wie erreiche ich den Kundenservice?',
     'Our dedicated customer support team is available around the clock, 24 hours a day, 7 days a week to assist you with any questions or technical issues. You can reach us through our'
         => 'Unser Support-Team ist rund um die Uhr für Sie da, 24 Stunden am Tag, 7 Tage die Woche – bei Fragen ebenso wie bei technischen Problemen. Am schnellsten erreichen Sie uns über unsere',
-    'Contact Us' => 'Kontakt',
+    'Contact Us' => 'Kontaktseite',
     'page for the fastest response, or email us directly at'
-        => '-Seite oder direkt per E-Mail an',
+        => 'oder direkt per E-Mail an',
     'For quick answers to common questions and helpful tutorials, browse our'
         => 'Schnelle Antworten auf häufige Fragen und hilfreiche Anleitungen finden Sie in unserem',
     'blog' => 'Blog',
     'which features tips, troubleshooting guides, and streaming optimization advice.'
-        => ' mit Tipps, Hilfestellungen bei Störungen und Ratschlägen zur Streaming-Optimierung.',
+        => 'mit Tipps, Hilfestellungen bei Störungen und Ratschlägen zur Streaming-Optimierung.',
 
     'Can I Become a NordicTV Reseller?'
         => 'Kann ich NordicTV-Reseller werden?',
@@ -122,7 +122,7 @@ return array(
     'directly or email our partnership team at'
         => 'direkt oder schreiben Sie unserem Partnerteam an',
     'to learn more about reseller pricing, panel access, and partnership opportunities.'
-        => ', um mehr über Reseller-Preise, Panel-Zugang und Partnerschaften zu erfahren.',
+        => 'und erfahren mehr über Reseller-Preise, Panel-Zugang und Partnerschaften.',
 
     // ── Links: keep a German reader in the German tree ───────────────────────
     'https://nordictv.io/#features'   => 'https://nordictv.io/de/#features',
