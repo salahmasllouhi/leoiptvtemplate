@@ -20,7 +20,29 @@ if (!defined('ABSPATH')) {
 }
 
 /** Bump to re-run after a partial failure. */
-define('COMPETITOR_POSTS_BUILD', 1);
+define('COMPETITOR_POSTS_BUILD', 2);
+
+/**
+ * The Blog category, one term per language.
+ *
+ * Polylang translates categories on this install: that is why `user-guide`
+ * exists twice, once English and once Swedish. A Swedish post cannot carry an
+ * English term, so Blog needs a term per language, and the terms need linking
+ * to each other so the category survives the language switcher.
+ *
+ * The terms were created over REST, which left them with no language, exactly
+ * as it left the posts.
+ */
+function iptv_competitor_blog_terms()
+{
+    return array(
+        'en' => 350,
+        'fi' => 352,
+        'sv' => 354,
+        'no' => 356,
+        'de' => 358,
+    );
+}
 
 /**
  * The posts, by ID, with the language each one was written in.
@@ -66,12 +88,42 @@ function iptv_competitor_post_groups()
 function iptv_competitor_assign_languages()
 {
     $summary = array(
-        'assigned' => 0,
-        'linked'   => 0,
-        'skipped'  => array(),
+        'assigned'     => 0,
+        'linked'       => 0,
+        'terms_langed' => 0,
+        'categorised'  => 0,
+        'skipped'      => array(),
     );
 
     $known = (array) pll_languages_list(array('fields' => 'slug'));
+
+    // Language the Blog terms first, so the category is already in the right
+    // language by the time a post is assigned to it. Assigning a term with no
+    // language would leave the post looking uncategorised in every language.
+    $terms   = iptv_competitor_blog_terms();
+    $payload = array();
+
+    foreach ($terms as $lang => $term_id) {
+        if (!in_array($lang, $known, true)) {
+            $summary['skipped'][] = "blog term/$lang: language not registered";
+            continue;
+        }
+
+        if (!term_exists($term_id, 'category')) {
+            $summary['skipped'][] = "blog term/$lang: term $term_id not found";
+            continue;
+        }
+
+        if (function_exists('pll_set_term_language')) {
+            pll_set_term_language($term_id, $lang);
+            $payload[$lang] = (int) $term_id;
+            $summary['terms_langed']++;
+        }
+    }
+
+    if (count($payload) > 1 && function_exists('pll_save_term_translations')) {
+        pll_save_term_translations($payload);
+    }
 
     foreach (iptv_competitor_post_groups() as $slug => $group) {
         $payload = array();
@@ -93,6 +145,14 @@ function iptv_competitor_assign_languages()
             pll_set_post_language($post_id, $lang);
             $payload[$lang] = (int) $post_id;
             $summary['assigned']++;
+
+            // Replace rather than append: these posts were created over REST
+            // with no category, so WordPress fell back to Uncategorized, and
+            // appending would leave that sitting alongside Blog.
+            if (isset($terms[$lang]) && term_exists($terms[$lang], 'category')) {
+                wp_set_post_terms($post_id, array((int) $terms[$lang]), 'category', false);
+                $summary['categorised']++;
+            }
         }
 
         // A single-language group needs no linking, and passing one member to
