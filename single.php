@@ -83,7 +83,23 @@
             <div class="post-layout">
                 <article class="post-content">
                     <?php if (has_post_thumbnail()): ?>
-                        <img src="<?php the_post_thumbnail_url('large'); ?>" alt="<?php the_title_attribute(); ?>"
+                        <?php
+                        // The attachment's own alt text describes the picture; the
+                        // post title only describes the article, and using it here
+                        // threw away whatever was written in the media library.
+                        // Fall back to the title so the attribute is never empty.
+                        $featured_alt = trim((string) get_post_meta(
+                            get_post_thumbnail_id(),
+                            '_wp_attachment_image_alt',
+                            true
+                        ));
+
+                        if ($featured_alt === '') {
+                            $featured_alt = get_the_title();
+                        }
+                        ?>
+                        <img src="<?php the_post_thumbnail_url('large'); ?>"
+                            alt="<?php echo esc_attr($featured_alt); ?>"
                             class="post-featured-image">
                     <?php endif; ?>
 
