@@ -168,13 +168,25 @@ if (!function_exists('iptv_plan_followed_domains')) {
      * "Nofollow Exclude Domains" setting, which is what the editor's content
      * analysis reads. Keep this array as the single place a domain is added.
      *
-     * @return string[] Host suffixes, matched against the link's host.
+     * Rank Math compares its exclude list against the link's **full host** with
+     * in_array(..., true), so "wikipedia.org" never matches "en.wikipedia.org"
+     * and the whole list silently does nothing. Every hostname we actually link
+     * to therefore has to be listed in full, one line per language edition. The
+     * bare "wikipedia.org" is kept for the suffix match below, which is what the
+     * plan-page filter uses.
+     *
+     * @return string[] Hosts, plus suffixes for the filter's own matching.
      */
     function iptv_plan_followed_domains()
     {
         return apply_filters('iptv_plan_followed_domains', array(
             'ayoplayer.com',
             'wikipedia.org',
+            'de.wikipedia.org',
+            'en.wikipedia.org',
+            'fi.wikipedia.org',
+            'no.wikipedia.org',
+            'sv.wikipedia.org',
         ));
     }
 }

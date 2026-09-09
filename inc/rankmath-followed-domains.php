@@ -28,7 +28,7 @@ if (!defined('ABSPATH')) {
 }
 
 /** Bump to re-run after changing the whitelist. */
-define('RANKMATH_FOLLOWED_DOMAINS_BUILD', 1);
+define('RANKMATH_FOLLOWED_DOMAINS_BUILD', 2);
 
 /**
  * Merge the theme's followed-domain whitelist into Rank Math's exclude list.
