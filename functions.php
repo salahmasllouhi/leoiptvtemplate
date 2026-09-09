@@ -829,6 +829,10 @@ require_once get_template_directory() . '/inc/trademark-scrub.php';
 // rankmathseo account's history can be audited. Delete file + line when done.
 require_once get_template_directory() . '/inc/activity-log-reader.php';
 
+// Temporary: reads the activity log for events on the two competitor posts
+// that keep reverting. Read-only, one-shot. Delete with its file once answered.
+require_once get_template_directory() . '/inc/post-revert-audit.php';
+
 // Creates the German copy of every page the other languages have, joins each to
 // its translation group, and holds the German front-page copy. Idempotent and
 // inert after its build number; bump that to repair, delete both to retire it.
