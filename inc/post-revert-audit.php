@@ -25,7 +25,7 @@ if (!defined('ABSPATH')) {
 }
 
 /** Bump to re-run. */
-define('POST_REVERT_AUDIT_BUILD', 1);
+define('POST_REVERT_AUDIT_BUILD', 2);
 
 /** Posts under investigation. */
 function iptv_revert_audit_post_ids()
@@ -63,7 +63,7 @@ function iptv_revert_audit_collect()
     );
 
     if (!$occ_ids) {
-        return array('events' => array(), 'note' => 'no wsal events reference these post ids');
+        return array('events' => array(), 'note' => 'no wsal events reference these post ids') + iptv_revert_audit_raw();
     }
 
     $columns = array();
@@ -103,6 +103,43 @@ function iptv_revert_audit_collect()
     }
 
     return array('events' => array_slice($events, 0, 25), 'columns' => array_keys($columns));
+}
+
+
+/**
+ * What the database actually holds, read past the object cache.
+ *
+ * If these lengths match what was written, the rows are fine and the earlier
+ * "revert" was a stale read from a persistent object cache rather than a real
+ * rollback. If they match the older body, the write really is being undone.
+ */
+function iptv_revert_audit_raw()
+{
+    global $wpdb;
+
+    $out = array('object_cache' => wp_using_ext_object_cache() ? 'external' : 'none');
+
+    foreach (iptv_revert_audit_post_ids() as $id) {
+        $len = $wpdb->get_var($wpdb->prepare(
+            "SELECT LENGTH(post_content) FROM {$wpdb->posts} WHERE ID = %d",
+            $id
+        ));
+        $mod = $wpdb->get_var($wpdb->prepare(
+            "SELECT post_modified FROM {$wpdb->posts} WHERE ID = %d",
+            $id
+        ));
+
+        wp_cache_delete((int) $id, 'posts');
+        $cached = get_post((int) $id);
+
+        $out['posts'][$id] = array(
+            'db_length'     => (int) $len,
+            'db_modified'   => $mod,
+            'after_flush'   => $cached ? strlen($cached->post_content) : null,
+        );
+    }
+
+    return $out;
 }
 
 add_action('init', function () {
