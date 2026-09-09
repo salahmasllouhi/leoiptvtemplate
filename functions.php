@@ -878,6 +878,11 @@ require_once get_template_directory() . '/plan/inc/plan-pages-setup.php';
 // content tests score against an all-but-empty post_content.
 require_once get_template_directory() . '/plan/inc/plan-seo.php';
 
+// Copies that same followed-domain whitelist into Rank Math's own "Nofollow
+// Exclude Domains" setting, so the editor's content analysis agrees with what
+// the page actually renders. Loads after plan-seo.php, whose list it reads.
+require_once get_template_directory() . '/inc/rankmath-followed-domains.php';
+
 // 301s for the URL space the previous site left behind — retired languages,
 // WooCommerce, /setup-guides/, /sports/. Runs only on requests WordPress has
 // already resolved to a 404, so it can never shadow a live page. Loads after
