@@ -161,9 +161,12 @@ if (!function_exists('iptv_plan_followed_domains')) {
      * which makes its own "Linking to external content with a followed link"
      * test impossible to pass — it rewrote our references to
      * rel="nofollow noopener" before they reached the page. Its own guidance is
-     * to whitelist trusted domains rather than nofollow everything; this is that
-     * whitelist, kept in the theme because the plugin's options are not
-     * reachable from here.
+     * to whitelist trusted domains rather than nofollow everything; this is
+     * that whitelist.
+     *
+     * inc/rankmath-followed-domains.php copies this list into Rank Math's own
+     * "Nofollow Exclude Domains" setting, which is what the editor's content
+     * analysis reads. Keep this array as the single place a domain is added.
      *
      * @return string[] Host suffixes, matched against the link's host.
      */
@@ -183,19 +186,9 @@ if (!function_exists('iptv_plan_followed_domains')) {
  * attributes, so it undoes the nofollow rather than racing it. Only the
  * nofollow token is removed — noopener and target are left alone, since those
  * are about safety rather than about SEO.
- *
- * Applies to plan pages and to single blog posts. Rank Math nofollows external
- * links across the whole site, so a post citing the same trusted sources hits
- * the same wall the plan pages did, and fails the same "followed external link"
- * test. Archives, excerpts and other post types are left as Rank Math wrote
- * them.
  */
 add_filter('the_content', function ($content) {
-    if (strpos($content, 'nofollow') === false) {
-        return $content;
-    }
-
-    if (!iptv_plan_is_plan_page(get_post()) && !is_singular('post')) {
+    if (!iptv_plan_is_plan_page(get_post()) || strpos($content, 'nofollow') === false) {
         return $content;
     }
 
