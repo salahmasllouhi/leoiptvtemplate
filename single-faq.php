@@ -246,10 +246,11 @@ body.single-faq .faq-single {
 
     <!-- 4. CTA Section -->
     <?php
-    $lang    = function_exists('pll_current_language') ? pll_current_language() : 'en';
-    $cta_url = ($lang === 'en')
-        ? 'https://nordictv.io/#pricing'
-        : 'https://nordictv.io/' . $lang . '/home/#pricing';
+    $lang     = function_exists('pll_current_language') ? pll_current_language() : 'en';
+    $cta_home = function_exists('pll_home_url') ? pll_home_url($lang) : home_url('/');
+    $cta_url  = ($lang === 'en')
+        ? trailingslashit($cta_home) . '#pricing'
+        : trailingslashit($cta_home) . 'home/#pricing';
     ?>
     <section class="cta">
         <div class="cta-box">
