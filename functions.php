@@ -887,10 +887,10 @@ require_once get_template_directory() . '/plan/inc/plan-seo.php';
 // the page actually renders. Loads after plan-seo.php, whose list it reads.
 require_once get_template_directory() . '/inc/rankmath-followed-domains.php';
 
-// Strips the /nordiciptv URL prefix from the request path before WordPress
-// tries to match it against permalinks. Must load before legacy-redirects.php
-// so a 404 under the old (unprefixed) URL space is judged against the
-// already-normalized path.
+// Keeps the .htaccess rewrite block pointed at the document root now that Site
+// Address carries a /nordiciptv path. Core resolves the prefixed URLs on its
+// own; this only stops a permalink flush from writing rules for a directory
+// that does not exist.
 require_once get_template_directory() . '/inc/keyword-prefix-routing.php';
 
 // 301s for the URL space the previous site left behind — retired languages,
