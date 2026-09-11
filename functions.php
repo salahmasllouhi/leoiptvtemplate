@@ -887,6 +887,12 @@ require_once get_template_directory() . '/plan/inc/plan-seo.php';
 // the page actually renders. Loads after plan-seo.php, whose list it reads.
 require_once get_template_directory() . '/inc/rankmath-followed-domains.php';
 
+// Strips the /nordiciptv URL prefix from the request path before WordPress
+// tries to match it against permalinks. Must load before legacy-redirects.php
+// so a 404 under the old (unprefixed) URL space is judged against the
+// already-normalized path.
+require_once get_template_directory() . '/inc/keyword-prefix-routing.php';
+
 // 301s for the URL space the previous site left behind — retired languages,
 // WooCommerce, /setup-guides/, /sports/. Runs only on requests WordPress has
 // already resolved to a 404, so it can never shadow a live page. Loads after
